@@ -12,7 +12,7 @@ namespace HouseRentalManagement.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(actionName: nameof(HouseController.TestTemp), controllerName: "House");
         }
 
         public IActionResult About()

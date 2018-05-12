@@ -1,0 +1,65 @@
+﻿/* main container */
+/*#jhr-page {
+    background: url("../images/testimages/_IGP0542.jpg");
+    background-color: #000203;
+    /* Create the parallax scrolling effect 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}*/
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* navbar */
+.navbar {
+    background-color: #fff;
+    color: black;
+}
+
+.navbar-toggle {
+    background-color: #5996bb;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #0b5f92;
+}
+
+.navbar-inverse {
+    border-color: #5996bb;
+}
+
+    .navbar-inverse .navbar-brand {
+        font-size: 24px;
+        color: #5996bb;
+    }
+
+        .navbar-inverse .navbar-brand:hover {
+            color: #0b5f92;
+        }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #000;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: #0b5f92;
+        }
+
+/* content */
+span {
+    margin: 0px;
+}
+
+.footer {
+    margin-top: 5px;
+    margin-bottom: -10px;
+    color: #5996bb;
+}
+
+#portfoliolist .portfolio {
+    width: auto;
+}

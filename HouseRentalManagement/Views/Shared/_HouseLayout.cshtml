@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test Site</title>
+
+    @* vendors *@
+    <link href="~/lib/animate/animate.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/style-override.css" rel="stylesheet" />
+
+    @* page-specific styles *@
+    @RenderSection("Styles", required: false)
+
+    @* preload scripts *@
+    <script src="~/vendors/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="House" asp-action="TestTemp" class="navbar-brand">Brand Name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="House" asp-action="TestTemp">Home</a></li>
+                    <li><a asp-area="" asp-controller="House" asp-action="TestTemp">Test</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="jhr-page">
+        @RenderBody()
+    </div>
+
+    <div class="container body-content footer">
+        <!-- footer -->
+        <footer>
+            <p class="footer">&copy; 2018 - Brand Name</p>
+        </footer>
+    </div>
+
+    @* vendor scripts *@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/vendors/jquery.easing.1.3.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/vendors/jquery.waypoints.min.js"></script>
+    <script src="~/vendors/jquery.mixitup.min.js"></script>
+
+    @* main JS (not to be removed) *@
+    <script src="~/vendors/main.js"></script>
+
+    @* scripts *@
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,12 @@
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.deps.json
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.runtimeconfig.json
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.runtimeconfig.dev.json
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.dll
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.pdb
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.csproj.CoreCompileInputs.cache
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.AssemblyInfoInputs.cache
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.AssemblyInfo.cs
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.dll
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.pdb
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.csprojResolveAssemblyReference.cache
