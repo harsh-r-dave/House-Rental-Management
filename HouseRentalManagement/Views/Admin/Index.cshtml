@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/views/shared/_HouseLayout.cshtml";
+}
+
+@section Styles{
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="~/lib/datatable/datatables.css" rel="stylesheet" />
+}
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-9">
+            <table id="house-list-table" class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Address</th>
+                        <th style="width: 25px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>123 Main Street</td>
+                        <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>456 Main Street</td>
+                        <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>368 Dunsmore Ln</td>
+                        <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>11 College Cr</td>
+                        <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>Some other house</td>
+                        <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w "
+            type="text/javascript"></script>
+    <script src="~/lib/datatable/datatables.js"></script>
+    <script src="~/js/pages/admin-index.js"></script>
+    <script>
+        $(document).ready(function () {
+            var adminIndexModel = {};
+            Hrm.AdminIndex.init(adminIndexModel);
+        });
+    </script>
+}

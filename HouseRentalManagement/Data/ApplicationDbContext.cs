@@ -32,7 +32,6 @@ namespace HouseRentalManagement.Data
             builder.Entity<House>().HasMany<Tenant>(e=>e.Tenants);
             builder.Entity<House>().HasMany<HouseImage>(e=>e.HouseImages);
             
-
             builder.Entity<Tenant>().HasKey(e => e.TenantId);
             builder.Entity<Tenant>().HasOne<House>(e=>e.House);
 

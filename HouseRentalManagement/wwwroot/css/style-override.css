@@ -63,3 +63,11 @@ span {
 #portfoliolist .portfolio {
     width: auto;
 }
+
+.mt-1 {
+    margin-top: 10px;
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
