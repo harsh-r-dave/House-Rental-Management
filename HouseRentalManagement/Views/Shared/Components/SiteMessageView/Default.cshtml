@@ -1,0 +1,26 @@
+﻿@model HouseRentalManagement.Models.ComponentViewModels.SiteMessageViewModel
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <script id="script-error">
+        toastr.error('@Model.ErrorMessage', '', Hrm.Toastr.config);
+    </script>
+}
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <script id="script-success">
+        toastr.success('@Model.SuccessMessage', '', Hrm.Toastr.config);
+    </script>
+}
+@if (!string.IsNullOrEmpty(Model.WarningMessage))
+{
+    <script id="script-warning">
+        toastr.warning('@Model.WarningMessage', '', Hrm.Toastr.config);
+    </script>
+}
+@if (!string.IsNullOrEmpty(Model.InformationMessage))
+{
+    <script id="script-information">
+        toastr.info('@Model.InformationMessage', '', Hrm.Toastr.config);
+    </script>
+}

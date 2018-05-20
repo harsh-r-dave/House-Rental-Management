@@ -1,10 +1,16 @@
 ﻿var Hrm = Hrm || {};
 
-Hrm.AdminIndex = function () {
+Hrm.AdminHouses = function () {
     var viewModel;
 
     var initDataTables = function () {
-        $('#house-list-table').dataTable();
+        $('#house-list-table').dataTable({
+            "sDom": '<"top"f>rt<"bottom"lp><"clear">',
+            "columnDefs": [{
+                "targets": [2],
+                "orderable": false
+            }]
+        });
     };
 
     var initPage = function () {
@@ -12,7 +18,7 @@ Hrm.AdminIndex = function () {
     };
 
     var init = function (model) {
-        console.log("Hrm.AdminIndex init()");
+        console.log("Hrm.AdminHouses init()");
         viewModel = model;
 
         initPage();

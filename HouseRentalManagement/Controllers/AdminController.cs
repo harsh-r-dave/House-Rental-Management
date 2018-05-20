@@ -1,4 +1,6 @@
 ﻿using HouseRentalManagement.Models.AdminViewModels;
+using HouseRentalManagement.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,15 +9,31 @@ using System.Threading.Tasks;
 
 namespace HouseRentalManagement.Controllers
 {
-    public class AdminController : Controller
+    [Authorize]
+    public class AdminController : HrmController
     {
-        public async Task<IActionResult> Index()
+        private readonly IHouseService _houseService;
+
+        public AdminController(IHouseService houseService)
         {
-            return View(new ListHouseViewModel());
+            _houseService = houseService;
+        }
+
+        public async Task<IActionResult> Houses()
+        {
+            SetSiteMessage(messageType: MessageType.Error, displayFor: DisplayFor.FullRequest, message: "House List");
+            var model = new ListHouseViewModel();
+            var result = await _houseService.ListHousesAsync();
+            if (result.Success)
+            {
+                model = result.Model;
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> AddHouse()
         {
+            SetSiteMessage(messageType: MessageType.Success, displayFor: DisplayFor.FullRequest, message: "Add house");
             return View();
         }
 

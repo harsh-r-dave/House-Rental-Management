@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/views/shared/_HouseLayout.cshtml";
+}
+@model HouseRentalManagement.Models.AdminViewModels.AddHouseViewModel
+
+@section Styles{
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form asp-action="AddHouse" asp-controller="Admin" method="post" class="mt-2">
+                <input asp-for="HouseId" />
+                <div class="row form-group">
+                    <label asp-for="AddressLine1"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                        <input asp-for="AddressLine1" class="form-control" />
+                    </div>
+                    <span asp-validation-for="AddressLine1" class="text-danger"></span>
+                </div>
+                <div class="row form-group">
+                    <label asp-for="AddressLine2"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                        <input asp-for="AddressLine2" class="form-control" />
+                    </div>
+                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
+                </div>
+                <div class="row form-group">
+                    <label asp-for="Rent"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                        <input asp-for="Rent" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Rent" class="text-danger"></span>
+                </div>
+                <div class="row form-group">
+                    <label asp-for="Description"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    </div>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="row input-group input-daterange">
+                    <label asp-for="DateAvailableFrom"></label>
+                </div>
+                <div class="row input-group input-daterange">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input asp-for="DateAvailableFrom" type="text" class="form-control date" />
+                    </div>
+                    <div class="input-group-addon">to</div>
+                    <div class="input-group">
+                        <input asp-for="DateAvailableTo" type="text" class="form-control date" />
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/pages/admin-addhouse.js"></script>
+    <script>
+        $(document).ready(function () {
+            var addHouseModel = {
+                dateAvailableFromSelector: '#DateAvailableFrom',
+                dateAvailableToSelector: '#DateAvailableTo'
+            };
+            Hrm.AdminAddHouse.init(addHouseModel);
+        });
+    </script>
+}

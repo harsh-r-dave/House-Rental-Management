@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HouseRentalManagement.Controllers
 {
-    public class HouseController : Controller
+    public class HouseController : HrmController
     {
         // GET: /<controller>/
         public IActionResult Index()

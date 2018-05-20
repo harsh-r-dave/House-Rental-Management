@@ -1,13 +1,12 @@
-﻿/* main container */
-/*#jhr-page {
-    background: url("../images/testimages/_IGP0542.jpg");
-    background-color: #000203;
-    /* Create the parallax scrolling effect 
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}*/
+﻿/*
+    colors: #337ab7, #5996bb, #0b5f92
+*/
+
+/* main container */
+#jhr-page {
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
 
 body {
     padding-top: 50px;
@@ -34,7 +33,7 @@ body {
 
     .navbar-inverse .navbar-brand {
         font-size: 24px;
-        color: #5996bb;
+        color: #337ab7;
     }
 
         .navbar-inverse .navbar-brand:hover {
@@ -42,7 +41,8 @@ body {
         }
 
     .navbar-inverse .navbar-nav > li > a {
-        color: #000;
+        color: #337ab7;
+        font-size: 15px;
     }
 
         .navbar-inverse .navbar-nav > li > a:hover {
@@ -61,7 +61,69 @@ span {
 }
 
 #portfoliolist .portfolio {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
     width: auto;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+}
+
+.portfolio {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    float: left;
+}
+
+.portfolio-wrapper {
+    overflow: hidden;
+    position: relative !important;
+    cursor: pointer;
+}
+
+.portfolio img {
+    max-width: 100%;
+    z-index: -1;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.portfolio .label-text {
+    color: #fff;
+    position: relative;
+    z-index: 500;
+    padding: 5px 8px;
+}
+
+.portfolio .text-category {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    text-transform: normal;
+}
+
+.portfolio .label-bg {
+    background: #A7CDCC;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+a {
+    color: #A7CDCC;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 
 .mt-1 {
@@ -70,4 +132,46 @@ span {
 
 .mt-2 {
     margin-top: 20px;
+}
+
+.float-right {
+    float: right;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: black;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #337ab7;
+}
+
+.dropdown-menu > li > a:hover {
+    color: white;
+    background-color: #5996bb;
+}
+
+.navbar-inverse .btn-link {
+    color: black;
+}
+
+    .navbar-inverse .btn-link:hover {
+        color: black;
+        text-decoration: none;
+    }
+
+a.edit-control {
+    color: #377ab7;
+}
+
+    a.edit-control:hover {
+        font-size: 16px;
+    }
+
+/* Toastr Message */
+#toast-container .toast {
+    opacity: 1;
 }

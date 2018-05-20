@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HouseRentalManagement.Models.AdminViewModels.ListHouseViewModel;
+
+@{
     Layout = "~/views/shared/_HouseLayout.cshtml";
 }
 
@@ -9,16 +11,28 @@
 
 <div class="container mt-2">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <table id="house-list-table" class="table table-responsive">
                 <thead>
                     <tr>
                         <th>Address</th>
+                        <th>Rent</th>
                         <th style="width: 25px;"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    @if (Model.Houses != null)
+                    {
+                        foreach (var house in Model.Houses)
+                        {
+                            <tr>
+                                <td>@house.Address</td>
+                                <td>@house.Rent.ToString("C")</td>
+                                <td><a asp-controller="Admin" asp-action="EditHouse" asp-route-id="@house.HouseId" class="edit-control"><i class="fa fa-pencil"></i></a></td>
+                            </tr>
+                        }
+                    }
+                    @*<tr>
                         <td>123 Main Street</td>
                         <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
                     </tr>
@@ -37,7 +51,7 @@
                     <tr>
                         <td>Some other house</td>
                         <td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
-                    </tr>
+                    </tr>*@
                 </tbody>
             </table>
         </div>
@@ -45,14 +59,12 @@
 </div>
 
 @section Scripts{
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w "
-            type="text/javascript"></script>
     <script src="~/lib/datatable/datatables.js"></script>
-    <script src="~/js/pages/admin-index.js"></script>
+    <script src="~/js/pages/admin-houses.js"></script>
     <script>
         $(document).ready(function () {
-            var adminIndexModel = {};
-            Hrm.AdminIndex.init(adminIndexModel);
+            var adminHousesModel = {};
+            Hrm.AdminHouses.init(adminHousesModel);
         });
     </script>
 }

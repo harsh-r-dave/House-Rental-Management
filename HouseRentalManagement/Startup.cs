@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using HouseRentalManagement.Data;
 using HouseRentalManagement.Models;
 using HouseRentalManagement.Services;
+using HouseRentalManagement.Services.Interfaces;
 
 namespace HouseRentalManagement
 {
@@ -34,9 +35,15 @@ namespace HouseRentalManagement
                 .AddDefaultTokenProviders();
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+            AddServices(services);
 
             services.AddMvc();
+        }
+
+        public void AddServices(IServiceCollection services)
+        {
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IHouseService, HouseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
