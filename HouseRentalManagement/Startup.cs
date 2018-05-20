@@ -12,6 +12,7 @@ using HouseRentalManagement.Data;
 using HouseRentalManagement.Models;
 using HouseRentalManagement.Services;
 using HouseRentalManagement.Services.Interfaces;
+using HouseRentalManagement.Data.Interface;
 
 namespace HouseRentalManagement
 {
@@ -42,8 +43,12 @@ namespace HouseRentalManagement
 
         public void AddServices(IServiceCollection services)
         {
+            // services
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IHouseService, HouseService>();
+
+            // business
+            services.AddScoped<IHouseRepository, HouseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

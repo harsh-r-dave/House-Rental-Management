@@ -15,6 +15,8 @@ namespace HouseRentalManagement.Models
         public string Province { get; set; }
         public string Country { get; set; }
 
+        public DateTime AvailableFrom { get; set; }
+        public DateTime AvailableTo { get; set; }
         public string Description { get; set; }
         public decimal Rent { get; set; }
 

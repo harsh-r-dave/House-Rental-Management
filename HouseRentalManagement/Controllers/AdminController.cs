@@ -1,6 +1,8 @@
-﻿using HouseRentalManagement.Models.AdminViewModels;
+﻿using HouseRentalManagement.Models;
+using HouseRentalManagement.Models.AdminViewModels;
 using HouseRentalManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,17 @@ namespace HouseRentalManagement.Controllers
     public class AdminController : HrmController
     {
         private readonly IHouseService _houseService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminController(IHouseService houseService)
+        public AdminController(IHouseService houseService,
+           UserManager<ApplicationUser> userManager)
         {
             _houseService = houseService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Houses()
         {
-            SetSiteMessage(messageType: MessageType.Error, displayFor: DisplayFor.FullRequest, message: "House List");
             var model = new ListHouseViewModel();
             var result = await _houseService.ListHousesAsync();
             if (result.Success)
@@ -33,14 +37,34 @@ namespace HouseRentalManagement.Controllers
 
         public async Task<IActionResult> AddHouse()
         {
-            SetSiteMessage(messageType: MessageType.Success, displayFor: DisplayFor.FullRequest, message: "Add house");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> AddHouse(AddHouseViewModel model)
-        {
-            return View();
+        {            
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var result = await _houseService.AddHouseAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "House added successfully");
+                    return RedirectToAction(nameof(Houses));
+                }
+                else
+                {
+                    if (result.Errors != null)
+                    {
+                        foreach (var error in result.Errors.GetErrors())
+                        {
+                            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                        }
+                    }                    
+                }                
+            }
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
+            return View(model);
         }
 
         [HttpPost]

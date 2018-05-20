@@ -9,6 +9,6 @@ namespace HouseRentalManagement.Models.AdminViewModels
     {
         public Guid HouseId { get; set; }
         public string Address { get; set; }
-        public double Rent { get; set; }
+        public decimal Rent { get; set; }
     }
 }
