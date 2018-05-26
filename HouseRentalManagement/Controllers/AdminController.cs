@@ -88,5 +88,28 @@ namespace HouseRentalManagement.Controllers
         {
 
         }
+
+        public async Task<IActionResult> ManageFacility()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFacility(ManageFacilityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _houseService.AddFacilityAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Facility added successfully");
+                }
+                else
+                {
+                    SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Unexpected error occured");
+                }
+            }
+            return View("~/Views/Admin/ManageFacility.cshtml", model);
+        }
     }
 }

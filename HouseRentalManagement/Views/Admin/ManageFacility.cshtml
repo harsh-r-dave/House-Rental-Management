@@ -1,0 +1,129 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.ManageFacilityViewModel
+@{
+    Layout = "~/views/Shared/_HouseLayout.cshtml";
+}
+
+@section Styles{
+    <link href="~/lib/datatable/datatables.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12"><h3>Manage Facility</h3></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add-facility-modal">Add Facility</button>
+        </div>
+    </div>
+
+    <div class="row mt-20">
+        <div class="col-md-8">
+            <table id="facility-list-table" class="table table-responsive table-hover hrm-table">
+                <thead>
+                    <tr>
+                        <th>Facility</th>
+                        <th style="width: 30px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Heat/ AC</td>
+                        <td>
+                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Laundry</td>
+                        <td>
+                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Parking</td>
+                        <td>
+                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Winter Maintanance</td>
+                        <td>
+                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Some other facility</td>
+                        <td>
+                            <a href="javascript:void(0)"><i class="fa fa-pencil edit-control" onclick="Hrm.AdminManageFacility.updateFacility(1, 'title');"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* add modal *@
+<form asp-action="AddFacility" asp-controller="Admin" method="post" id="add-facility-form">
+    <div class="modal fade" id="add-facility-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Facility</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="FacilityTitle"></label> <span class="required">*</span>
+                        <input asp-for="FacilityTitle" class="form-control" />
+                        <span asp-validation-for="FacilityTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form asp-action="UpdateFacility" asp-controller="Admin" method="post" id="update-facility-form">
+    <div class="modal fade" id="update-facility-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Facility</h5>
+                </div>
+                <div class="modal-body">
+                    <input asp-for="FacilityId" />
+                    <div class="form-group">
+                        <label asp-for="FacilityTitle"></label> <span class="required">*</span>
+                        <input asp-for="FacilityTitle" class="form-control" />
+                        <span asp-validation-for="FacilityTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/lib/datatable/datatables.js"></script>
+    <script src="~/js/pages/admin-managefacility.js"></script>
+    <script>
+        $(document).ready(function () {
+            var adminManageFacilityModel = {};
+            Hrm.AdminManageFacility.init(adminManageFacilityModel);
+        });
+    </script>
+}

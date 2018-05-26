@@ -9,7 +9,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
         [HiddenInput]
         public Guid? HouseId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Address is required")]
         [Display(Name = "Address Line 1")]
         public string AddressLine1 { get; set; }
 
@@ -20,6 +20,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
         public string City { get; set; }
 
         [Display(Name = "Postal Code")]
+        [RegularExpression("[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy][0-9][ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvxyz] ?[0-9][ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvxyz][0-9]", ErrorMessage = "Postal code format is invalid")]
         public string PostalCode { get; set; }
 
         [Display(Name = "Province")]

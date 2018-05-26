@@ -12,10 +12,13 @@ namespace HouseRentalManagement.Services
     public class HouseService : IHouseService
     {
         private readonly IHouseRepository _houseRepository;
+        private readonly IFacilityRepository _facilityRepository;
 
-        public HouseService(IHouseRepository houseRepository)
+        public HouseService(IHouseRepository houseRepository,
+            IFacilityRepository facilityRepository)
         {
             _houseRepository = houseRepository;
+            _facilityRepository = facilityRepository;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -141,6 +144,36 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Errors: errors);
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> AddFacilityAsync(ManageFacilityViewModel model)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                Facility facility = new Facility();
+                if (model.FacilityId.HasValue && model.FacilityId.Value != Guid.NewGuid())
+                {
+                    // fetch existing facility for update
+                    facility = await _facilityRepository.FetchByIdAsync(model.FacilityId.Value);
+                }
+
+                // update title/ name
+                facility.Name = model.FacilityTitle;
+
+                // save record
+                if (await _facilityRepository.SaveFacilityAsync(facility))
+                {
+                    success = true;
+                }
+            }
+            catch (Exception e)
+            {
+            }
+
+            return (success, errors);
         }
     }
 }

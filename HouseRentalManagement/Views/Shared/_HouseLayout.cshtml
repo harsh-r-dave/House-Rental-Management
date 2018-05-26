@@ -10,6 +10,8 @@
     <link href="~/lib/animate/animate.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     @*<link href="~/css/style.css" rel="stylesheet" />*@
     <link href="~/css/style-override.css" rel="stylesheet" />
 
@@ -55,13 +57,14 @@
     <script src="~/lib/toastr/toastr.js"></script>
     <script src="~/js/toastr-config.js"></script>
     @*<script src="~/vendors/jquery.waypoints.min.js"></script>
-    <script src="~/vendors/jquery.mixitup.min.js"></script>*@
+        <script src="~/vendors/jquery.mixitup.min.js"></script>*@
 
 
     @* main JS (not to be removed) *@
     @*<script src="~/vendors/main.js"></script>*@
 
     @* scripts *@
+    @await Html.PartialAsync("_ValidationScriptsPartial")
     @RenderSection("Scripts", required: false)
 
     @await Component.InvokeAsync(Constants.ViewComponentKeys.SiteMessageView)
