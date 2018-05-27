@@ -17,10 +17,13 @@ namespace HouseRentalManagement.Data
             _context = context;
         }
 
-        public async Task<bool> AddHouseAsync(House house)
+        public async Task<(bool Success, Guid id)> AddHouseAsync(House house)
         {
             await _context.House.AddAsync(house);
-            return await _context.SaveChangesAsync() > 0;
+            var success = await _context.SaveChangesAsync() > 0;
+            var id = house.HouseId;
+
+            return (success, id);
         }
 
         public async Task<ICollection<House>> ListHousesAsync()
@@ -28,6 +31,17 @@ namespace HouseRentalManagement.Data
             return await (from h in _context.House
                           select h)
                           .ToListAsync();
+        }
+
+        public async Task<House> FetchHouseByIdAsync(Guid id)
+        {
+            return await _context.House.Where(h => h.HouseId == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> DeleteHouseAsync(House house)
+        {
+            _context.House.Remove(house);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

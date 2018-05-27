@@ -74,6 +74,12 @@ body {
         color: black;
         text-decoration: none;
     }
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: #5996bb;
+    background-color: transparent;
+}
+
 /* image section */
 #portfoliolist .portfolio {
     -webkit-box-sizing: border-box;
@@ -216,4 +222,18 @@ a.edit-control {
 /* sweetalert */
 .swal2-container.swal2-shown .swal2-popup {
     font-size: 1em;
+}
+
+/* tab */
+.tab-content {
+    padding-top: 10px;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    color: #337ab7;
+    background-color: lightgray;
 }

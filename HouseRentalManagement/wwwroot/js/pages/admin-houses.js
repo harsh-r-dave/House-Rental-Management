@@ -11,7 +11,24 @@ Hrm.AdminHouses = function () {
                 "orderable": false
             }]
         });
-    };
+	};
+
+	var deleteHouse = function (id) {
+		var link = '/Admin/DeleteHouse/' + id;
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#337ab7',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function (result) {
+			if (result.value) {
+				window.location.href = link;
+			}
+		});
+	};
 
     var initPage = function () {
         initDataTables();
@@ -25,7 +42,8 @@ Hrm.AdminHouses = function () {
     };
 
     var oPublic = {
-        init: init
+		init: init,
+		deleteHouse: deleteHouse
     }
     return oPublic;
 }();

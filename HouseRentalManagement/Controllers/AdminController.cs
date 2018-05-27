@@ -45,7 +45,7 @@ namespace HouseRentalManagement.Controllers
 
         [HttpPost]
         public async Task<IActionResult> AddHouse(AddHouseViewModel model)
-        {            
+        {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -53,7 +53,7 @@ namespace HouseRentalManagement.Controllers
                 if (result.Success)
                 {
                     SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "House added successfully");
-                    return RedirectToAction(nameof(Houses));
+                    return RedirectToAction(nameof(EditHouse), routeValues: new { id = result.Id });
                 }
                 else
                 {
@@ -63,11 +63,55 @@ namespace HouseRentalManagement.Controllers
                         {
                             SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
                         }
-                    }                    
-                }                
+                    }
+                }
             }
             SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
             return View(model);
+        }
+
+        public async Task<IActionResult> EditHouse(Guid id)
+        {
+            var model = new EditHouseViewModel();
+
+            var result = await _houseService.GetEditHouseViewModelAsync(id);
+            if (result.Success)
+            {
+                model = result.Model;
+                return View(model);
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(AdminController.Houses));
+        }
+
+        public async Task<IActionResult> DeleteHouse(Guid id)
+        {
+            var result = await _houseService.DeleteHouseAsync(id);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "House deleted successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Houses));
         }
 
         [HttpPost]
@@ -105,7 +149,7 @@ namespace HouseRentalManagement.Controllers
                 foreach (var item in result.Errors.GetErrors())
                 {
                     SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, item.Description);
-                }                
+                }
             }
 
             return View(model);
@@ -166,7 +210,7 @@ namespace HouseRentalManagement.Controllers
                     {
                         SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
                     }
-                }                
+                }
             }
             return RedirectToAction(nameof(ManageFacility));
         }

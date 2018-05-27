@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/views/shared/_HouseLayout.cshtml";
+}
+@model HouseRentalManagement.Models.AdminViewModels.EditHouseViewModel
+
+@section Styles{
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12"><h3>Edit House</h3></div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#house-info">Details</a></li>
+        <li><a data-toggle="tab" href="#faciliy-info">Facilities</a></li>
+        <li><a data-toggle="tab" href="#tenant-info">Tenants</a></li>
+    </ul>
+    <div class="tab-content col-md-12">
+        <div id="house-info" class="tab-pane fade in active">
+            <form asp-action="EditHouse" asp-controller="Admin" method="post">
+                <div class="row mx-0">
+                    <div class="col-md-5">
+                        <input asp-for="HouseId" />
+                        <div class="row form-group">
+                            <label asp-for="AddressLine1"></label> <span class="required">*</span>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input asp-for="AddressLine1" class="form-control" placeholder="123 Main Street" />
+                            </div>
+                            <span asp-validation-for="AddressLine1" class="text-danger"></span>
+                        </div>
+                        <div class="row form-group">
+                            <label asp-for="AddressLine2"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input asp-for="AddressLine2" class="form-control" placeholder="Golf Club Rd" />
+                            </div>
+                            <span asp-validation-for="AddressLine2" class="text-danger"></span>
+                        </div>
+                        <div class="row form-group">
+                            <label asp-for="City"></label> <span class="required">*</span>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input asp-for="City" class="form-control" placeholder="Toronto" />
+                            </div>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="row form-group">
+                            <label asp-for="PostalCode"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input asp-for="PostalCode" class="form-control" placeholder="M1H2Y7" />
+                            </div>
+                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+                        </div>
+                        <div class="row form-group">
+                            <label asp-for="Province"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                <input asp-for="Province" class="form-control" value="ON" readonly />
+                            </div>
+                            <span asp-validation-for="Province" class="text-danger"></span>
+                        </div>
+                        <div class="row form-group">
+                            <label asp-for="Country"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                <input asp-for="Country" class="form-control" value="CA" readonly />
+                            </div>
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 ml-20">
+                        <div class="row form-group">
+                            <label asp-for="Rent"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                <input asp-for="Rent" class="form-control" placeholder="350" />
+                            </div>
+                            <span asp-validation-for="Rent" class="text-danger"></span>
+                        </div>
+                        <div class="row form-group">
+                            <label asp-for="Description"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <textarea asp-for="Description" class="form-control" rows="5" placeholder="Description"></textarea>
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="row input-group input-daterange">
+                            <label asp-for="DateAvailableFrom"></label>
+                        </div>
+                        <div class="row input-group input-daterange">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input asp-for="DateAvailableFrom" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" />
+                            </div>
+                            <div class="input-group-addon">to</div>
+                            <div class="input-group">
+                                <input asp-for="DateAvailableTo" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" />
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-20">
+                    <div class="col">
+                        <button class="btn btn-primary">Submit</button>
+                        <a class="btn btn-danger" asp-action="Houses" asp-controller="Admin">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="faciliy-info" class="tab-pane fade active">
+            facility
+        </div>
+        <div id="tenant-info" class="tab-pane fade active">
+            tenant
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/pages/admin-addhouse.js"></script>
+    <script>
+        $(document).ready(function () {
+            var addHouseModel = {
+                dateAvailableFromSelector: '#DateAvailableFrom',
+                dateAvailableToSelector: '#DateAvailableTo'
+            };
+            Hrm.AdminAddHouse.init(addHouseModel);
+        });
+    </script>
+}

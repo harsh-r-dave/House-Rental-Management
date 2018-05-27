@@ -8,7 +8,9 @@ namespace HouseRentalManagement.Data.Interface
 {
     public interface IHouseRepository
     {
-        Task<bool> AddHouseAsync(House house);
+        Task<(bool Success, Guid id)> AddHouseAsync(House house);
         Task<ICollection<House>> ListHousesAsync();
+        Task<House> FetchHouseByIdAsync(Guid id);
+        Task<bool> DeleteHouseAsync(House house);
     }
 }

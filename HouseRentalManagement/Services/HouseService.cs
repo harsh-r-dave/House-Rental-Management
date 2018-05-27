@@ -97,10 +97,11 @@ namespace HouseRentalManagement.Services
             return (Success: success, Model: model);
         }
 
-        public async Task<(bool Success, IErrorDictionary Errors)> AddHouseAsync(AddHouseViewModel model)
+        public async Task<(bool Success, IErrorDictionary Errors, Guid Id)> AddHouseAsync(AddHouseViewModel model)
         {
             bool success = false;
             var errors = new ErrorDictionary();
+            var id = Guid.NewGuid();
 
             try
             {
@@ -124,8 +125,10 @@ namespace HouseRentalManagement.Services
                     };
 
                     // save record
-                    if (await _houseRepository.AddHouseAsync(house))
+                    var result = await _houseRepository.AddHouseAsync(house);
+                    if (result.Success)
                     {
+                        id = result.id;
                         success = true;
                     }
                     else
@@ -143,7 +146,77 @@ namespace HouseRentalManagement.Services
 
             }
 
+            return (Success: success, Errors: errors, Id: id);
+        }   
+        
+        public async Task<(bool Success, IErrorDictionary Errors, EditHouseViewModel Model)> GetEditHouseViewModelAsync(Guid id)
+        {
+            var success = false;
+            var errors = new ErrorDictionary();
+            var model = new EditHouseViewModel();
+
+            try
+            {
+                // fetch house by id
+                if (id != Guid.NewGuid())
+                {
+                    House house = await _houseRepository.FetchHouseByIdAsync(id);
+                    if (house != null)
+                    {
+                        // prepare viewemodel
+                        model.AddressLine1 = house.AddressLine1;
+                        model.AddressLine2 = house.AddressLine2;
+                        model.City = house.City;
+                        model.PostalCode = house.PostalCode;
+                        model.Province = house.Province;
+                        model.Country = house.Country;
+                        model.DateAvailableFrom = house.AvailableFrom;
+                        model.DateAvailableTo = house.AvailableTo;
+                        model.Rent = house.Rent;
+                        model.Description = house.Description;
+                    }
+                    else
+                    {
+                        errors.AddError("", "Unable to locate the house details");
+                    }
+                    // set success
+                    success = true;
+                }
+            }
+            catch (Exception)
+            {
+                errors.AddError("", "Unexpected error occurred while processing your request");
+            }
+
+            return (Success: success, Errors: errors, Model: model);
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> DeleteHouseAsync(Guid id)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                // fetch facility by id
+                House house = await _houseRepository.FetchHouseByIdAsync(id);
+
+                // remove it
+                if (house != null)
+                {
+                    success = await _houseRepository.DeleteHouseAsync(house);
+                }
+                else
+                {
+                    errors.AddError("", "Unable to locate house");
+                }
+            }
+            catch (Exception e)
+            {
+                errors.AddError("", "Unexpected error occured while deleting facility");
+            }
+
             return (Success: success, Errors: errors);
-        }        
+        }
     }
 }
