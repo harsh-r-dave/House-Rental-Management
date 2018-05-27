@@ -15,13 +15,16 @@ namespace HouseRentalManagement.Controllers
     public class AdminController : HrmController
     {
         private readonly IHouseService _houseService;
+        private readonly IFacilityService _facilityService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public AdminController(IHouseService houseService,
-           UserManager<ApplicationUser> userManager)
+           UserManager<ApplicationUser> userManager,
+           IFacilityService facilityService)
         {
             _houseService = houseService;
             _userManager = userManager;
+            _facilityService = facilityService;
         }
 
         public async Task<IActionResult> Houses()
@@ -91,7 +94,21 @@ namespace HouseRentalManagement.Controllers
 
         public async Task<IActionResult> ManageFacility()
         {
-            return View();
+            var model = new ManageFacilityViewModel();
+            var result = await _facilityService.GetManageFacilityViewModelAsync();
+            if (result.Success)
+            {
+                model = result.Model;
+            }
+            else
+            {
+                foreach (var item in result.Errors.GetErrors())
+                {
+                    SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, item.Description);
+                }                
+            }
+
+            return View(model);
         }
 
         [HttpPost]
@@ -99,7 +116,7 @@ namespace HouseRentalManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _houseService.AddFacilityAsync(model);
+                var result = await _facilityService.AddFacilityAsync(model);
                 if (result.Success)
                 {
                     SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Facility added successfully");
@@ -109,7 +126,49 @@ namespace HouseRentalManagement.Controllers
                     SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Unexpected error occured");
                 }
             }
-            return View("~/Views/Admin/ManageFacility.cshtml", model);
+
+            // redirect back where list will be populated again
+            return RedirectToAction(nameof(ManageFacility));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateFacility(ManageFacilityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _facilityService.AddFacilityAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Facility updated successfully");
+                }
+                else
+                {
+                    SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Unexpected error occured");
+                }
+            }
+
+            // redirect back where list will be populated again
+            return RedirectToAction(nameof(ManageFacility));
+        }
+
+        public async Task<IActionResult> DeleteFacility(Guid id)
+        {
+            var result = await _facilityService.DeleteFacilityAsync(id);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Facility deleted successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }                
+            }
+            return RedirectToAction(nameof(ManageFacility));
         }
     }
 }

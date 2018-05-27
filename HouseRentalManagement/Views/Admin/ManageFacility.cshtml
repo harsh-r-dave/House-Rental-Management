@@ -28,41 +28,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Heat/ AC</td>
-                        <td>
-                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Laundry</td>
-                        <td>
-                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Parking</td>
-                        <td>
-                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Winter Maintanance</td>
-                        <td>
-                            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Some other facility</td>
-                        <td>
-                            <a href="javascript:void(0)"><i class="fa fa-pencil edit-control" onclick="Hrm.AdminManageFacility.updateFacility(1, 'title');"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-close text-danger float-right"></i></a>
-                        </td>
-                    </tr>
+                    @if (Model.ListFacilityViewModel != null && Model.ListFacilityViewModel.Any())
+                    {
+                        foreach (var item in Model.ListFacilityViewModel)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>
+                                    <a href="javascript:void(0)" onclick="Hrm.AdminManageFacility.initUpdateFacility('@item.FacilityId', '@item.Title');" class="edit-control"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" onclick="Hrm.AdminManageFacility.deleteFacility('@item.FacilityId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }                    
                 </tbody>
             </table>
         </div>
@@ -119,6 +97,7 @@
 
 @section Scripts{
     <script src="~/lib/datatable/datatables.js"></script>
+    <script src="~/lib/sweetalert/sweetalert2.js"></script>
     <script src="~/js/pages/admin-managefacility.js"></script>
     <script>
         $(document).ready(function () {

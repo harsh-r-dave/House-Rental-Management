@@ -15,5 +15,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
         [Required]
         [Display(Name = "Facility")]
         public string FacilityTitle { get; set; }
+
+        public ICollection<ListFacilityViewModel> ListFacilityViewModel { get; set; } = new List<ListFacilityViewModel>();
     }
 }

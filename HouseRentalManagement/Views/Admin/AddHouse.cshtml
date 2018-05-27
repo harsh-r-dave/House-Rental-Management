@@ -16,7 +16,7 @@
             <div class="col-md-5">
                 <input asp-for="HouseId" />
                 <div class="row form-group">
-                    <label asp-for="AddressLine1"></label>
+                    <label asp-for="AddressLine1"></label> <span class="required">*</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <input asp-for="AddressLine1" class="form-control" placeholder="123 Main Street" />
@@ -32,7 +32,7 @@
                     <span asp-validation-for="AddressLine2" class="text-danger"></span>
                 </div>
                 <div class="row form-group">
-                    <label asp-for="City"></label>
+                    <label asp-for="City"></label> <span class="required">*</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <input asp-for="City" class="form-control" placeholder="Toronto" />

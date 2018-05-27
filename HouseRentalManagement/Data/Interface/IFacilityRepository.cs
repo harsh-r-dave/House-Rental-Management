@@ -10,5 +10,7 @@ namespace HouseRentalManagement.Data.Interface
     {
         Task<bool> SaveFacilityAsync(Facility facility);
         Task<Facility> FetchByIdAsync(Guid id);
+        Task<ICollection<Facility>> ListFacilitiesAsync();
+        Task<bool> DeleteFacilityAsync(Facility facility);
     }
 }

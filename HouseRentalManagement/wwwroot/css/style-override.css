@@ -160,15 +160,15 @@ a {
     margin-top: 20px;
 }
 
-.ml-10{
+.ml-10 {
     margin-left: 10px;
 }
 
-.ml-15{
+.ml-15 {
     margin-left: 15px;
 }
 
-.ml-20{
+.ml-20 {
     margin-left: 20px;
 }
 
@@ -177,12 +177,13 @@ a {
 }
 
 hr {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     border: 0;
     border-top: 1px solid #337ab7;
 }
-.required{
+
+.required {
     color: red;
 }
 /* font awesome icons */
@@ -200,7 +201,7 @@ a.edit-control {
 }
 
 /* Table */
-.hrm-table{
+.hrm-table {
     border: 2px solid;
 }
 
@@ -210,4 +211,9 @@ a.edit-control {
 
 .dataTables_wrapper .bottom {
     padding-top: 10px;
+}
+
+/* sweetalert */
+.swal2-container.swal2-shown .swal2-popup {
+    font-size: 1em;
 }

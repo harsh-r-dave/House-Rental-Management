@@ -16,6 +16,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
         [Display(Name = "Address Line 2")]
         public string AddressLine2 { get; set; }
 
+        [Required(ErrorMessage = "City is required")]
         [Display(Name = "City")]
         public string City { get; set; }
 

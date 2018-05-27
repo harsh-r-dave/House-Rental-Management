@@ -30,13 +30,14 @@
                     <li role="presentation">
                         <a asp-action="ManageFacility" asp-controller="Admin">Manage Facilities</a>
                     </li>
+                    <li><hr /></li>
+                    <li>
+                        <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@*Hello @UserManager.GetUserName(User)!*@ My profile</a>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn-link navbar-btn navbar-link" style="padding: 0px 20px;">Log out</button>
+                    </li>
                 </ul>
-            </li>
-            <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-            </li>
-            <li>
-                <button type="submit" class="btn-link navbar-btn navbar-link">Log out</button>
             </li>
         </ul>
     </form>

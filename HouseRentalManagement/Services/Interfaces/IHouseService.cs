@@ -10,6 +10,5 @@ namespace HouseRentalManagement.Services.Interfaces
     {
         Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync();
         Task<(bool Success, IErrorDictionary Errors)> AddHouseAsync(AddHouseViewModel model);
-        Task<(bool Success, IErrorDictionary Errors)> AddFacilityAsync(ManageFacilityViewModel model);
     }
 }
