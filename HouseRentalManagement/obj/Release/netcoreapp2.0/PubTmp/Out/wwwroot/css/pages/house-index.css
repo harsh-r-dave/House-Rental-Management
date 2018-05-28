@@ -39,10 +39,10 @@
     transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
 }
 
-.mt-1{
+.mt-10{
     margin-top: 10px;
 }
-.mt-2 {
+.mt-20 {
     margin-top: 20px;
 }
 
