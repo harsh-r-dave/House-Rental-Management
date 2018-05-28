@@ -75,7 +75,7 @@ namespace HouseRentalManagement
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=House}/{action=TestTemp}/{id?}");
+                    template: "{controller=House}/{action=Index}/{id?}");
             });
         }
     }

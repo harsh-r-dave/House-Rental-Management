@@ -3,70 +3,78 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Test Site</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Jigna Real Estate Holding Co.</title>
 
-    @* vendors *@
-    <link href="~/lib/animate/animate.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	@* vendors *@
+	<link href="~/lib/animate/animate.css" rel="stylesheet" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	<link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    @*<link href="~/css/style.css" rel="stylesheet" />*@
-    <link href="~/css/style-override.css" rel="stylesheet" />
+	<!--favicon-->
+	<link href="~/images/loc.png" rel="icon" />
 
-    @* page-specific styles *@
-    @RenderSection("Styles", required: false)
+	@*<link href="~/css/style.css" rel="stylesheet" />*@
+	<link href="~/css/style-override.css" rel="stylesheet" />
 
-    @* preload scripts *@
-    <script src="~/vendors/modernizr-2.6.2.min.js"></script>
+	@* page-specific styles *@
+	@RenderSection("Styles", required: false)
+
+	@* preload scripts *@
+	<script src="~/vendors/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="House" asp-action="TestTemp" class="navbar-brand">Brand Name</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </nav>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a asp-area="" asp-controller="House" asp-action="Index" class="navbar-brand">Jigna Real Estate Holding Co.</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+					<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+					<li><a href="#contact-us-container" class="smooth-scroll">Contact</a></li>
+				</ul>
+				@await Html.PartialAsync("_LoginPartial")
+			</div>
+		</div>
+	</nav>
 
-    <div id="jhr-page">
-        @RenderBody()
-    </div>
+	<div id="jhr-page">
+		@RenderBody()
+	</div>
 
-    <div class="container body-content footer">
-        <!-- footer -->
-        <footer>
-            <p class="footer">&copy; 2018 - Brand Name</p>
-        </footer>
-    </div>
+	<div class="container">
+		<!-- footer -->
+		<footer>
+			<p class="footer">&copy; 2018 - Jigna Real Estate Holding Co.</p>
+		</footer>
+	</div>
 
-    @* vendor scripts *@
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/vendors/jquery.easing.1.3.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/toastr/toastr.js"></script>
-    <script src="~/js/toastr-config.js"></script>
-    @*<script src="~/vendors/jquery.waypoints.min.js"></script>
-        <script src="~/vendors/jquery.mixitup.min.js"></script>*@
+	@* vendor scripts *@
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/vendors/jquery.easing.1.3.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="~/lib/toastr/toastr.js"></script>
+	<script src="~/js/toastr-config.js"></script>
+	@*<script src="~/vendors/jquery.waypoints.min.js"></script>
+		<script src="~/vendors/jquery.mixitup.min.js"></script>*@
 
 
-    @* main JS (not to be removed) *@
-    @*<script src="~/vendors/main.js"></script>*@
+	@* main JS (not to be removed) *@
+	@*<script src="~/vendors/main.js"></script>*@
 
-    @* scripts *@
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-    @RenderSection("Scripts", required: false)
+	@* scripts *@
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+	@RenderSection("Scripts", required: false)
 
-    @await Component.InvokeAsync(Constants.ViewComponentKeys.SiteMessageView)
+	@await Component.InvokeAsync(Constants.ViewComponentKeys.SiteMessageView)
 </body>
 </html>

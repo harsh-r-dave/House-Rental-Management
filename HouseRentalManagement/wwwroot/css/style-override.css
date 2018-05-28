@@ -6,6 +6,7 @@
 #jhr-page {
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
+    padding-bottom: 30px;
 }
 
 body {
@@ -141,6 +142,11 @@ body {
 }
 
 /* content */
+.business-info-container{
+    background-color: transparent;
+    border: 0px;
+}
+
 span {
     margin: 0px;
 }
@@ -192,6 +198,15 @@ hr {
 .required {
     color: red;
 }
+/* contact us */
+.contact-us-container {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: #31708f;
+    background-color: whitesmoke;
+}
+
 /* font awesome icons */
 a.edit-control {
     color: #377ab7;
@@ -237,3 +252,4 @@ a.edit-control {
     color: #337ab7;
     background-color: lightgray;
 }
+

@@ -10,7 +10,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
     public class EditHouseViewModel
     {
         [HiddenInput]
-        public Guid? HouseId { get; set; }
+        public Guid HouseId { get; set; }
 
         [Required(ErrorMessage = "Address is required")]
         [Display(Name = "Address Line 1")]
@@ -43,6 +43,9 @@ namespace HouseRentalManagement.Models.AdminViewModels
         public DateTime? DateAvailableFrom { get; set; }
         [Display(Name = "Date Available")]
         public DateTime? DateAvailableTo { get; set; }
+
+        [Display(Name ="Parking Space")]
+        public int ParkingSpace { get; set; }
 
         public ICollection<EditFacilityViewModel> Facilities { get; set; }
     }

@@ -28,5 +28,19 @@ namespace HouseRentalManagement.Classes
             public const string SiteAjaxMessageView = "SiteAjaxMessageView";
             public const string SiteMessageView = "SiteMessageView";
         }
+
+        public static class Amenity
+        {
+            public const string WiFi = "Wi-Fi";
+            public const string Electricity = "Electricity";
+            public const string Heat = "Heat";
+            public const string AirConditioning = "Air Conditioning";
+            public const string Water = "Water";
+            public const string ShowerBathroom = "Shower/Bathroom";
+            public const string Laundry = "Laundry";
+            public const string FurnishedRooms = "Furnished Rooms and House";
+            public const string KitchenFurnished = "Kitchen Furnished";
+            public const string Appliances = "Appliances";
+        }
     }
 }

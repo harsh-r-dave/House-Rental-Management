@@ -48,7 +48,6 @@ namespace HouseRentalManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);
                 var result = await _houseService.AddHouseAsync(model);
                 if (result.Success)
                 {
@@ -92,6 +91,33 @@ namespace HouseRentalManagement.Controllers
             }
 
             return RedirectToAction(nameof(AdminController.Houses));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditHouse(EditHouseViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var result = await _houseService.EditHouseAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "House updated successfully");
+                    return RedirectToAction(nameof(Houses));
+                }
+                else
+                {
+                    if (result.Errors != null)
+                    {
+                        foreach (var error in result.Errors.GetErrors())
+                        {
+                            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                        }
+                    }
+                }
+            }
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
+            return View(model);
         }
 
         public async Task<IActionResult> DeleteHouse(Guid id)

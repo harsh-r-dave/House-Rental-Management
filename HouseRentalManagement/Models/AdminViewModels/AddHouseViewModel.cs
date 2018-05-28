@@ -29,16 +29,5 @@ namespace HouseRentalManagement.Models.AdminViewModels
 
         [Display(Name = "Country")]
         public string Country { get; set; }
-
-        [Display(Name = "Description")]
-        public string Description { get; set; }
-
-        [Display(Name = "Rent")]
-        public decimal? Rent { get; set; }
-
-        [Display(Name = "Date Available")]
-        public DateTime? DateAvailableFrom { get; set; }
-        [Display(Name = "Date Available")]
-        public DateTime? DateAvailableTo { get; set; }
     }
 }

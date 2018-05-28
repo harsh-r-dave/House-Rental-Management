@@ -116,10 +116,6 @@ namespace HouseRentalManagement.Services
                         PostalCode = model.PostalCode,
                         Province = model.Province,
                         Country = model.Country,
-                        AvailableFrom = model.DateAvailableFrom ?? DateTime.Now,
-                        AvailableTo = model.DateAvailableTo ?? DateTime.Now.AddMonths(4),
-                        Rent = model.Rent ?? 0,
-                        Description = model.Description,
                         CreateUtc = DateTime.UtcNow,
                         AuditUtc = DateTime.UtcNow
                     };
@@ -147,8 +143,8 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Errors: errors, Id: id);
-        }   
-        
+        }
+
         public async Task<(bool Success, IErrorDictionary Errors, EditHouseViewModel Model)> GetEditHouseViewModelAsync(Guid id)
         {
             var success = false;
@@ -170,10 +166,12 @@ namespace HouseRentalManagement.Services
                         model.PostalCode = house.PostalCode;
                         model.Province = house.Province;
                         model.Country = house.Country;
-                        model.DateAvailableFrom = house.AvailableFrom;
-                        model.DateAvailableTo = house.AvailableTo;
+                        model.DateAvailableFrom = house.AvailableFrom == DateTime.MinValue ? DateTime.Now : house.AvailableFrom;
+                        model.DateAvailableTo = house.AvailableTo == DateTime.MinValue ? DateTime.Now.AddMonths(4) : house.AvailableTo;
                         model.Rent = house.Rent;
                         model.Description = house.Description;
+                        model.HouseId = house.HouseId;
+                        model.ParkingSpace = house.ParakingSpace;
                     }
                     else
                     {
@@ -214,6 +212,56 @@ namespace HouseRentalManagement.Services
             catch (Exception e)
             {
                 errors.AddError("", "Unexpected error occured while deleting facility");
+            }
+
+            return (Success: success, Errors: errors);
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> EditHouseAsync(EditHouseViewModel model)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                if (model != null)
+                {
+                    House house = await _houseRepository.FetchHouseByIdAsync(model.HouseId);
+                    if (house!=null)
+                    {
+                        house.AddressLine1 = model.AddressLine1;
+                        house.AddressLine2 = model.AddressLine2;
+                        house.City = model.City;
+                        house.PostalCode = model.PostalCode;
+                        house.Province = model.Province;
+                        house.Country = model.Country;
+                        house.AvailableFrom = model.DateAvailableFrom ?? DateTime.Now;
+                        house.AvailableTo = model.DateAvailableTo ?? DateTime.Now.AddMonths(4);
+                        house.Rent = model.Rent ?? 0;
+                        house.Description = model.Description;
+                        house.ParakingSpace = model.ParkingSpace;
+                        house.AuditUtc = DateTime.UtcNow;
+                    }
+
+                    // save record
+
+                    if (await _houseRepository.UpdateHouseAsync(house))
+                    {
+                        success = true;
+                    }
+                    else
+                    {
+                        errors.AddError("", "Unexpected error occured while saving data");
+                    }
+                }
+                else
+                {
+                    errors.AddError("", "Invalid data submitted");
+                }
+            }
+            catch (Exception e)
+            {
+                errors.AddError("", "Unexpected error occured while saving data");
             }
 
             return (Success: success, Errors: errors);

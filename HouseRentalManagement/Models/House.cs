@@ -20,11 +20,17 @@ namespace HouseRentalManagement.Models
         public string Description { get; set; }
         public decimal Rent { get; set; }
 
+        public int ParakingSpace { get; set; }
+
         public DateTime CreateUtc { get; set; }
         public DateTime AuditUtc { get; set; }
 
         public virtual ICollection<HouseFacility> Facilities { get; set; } = new HashSet<HouseFacility>();
         public virtual ICollection<Tenant> Tenants { get; set; } = new HashSet<Tenant>();
         public virtual ICollection<HouseImage> HouseImages { get; set; } = new HashSet<HouseImage>();
+
+        public virtual HouseLeaseLength HouseLeaseLength { get; set; }
+
+        public ICollection<HouseAmenity> HouseAmenities { get; set; } = new HashSet<HouseAmenity>();
     }
 }

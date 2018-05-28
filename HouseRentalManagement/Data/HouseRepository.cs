@@ -26,6 +26,12 @@ namespace HouseRentalManagement.Data
             return (success, id);
         }
 
+        public async Task<bool> UpdateHouseAsync(House house)
+        {
+            _context.House.Update(house);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<ICollection<House>> ListHousesAsync()
         {
             return await (from h in _context.House

@@ -13,11 +13,6 @@ namespace HouseRentalManagement.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult TestTemp()
-        {
             return View();
         }
 
