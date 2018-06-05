@@ -1,96 +1,159 @@
 ﻿@{
-    Layout = "_HouseLayout";
+	Layout = "_HouseLayout";
 }
 
 @section Styles{
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href="~/lib/fancybox/jquery.fancybox.css" rel="stylesheet" />
-    <link href="~/css/pages/house-index.css" rel="stylesheet" />
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="~/lib/fancybox/jquery.fancybox.css" rel="stylesheet" />
+	<link href="~/css/pages/house-info.css" rel="stylesheet" />
 }
 
 <div class="container">
-    <div class="house-info">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="house-title">
-                        123 Main Street
-                        <span class="rent-amount">$350/ month</span>
-                    </div>
-                </div>
-                <div class="row">
-                    1 room is available in the basement. Reference required.
-                </div>
-                <div class="row facility-container">
-                    <label>Facilities: </label>
-                    <span>Wi-Fi</span>
-                    <span class="facility-label">on-site laundry</span>
-                    <span class="facility-label">heat/ AC</span>
-                    <span class="facility-label">microwave oven</span>
-                    <span class="facility-label">fridge</span>
-                </div>
-                <div class="row facility-container">
-                    <label>Not Allowed: </label>
-                    <span>Pets</span>
-                    <span class="facility-label">smoke/ alcohol</span>
-                    <span class="facility-label">guest overnight stay</span>
-                    <span class="facility-label">late night parties inside house</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div id="house-location"></div>
-            </div>
-        </div>
-    </div>
-    <hr />
-    <div id="jhr-portfolio-section" class="mt-20">
-        <div id="portfoliolist" class="bounceIn">
-            <div class="row">
-                @for (int i = 0; i < 2; i++)
-                {
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-                        <div class="portfolio">
-                            <a class="house-image" href="~/images/testimages/20180331_121713.jpg">
-                                <div class="portfolio-wrapper">
-                                    <img src="~/images/testimages/20180331_121713.jpg" alt="" />
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-                        <div class="portfolio">
-                            <a class="house-image" href="~/images/testimages/20180330_121325.jpg">
-                                <div class="portfolio-wrapper">
-                                    <img src="~/images/testimages/20180330_121325.jpg" alt="" />
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-                        <div class="portfolio">
-                            <a class="house-image" href="~/images/testimages/20180331_142913.jpg">
-                                <div class="portfolio-wrapper">
-                                    <img src="~/images/testimages/20180331_142913.jpg" alt="" />
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
+	<div class="house-info">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="house-image">
+					<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="house-title">
+						123 Main Street<br />
+						<span class="rent-amount">$350/ month</span>
+					</div>
+				</div>
+				<div class="row">
+					Eu ius posse quidam nonumes, est no nihil doming admodum. Postea molestie cum ea. Magna augue gloriatur ad sit, duo blandit accusata ad. Vim meis indoctum ea, sint homero deleniti vel ne. Omittam invenire cu mel. Sit in timeam adipisci reprimique.
+				</div>
+				<div class="row">
+					<div id="contact-info-container">
+						<h4>Contact</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Mobile: 647-123-4567</span>
+								<a href="tel:6471234567">
+									<i class="fa fa-phone social-btn"></i>
+								</a>
+								<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+									<i class="fa fa-whatsapp social-btn"></i>
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row facility-container">
+			<div class="col-md-6">
+				<label class="bold">Amenities</label><br />
+				<div class="row">
+					<div class="col-md-6">
+						<img src="~/images/ameneties/wifi.png" class="img img-circle" /> <span>Wi-Fi</span><br />
+						<img src="~/images/ameneties/ac.png" class="img img-circle" /> <span>Air Condioner</span><br />
+						<img src="~/images/ameneties/heat.png" class="img img-circle" /> <span>Heat</span><br />
+						<img src="~/images/ameneties/furnished.png" class="img img-circle" /> <span>Fully Furnished</span><br />
+						<img src="~/images/ameneties/water.png" class="img img-circle" /> <span>Water</span><br />
+						<img src="~/images/ameneties/garage.png" class="img img-circle" /> <span>Private Garage</span><br />
+						<img src="~/images/ameneties/garbage.png" class="img img-circle" /> <span>Garbage Pick-up</span><br />
+						<img src="~/images/ameneties/bus.png" class="img img-circle" /> <span>Close to Bus Stop</span><br />
+						<img src="~/images/ameneties/closet.png" class="img img-circle" /> <span>Closet in Rooms</span><br />
+						<img src="~/images/ameneties/dishwasher.png" class="img img-circle" /> <span>Dishwasher</span><br />
+					</div>
+					<div class="col-md-6">
+						<img src="~/images/ameneties/fridge.png" class="img img-circle" /> <span>Refrigerator</span><br />
+						<img src="~/images/ameneties/microwave.png" class="img img-circle" /> <span>Microwave Oven</span><br />
+						<img src="~/images/ameneties/stove.png" class="img img-circle" /> <span>Stove</span><br />
+						<img src="~/images/ameneties/tv.png" class="img img-circle" /> <span>Television</span><br />
+						<img src="~/images/ameneties/washer.png" class="img img-circle" /> <span>On-site Laundry</span><br />
+						<img src="~/images/ameneties/wooden.png" class="img img-circle" /> <span>Wooden floor</span><br />
+						<img src="~/images/ameneties/cctv.png" class="img img-circle" /> <span>CCTV</span><br />
+						<img src="~/images/ameneties/bed.png" class="img img-circle" /> <span>Bed</span><br />
+						<img src="~/images/ameneties/washroom.png" class="img img-circle" /> <span>Washroom</span><br />
+					</div>
+				</div>				
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-6">
+						<label>Utilities included</label><br />
+						<img src="~/images/ameneties/electricity.png" class="img img-circle" /> <span>Electricity</span><br />
+						<img src="~/images/ameneties/ac.png" class="img img-circle" /> <span>Air Condioner</span><br />
+						<img src="~/images/ameneties/heat.png" class="img img-circle" /> <span>Heat</span><br />
+						<img src="~/images/ameneties/water.png" class="img img-circle" /> <span>Water</span><br />
+						<img src="~/images/ameneties/garage.png" class="img img-circle" /> <span>Private Garage</span><br />
+						<img src="~/images/ameneties/garbage.png" class="img img-circle" /> <span>Garbage Pick-up</span><br />
+						<img src="~/images/ameneties/washer.png" class="img img-circle" /> <span>On-site Laundry</span><br />
+					</div>
+					<div class="col-md-6">
+						<label>Thing Not Allowed</label><br />
+						<span>Pets</span><br />
+						<span>Smoke/ Alcohol</span><br />
+						<span>Overnight Guest Stay</span><br />
+						<span>Late Night Parties</span><br />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div id="jhr-portfolio-section" class="mt-20">
+		<div id="portfoliolist" class="bounceIn">
+			<div class="row">
+				@for (int i = 0; i < 2; i++)
+				{
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+						<div class="portfolio">
+							<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
+								<div class="portfolio-wrapper">
+									<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+						<div class="portfolio">
+							<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
+								<div class="portfolio-wrapper">
+									<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+						<div class="portfolio">
+							<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
+								<div class="portfolio-wrapper">
+									<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+								</div>
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="house-location"></div>
+	</div>
 </div>
 @section Scripts{
-    <script src="~/lib/fancybox/jquery.fancybox.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w "
-            type="text/javascript"></script>
-    <script src="~/js/pages/house-info.js"></script>
-    <script>
-        $(document).ready(function () {
-            var houseInfoModel = {
-                location: "368 Dunsmore Ln, Barrie"
-            };
-            Hrm.HouseInfo.init(houseInfoModel);
-        });
-    </script>
+	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w "
+			type="text/javascript"></script>
+	<script src="~/js/pages/house-info.js"></script>
+	<script>
+		$(document).ready(function () {
+			var houseInfoModel = {
+				location: "368 Dunsmore Ln, Barrie"
+			};
+			Hrm.HouseInfo.init(houseInfoModel);
+		});
+	</script>
 }
