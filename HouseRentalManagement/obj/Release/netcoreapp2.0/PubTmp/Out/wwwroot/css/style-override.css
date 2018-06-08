@@ -151,6 +151,11 @@ body {
         color: inherit;
     }
 
+    .house-list-container .house-image {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
 .house-details {
     /*border-top: 1px solid blue;*/
     /*border-bottom: 1px solid blue;*/
@@ -180,8 +185,9 @@ body {
     z-index: 1;
     float: left;
     border-radius: 10px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    max-height: 250px;
+    /*border-bottom-left-radius: 0px;*/
+    /*border-bottom-right-radius: 0px;*/
 }
 
     .house-image img {
@@ -386,8 +392,8 @@ a.edit-control {
 
     .divider h5:before,
     .divider h5:after {
-        border-top: 1px solid blue;
-        border-bottom: 1px solid blue;
+        border-top: 1px solid #5996bb;
+        border-bottom: 1px solid #5996bb;
         content: "";
         display: inline-block;
         height: 5px;
@@ -405,3 +411,62 @@ a.edit-control {
         left: 0.5em;
         margin-right: -50%;
     }
+
+.bold {
+    font-weight: bold;
+}
+
+.overlay {
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    visibility: hidden;
+}
+
+    .overlay i {
+        left: 50%;
+        top: 100%;
+        position: relative;
+        color: white;
+        font-size: 20px;
+        transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+    }
+
+.tile:hover .overlay {
+    visibility: visible;
+}
+
+.tile:hover i {
+    animation: to-center 0.5s forwards;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-animation: to-center 0.5s forwards;
+    -ms-animation: to-center 0.5s forwards;
+    -moz-animation: to-center 0.5s forwards;
+}
+
+@-webkit-keyframes to-center {
+    100% {
+        left: 50%;
+        top: 50%;
+    }
+}
+
+@-ms-keyframes to-center {
+    100% {
+        left: 50%;
+        top: 50%;
+    }
+}
+
+@keyframes to-center {
+    100% {
+        left: 50%;
+        top: 50%;
+    }
+}

@@ -51,15 +51,17 @@
 .house-title {
     font-size: 17px;
     text-transform: capitalize;
+    font-weight: bold;
 }
 
 .rent-amount {
-    color: white;
-    font-size: 14px;
+    color: black;
+    font-size: 15px;
+    font-weight: normal;
+    font-style: italic;
 }
 
 .facility-container {
-    color: grey;
     margin-top: 10px;
 }
 
@@ -70,6 +72,12 @@
         .facility-container .facility-label::before {
             content: ", ";
         }
+
+    .facility-container img {
+        height: 25px;
+        width: 25px;
+        margin-bottom: 5px;
+    }
 
 #house-location {
     width: 100%;
@@ -88,5 +96,3 @@
     #contact-info-container a {
         text-decoration: none;
     }
-
-
