@@ -9,6 +9,7 @@ namespace HouseRentalManagement.Models
     {
         public int AmenityId { get; set; }
         public string Description { get; set; }
+        public string ImageFileName { get; set; }
 
         public ICollection<HouseAmenity> HouseAmenities { get; set; } = new HashSet<HouseAmenity>();
         public ICollection<House> Houses { get; set; } = new HashSet<House>();

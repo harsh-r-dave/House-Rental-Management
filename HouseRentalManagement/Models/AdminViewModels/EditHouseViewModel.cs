@@ -48,5 +48,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
         public int ParkingSpace { get; set; }
 
         public ICollection<EditFacilityViewModel> Facilities { get; set; }
+        public ICollection<AmenitiesListViewModel> Amenities { get; set; }
+
     }
 }

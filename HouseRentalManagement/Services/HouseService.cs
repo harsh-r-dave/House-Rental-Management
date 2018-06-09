@@ -1,7 +1,9 @@
-﻿using HouseRentalManagement.Data.Interface;
+﻿using HouseRentalManagement.Config;
+using HouseRentalManagement.Data.Interface;
 using HouseRentalManagement.Models;
 using HouseRentalManagement.Models.AdminViewModels;
 using HouseRentalManagement.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +15,18 @@ namespace HouseRentalManagement.Services
     {
         private readonly IHouseRepository _houseRepository;
         private readonly IFacilityRepository _facilityRepository;
+        private readonly IAmenityRepository _amenityRepository;
+        private readonly ImageOptions _imageOptions;
 
         public HouseService(IHouseRepository houseRepository,
-            IFacilityRepository facilityRepository)
+            IFacilityRepository facilityRepository,
+            IAmenityRepository amenityRepository,
+            IOptions<ImageOptions> imageOptions)
         {
             _houseRepository = houseRepository;
             _facilityRepository = facilityRepository;
+            _amenityRepository = amenityRepository;
+            _imageOptions = imageOptions.Value;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -44,49 +52,6 @@ namespace HouseRentalManagement.Services
                         });
                     }
                 }
-
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "123 Main Street",
-                //    Rent = 350.00
-                //});
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "123 Main Street",
-                //    Rent = 300.00
-                //});
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "456 Toronto Street",
-                //    Rent = 350.00
-                //});
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "11 College Cr",
-                //    Rent = 450.00
-                //});
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "Some big house",
-                //    Rent = 1500.00
-                //});
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "4 Golfclub Rd",
-                //    Rent = 320
-                //});
-                //model.Houses.Add(new HouseViewModel()
-                //{
-                //    HouseId = new Guid(),
-                //    Address = "98 Bayview Dr",
-                //    Rent = 200
-                //});
 
                 success = true;
             }
@@ -177,6 +142,24 @@ namespace HouseRentalManagement.Services
                     {
                         errors.AddError("", "Unable to locate the house details");
                     }
+
+                    // 
+                    var amenities = await _amenityRepository.ListAmenitiesAsync();
+                    if (amenities != null)
+                    {
+                        model.Amenities = new List<AmenitiesListViewModel>();
+                        foreach (var amenity in amenities)
+                        {
+                            model.Amenities.Add(new AmenitiesListViewModel
+                            {
+                                AmenityId = amenity.AmenityId,
+                                Title = amenity.Description,
+                                Checked = false,
+                                ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.ImageFileName)
+                            });
+                        }
+                    }
+
                     // set success
                     success = true;
                 }
@@ -227,7 +210,7 @@ namespace HouseRentalManagement.Services
                 if (model != null)
                 {
                     House house = await _houseRepository.FetchHouseByIdAsync(model.HouseId);
-                    if (house!=null)
+                    if (house != null)
                     {
                         house.AddressLine1 = model.AddressLine1;
                         house.AddressLine2 = model.AddressLine2;

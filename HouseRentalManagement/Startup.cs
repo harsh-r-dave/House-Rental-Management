@@ -13,6 +13,7 @@ using HouseRentalManagement.Models;
 using HouseRentalManagement.Services;
 using HouseRentalManagement.Services.Interfaces;
 using HouseRentalManagement.Data.Interface;
+using HouseRentalManagement.Config;
 
 namespace HouseRentalManagement
 {
@@ -39,6 +40,9 @@ namespace HouseRentalManagement
             AddServices(services);
 
             services.AddMvc();
+
+            // configuration
+            SystemSettings(services);
         }
 
         public void AddServices(IServiceCollection services)
@@ -51,6 +55,7 @@ namespace HouseRentalManagement
             // business
             services.AddScoped<IHouseRepository, HouseRepository>();
             services.AddScoped<IFacilityRepository, FacilityRepository>();
+            services.AddScoped<IAmenityRepository, AmenityRepository>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +82,11 @@ namespace HouseRentalManagement
                     name: "default",
                     template: "{controller=House}/{action=Index}/{id?}");
             });
+        }
+
+        public void SystemSettings(IServiceCollection services)
+        {
+            services.Configure<ImageOptions>(Configuration.GetSection(key: "Image"));
         }
     }
 }

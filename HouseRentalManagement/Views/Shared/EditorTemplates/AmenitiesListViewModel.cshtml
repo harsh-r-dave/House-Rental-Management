@@ -1,0 +1,12 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.AmenitiesListViewModel
+
+<div class="container mt-10" style="width: 30%;
+  display: inline-block;
+  float: left;">
+	
+	<label>
+		<img src="@Model.ImageSrc" style="height: 30px; width: 30px;" />
+
+		<input type="checkbox" @string.Format("{0}", Model.Checked ? "checked" : "") /> @Model.Title
+	</label>
+</div>

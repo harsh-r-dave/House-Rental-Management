@@ -28,7 +28,7 @@ Hrm.AdminAddHouse = function () {
     };
 
     var initPage = function () {
-        initDatePickers();
+		initDatePickers();
     };
 
     var init = function (model) {
