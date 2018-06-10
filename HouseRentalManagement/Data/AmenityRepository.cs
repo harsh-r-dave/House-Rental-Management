@@ -21,5 +21,29 @@ namespace HouseRentalManagement.Data
         {
             return await _context.Amenity.ToListAsync();
         }
+
+        public async Task<ICollection<HouseAmenity>> ListHouseAmenitiesByHouseIdAsync(Guid id)
+        {
+            return await _context.HouseAmenity.Where(a=>a.HouseId == id).ToListAsync();
+        }
+
+        public async Task<bool> SaveHouseAmenityAsync(HouseAmenity houseAmenity)
+        {
+            _context.HouseAmenity.Add(houseAmenity);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task ClearHouseAmenitiesByHouseIdAsync(Guid houseId)
+        {
+            var amenities = await ListHouseAmenitiesByHouseIdAsync(houseId);
+            if (amenities!=null)
+            {
+                foreach (var item in amenities)
+                {
+                    _context.HouseAmenity.Remove(item);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
     }
 }

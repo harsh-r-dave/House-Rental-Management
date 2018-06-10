@@ -7,6 +7,7 @@
 	<label>
 		<img src="@Model.ImageSrc" style="height: 30px; width: 30px;" />
 
-		<input type="checkbox" @string.Format("{0}", Model.Checked ? "checked" : "") /> @Model.Title
+		<input asp-for="Checked" type="checkbox" /> @Model.Title
+		<input asp-for="AmenityId" type="hidden" />
 	</label>
 </div>

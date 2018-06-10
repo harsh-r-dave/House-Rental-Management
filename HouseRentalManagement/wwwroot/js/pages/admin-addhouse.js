@@ -1,46 +1,46 @@
 ﻿var Hrm = Hrm || {};
 
 Hrm.AdminAddHouse = function () {
-    var viewModel;
+	var viewModel;
 
-    var initDatePickers = function () {
-        $(viewModel.dateAvailableFromSelector).datepicker({
-            'autoclose': true,
-            startDate: 'today',
-            todayBtn: true,
-            todayHighlight: true,
-            startView: "months"
-        }).on('changeDate', function () {
-            $(viewModel.dateAvailableToSelector).datepicker('setStartDate', $(viewModel.dateAvailableFromSelector).val());
-        });
+	var initDatePickers = function () {
+		$(viewModel.dateAvailableFromSelector).datepicker({
+			'autoclose': true,
+			startDate: 'today',
+			todayBtn: true,
+			todayHighlight: true,
+			startView: "months"
+		}).on('changeDate', function () {
+			$(viewModel.dateAvailableToSelector).datepicker('setStartDate', $(viewModel.dateAvailableFromSelector).val());
+		});
 
-        $(viewModel.dateAvailableToSelector).datepicker({
-            'autoclose': true,
-            startDate: 'today',
-            todayBtn: true,
-            todayHighlight: true,
-            startView: "months"
-        }).on('changeDate', function () {
-            $(viewModel.dateAvailableFromSelector).datepicker('setEndDate', $(viewModel.dateAvailableToSelector).val());
-        });
+		$(viewModel.dateAvailableToSelector).datepicker({
+			'autoclose': true,
+			startDate: 'today',
+			todayBtn: true,
+			todayHighlight: true,
+			startView: "months"
+		}).on('changeDate', function () {
+			$(viewModel.dateAvailableFromSelector).datepicker('setEndDate', $(viewModel.dateAvailableToSelector).val());
+		});
 
 
-    };
+	};
 
-    var initPage = function () {
+	var initPage = function () {
 		initDatePickers();
-    };
+	};
 
-    var init = function (model) {
-        console.log("Hrm.AdminAddHouse");
+	var init = function (model) {
+		console.log("Hrm.AdminAddHouse");
 
-        viewModel = model;
+		viewModel = model;
 
-        initPage();
-    };
+		initPage();
+	};
 
-    var oPublic = {
-        init: init
-    };
-    return oPublic;
+	var oPublic = {
+		init: init
+	};
+	return oPublic;
 }();

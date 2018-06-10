@@ -9,12 +9,14 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12"><h3>Edit House</h3></div>
+		<div class="col-md-12">
+			<h3>Edit - @Model.AddressLine1 <a class="btn btn-danger" asp-action="Houses" asp-controller="Admin">Go back to house list</a></h3>			
+		</div>
 	</div>
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs mt-20">
 		<li class="active"><a data-toggle="tab" href="#house-info">Details</a></li>
-		<li><a data-toggle="tab" href="#faciliy-info">Facilities</a></li>
 		<li><a data-toggle="tab" href="#amenity-info">Amenities</a></li>
+		<li><a data-toggle="tab" href="#faciliy-info">Facilities</a></li>
 		<li><a data-toggle="tab" href="#tenant-info">Tenants</a></li>
 		<li><a data-toggle="tab" href="#photo-info">Photos</a></li>
 	</ul>
@@ -122,19 +124,11 @@
 				</div>
 			</form>
 		</div>
+		<div id="amenity-info" class="tab-pane fade">
+			<div>Please contact IT support if you see this message here</div>
+		</div>
 		<div id="faciliy-info" class="tab-pane fade">
 			Facility - coming soon!
-		</div>
-		<div id="amenity-info" class="tab-pane fade">
-			<form asp-action="UpdateAmenities" asp-controller="Admin" method="post">
-				<div class="row">@Html.EditorFor(m => m.Amenities)</div>
-				<div class="row">
-					<div class="col-md-12 mt-10">
-						<button type="submit" class="btn btn-primary">Submit</button>
-						<button type="button" class="btn btn-danger">Reset</button>
-					</div>
-				</div>
-			</form>
 		</div>
 		<div id="tenant-info" class="tab-pane fade">
 			Tenants - coming soon!
@@ -147,14 +141,15 @@
 
 @section Scripts{
 	<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="~/js/pages/admin-addhouse.js"></script>
+	<script src="~/js/pages/admin-edithouse.js"></script>
 	<script>
 		$(document).ready(function () {
-			var addHouseModel = {
+			var editHouseModel = {
 				dateAvailableFromSelector: '#DateAvailableFrom',
-				dateAvailableToSelector: '#DateAvailableTo'
+				dateAvailableToSelector: '#DateAvailableTo',
+				houseId:'@Model.HouseId'
 			};
-			Hrm.AdminAddHouse.init(addHouseModel);
+			Hrm.AdminEditHouse.init(editHouseModel);
 		});
 	</script>
 }

@@ -13,5 +13,7 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, IErrorDictionary Errors, EditHouseViewModel Model)> GetEditHouseViewModelAsync(Guid id);
         Task<(bool Success, IErrorDictionary Errors)> DeleteHouseAsync(Guid id);
         Task<(bool Success, IErrorDictionary Errors)> EditHouseAsync(EditHouseViewModel model);
+        Task<HouseAmenityViewModel> GetHouseAmenityViewModelAsync(Guid houseId);
+        Task<(bool Success, IErrorDictionary Errors)> UpdateHouseAmenitiesAsync(HouseAmenityViewModel model);
     }
 }

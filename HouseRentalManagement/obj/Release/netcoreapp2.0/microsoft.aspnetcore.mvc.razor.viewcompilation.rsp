@@ -19,6 +19,7 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\EditHouse.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\Houses.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\ManageFacility.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseAmenityPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\About.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\Contact.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\Index.cshtml
@@ -39,6 +40,7 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Manage\_StatusMessage.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Manage\_ViewImports.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\Components\SiteMessageView\Default.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\EditorTemplates\AmenitiesListViewModel.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\Error.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\_HouseLayout.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\_Layout.cshtml

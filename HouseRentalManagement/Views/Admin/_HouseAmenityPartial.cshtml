@@ -1,0 +1,14 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.HouseAmenityViewModel
+
+<form asp-action="UpdateHouseAmenity" asp-controller="Admin" method="post" id="update-amenity-form" class="amenity-form">
+
+		<input asp-for="HouseId" />
+		<div class="row"><div class="col-md-12">@Html.EditorFor(m => m.Amenities)</div></div>
+		<div class="row">
+			<div class="col-md-12 mt-10">
+				<button type="submit" class="btn btn-primary" id="update-amenity-button">Save</button>
+				<button type="button" class="btn btn-danger" onclick="Hrm.AdminEditHouse.loadAmenity()">Reset</button>
+				<button type="button" class="btn btn-info" id="clear-checkbox">Clear All</button>
+			</div>
+		</div>
+</form>

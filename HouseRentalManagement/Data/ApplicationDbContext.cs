@@ -19,6 +19,7 @@ namespace HouseRentalManagement.Data
         public DbSet<Amenity> Amenity { get; set; }
         public DbSet<LeaseLength> LeaseLengths { get; set; }
         public DbSet<HouseLeaseLength> HouseLeaseLengths { get; set; }
+        public DbSet<HouseAmenity> HouseAmenity { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

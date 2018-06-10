@@ -240,5 +240,32 @@ namespace HouseRentalManagement.Controllers
             }
             return RedirectToAction(nameof(ManageFacility));
         }
+
+        public async Task<IActionResult> GetHouseAmenities(string houseId)
+        {
+            var model = await _houseService.GetHouseAmenityViewModelAsync(Guid.Parse(houseId));
+            return PartialView("~/Views/Admin/_HouseAmenityPartial.cshtml", model);
+        }
+
+        public async Task<IActionResult> UpdateHouseAmenity(HouseAmenityViewModel model)
+        {
+            var result = await _houseService.UpdateHouseAmenitiesAsync(model);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Amenities saved successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
+        }
     }
 }

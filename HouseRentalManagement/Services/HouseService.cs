@@ -144,21 +144,7 @@ namespace HouseRentalManagement.Services
                     }
 
                     // 
-                    var amenities = await _amenityRepository.ListAmenitiesAsync();
-                    if (amenities != null)
-                    {
-                        model.Amenities = new List<AmenitiesListViewModel>();
-                        foreach (var amenity in amenities)
-                        {
-                            model.Amenities.Add(new AmenitiesListViewModel
-                            {
-                                AmenityId = amenity.AmenityId,
-                                Title = amenity.Description,
-                                Checked = false,
-                                ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.ImageFileName)
-                            });
-                        }
-                    }
+
 
                     // set success
                     success = true;
@@ -248,6 +234,81 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Errors: errors);
+        }
+
+        public async Task<HouseAmenityViewModel> GetHouseAmenityViewModelAsync(Guid houseId)
+        {
+            var model = new HouseAmenityViewModel();
+            try
+            {
+                model.HouseId = houseId;
+                var amenities = await _amenityRepository.ListAmenitiesAsync();
+                var houseAmenities = await _amenityRepository.ListHouseAmenitiesByHouseIdAsync(id: houseId);
+                if (amenities != null)
+                {
+                    model.Amenities = new List<AmenitiesListViewModel>();                    
+                    foreach (var amenity in amenities)
+                    {
+                        model.Amenities.Add(new AmenitiesListViewModel
+                        {
+                            AmenityId = amenity.AmenityId,
+                            Title = amenity.Description,
+                            Checked = houseAmenities != null ? houseAmenities.Where(ha => ha.AmenityId == amenity.AmenityId).Any() : false,
+                            ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.ImageFileName)
+                        });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return model;
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> UpdateHouseAmenitiesAsync(HouseAmenityViewModel model)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                if (model.Amenities != null)
+                {
+                    // clear exisiting amenities
+                    await _amenityRepository.ClearHouseAmenitiesByHouseIdAsync(model.HouseId);
+
+                    foreach (var item in model.Amenities)
+                    {
+                        if (item.Checked)
+                        {
+                            // prepare record
+                            HouseAmenity hm = new HouseAmenity()
+                            {
+                                AmenityId = item.AmenityId,
+                                HouseId = model.HouseId
+                            };
+
+                            // save record
+                            if(!await _amenityRepository.SaveHouseAmenityAsync(hm))
+                            {
+                                errors.AddError("", "Unable to update amenity");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    errors.AddError("", "Unable to process your request");
+                }
+                success = true;
+            }
+            catch (Exception e)
+            {
+                errors.AddError("", "Unexpected error occured while updating amenities");
+            }
+
+            return (success, errors);
         }
     }
 }
