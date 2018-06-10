@@ -267,5 +267,15 @@ namespace HouseRentalManagement.Controllers
 
             return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
         }
+
+        public async Task<IActionResult> UploadHouseImage(AddHouseImageViewModel model)
+        {
+            var result = await _houseService.UploadHouseImageAsync(model);
+            if (result.Success)
+            {
+                return Json(true);
+            }
+            return Json(false);
+        }
     }
 }

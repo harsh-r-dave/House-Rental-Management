@@ -3,9 +3,11 @@ using HouseRentalManagement.Data.Interface;
 using HouseRentalManagement.Models;
 using HouseRentalManagement.Models.AdminViewModels;
 using HouseRentalManagement.Services.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,16 +19,19 @@ namespace HouseRentalManagement.Services
         private readonly IFacilityRepository _facilityRepository;
         private readonly IAmenityRepository _amenityRepository;
         private readonly ImageOptions _imageOptions;
+        private readonly IHostingEnvironment _env;
 
         public HouseService(IHouseRepository houseRepository,
             IFacilityRepository facilityRepository,
             IAmenityRepository amenityRepository,
-            IOptions<ImageOptions> imageOptions)
+            IOptions<ImageOptions> imageOptions,
+            IHostingEnvironment env)
         {
             _houseRepository = houseRepository;
             _facilityRepository = facilityRepository;
             _amenityRepository = amenityRepository;
             _imageOptions = imageOptions.Value;
+            _env = env;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -143,8 +148,11 @@ namespace HouseRentalManagement.Services
                         errors.AddError("", "Unable to locate the house details");
                     }
 
-                    // 
-
+                    // add image viewmodel
+                    model.AddHouseImageViewModel = new AddHouseImageViewModel()
+                    {
+                        HouseId = id
+                    };
 
                     // set success
                     success = true;
@@ -246,7 +254,7 @@ namespace HouseRentalManagement.Services
                 var houseAmenities = await _amenityRepository.ListHouseAmenitiesByHouseIdAsync(id: houseId);
                 if (amenities != null)
                 {
-                    model.Amenities = new List<AmenitiesListViewModel>();                    
+                    model.Amenities = new List<AmenitiesListViewModel>();
                     foreach (var amenity in amenities)
                     {
                         model.Amenities.Add(new AmenitiesListViewModel
@@ -290,7 +298,7 @@ namespace HouseRentalManagement.Services
                             };
 
                             // save record
-                            if(!await _amenityRepository.SaveHouseAmenityAsync(hm))
+                            if (!await _amenityRepository.SaveHouseAmenityAsync(hm))
                             {
                                 errors.AddError("", "Unable to update amenity");
                             }
@@ -305,7 +313,46 @@ namespace HouseRentalManagement.Services
             }
             catch (Exception e)
             {
-                errors.AddError("", "Unexpected error occured while updating amenities");
+                errors.AddError("", "Unexpected error occurred while updating amenities");
+            }
+
+            return (success, errors);
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> UploadHouseImageAsync(AddHouseImageViewModel model)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                if (model.Image != null && model.Image.Length > 0)
+                {
+                    // save image to directory
+                    var baseDirectory = _env.WebRootPath;
+                    var imageDirectory = string.Format(_imageOptions.HouseImagePath, model.HouseId);
+                    var destinationPath = Path.Combine(baseDirectory, imageDirectory);
+                    // make sure the folder exists
+                    if (!Directory.Exists(destinationPath))
+                    {
+                        Directory.CreateDirectory(destinationPath);
+                    }
+
+                    var fullPath = string.Format("{0}{1}", destinationPath, model.Image.FileName);
+
+                    using (FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                    {
+                        await model.Image.CopyToAsync(fs);  
+                    }
+
+                    // todo: save image filename to database
+
+                    success = true;
+                }
+            }
+            catch (Exception e)
+            {
+                errors.AddError("", "Unexpected error occurred while uploading image");
             }
 
             return (success, errors);

@@ -23,8 +23,10 @@ Hrm.AdminEditHouse = function () {
 		}).on('changeDate', function () {
 			$(viewModel.dateAvailableFromSelector).datepicker('setEndDate', $(viewModel.dateAvailableToSelector).val());
 		});
+	};
 
-
+	var initDropify = function () {
+		$('#house-image-uploader').dropify();
 	};
 
 	var loadAmenity = function () {
@@ -49,11 +51,36 @@ Hrm.AdminEditHouse = function () {
 			clearCheckboxes();
 		});
 	};
-	
+
+	var uploadHouseImage = function () {
+		$('#upload-image-form').on('submit', function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: "/Admin/UploadHouseImage",
+				type: "POST",
+				data: new FormData(this),
+				contentType: false,
+				cache: false,
+				processData: false,
+				success: function (data) {
+					console.log(data);
+				}
+			});
+		});
+	};
+	var initUploadHouseImage = function () {
+		$('#upload-image-button').on('click', function () {
+			uploadHouseImage();
+		});
+	};
+
 	var initPage = function () {
 		initDatePickers();
+		initDropify();
 		loadAmenity();
 		initClearCheckboxes();
+
+		uploadHouseImage();
 	};
 
 	var init = function (model) {

@@ -5,6 +5,7 @@
 
 @section Styles{
 	<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+	<link href="~/lib/dropify/css/dropify.css" rel="stylesheet" />
 }
 
 <div class="container">
@@ -134,13 +135,14 @@
 			Tenants - coming soon!
 		</div>
 		<div id="photo-info" class="tab-pane fade">
-			Photos - coming soon!
+			@await  Html.PartialAsync("~/Views/Admin/_HouseImagesAdd.cshtml", Model.AddHouseImageViewModel)
 		</div>
 	</div>
 </div>
 
 @section Scripts{
 	<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="~/lib/dropify/js/dropify.js"></script>
 	<script src="~/js/pages/admin-edithouse.js"></script>
 	<script>
 		$(document).ready(function () {
