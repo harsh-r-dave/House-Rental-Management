@@ -4,6 +4,7 @@ using HouseRentalManagement.Models;
 using HouseRentalManagement.Models.AdminViewModels;
 using HouseRentalManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,15 @@ namespace HouseRentalManagement.Services
         private readonly ImageOptions _imageOptions;
         private readonly IHostingEnvironment _env;
         private readonly IHouseImageRepository _houseImageRepository;
+        private readonly ILogger _logger;
 
         public HouseService(IHouseRepository houseRepository,
             IFacilityRepository facilityRepository,
             IAmenityRepository amenityRepository,
             IOptions<ImageOptions> imageOptions,
             IHostingEnvironment env,
-            IHouseImageRepository houseImageRepository)
+            IHouseImageRepository houseImageRepository,
+            ILogger<HouseService> logger)
         {
             _houseRepository = houseRepository;
             _facilityRepository = facilityRepository;
@@ -35,6 +38,7 @@ namespace HouseRentalManagement.Services
             _imageOptions = imageOptions.Value;
             _env = env;
             _houseImageRepository = houseImageRepository;
+            _logger = logger;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -387,7 +391,7 @@ namespace HouseRentalManagement.Services
             {
                 if (houseId != Guid.NewGuid())
                 {
-                    var houseImages = await _houseImageRepository.FetchHouseImagesAsync(houseId);
+                    var houseImages = await _houseImageRepository.ListHouseImagesAsync(houseId);
                     if (houseImages != null && houseImages.Any())
                     {
                         foreach (var image in houseImages)
@@ -424,6 +428,45 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Error: error, NoImage: noImage, Model: model);
+        }
+
+        public async Task<(bool Success, string Error)> DeleteHouseImageAsync(Guid imageId)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                // update record
+                var houseImage = await _houseImageRepository.FetchHouseImageByHouseImageId(imageId);
+                if (houseImage != null)
+                {
+                    success = await _houseImageRepository.DeleteHouseImageAsync(houseImage);
+                }
+                else
+                {
+                    error = "Image not found";
+                }
+
+                // delete actual file
+                // save image to directory
+                var baseDirectory = _env.WebRootPath;
+                var imageDirectory = string.Format(_imageOptions.HouseImagePath, houseImage.HouseId);
+                var destinationPath = Path.Combine(baseDirectory, imageDirectory);
+                var fullPath = string.Format("{0}{1}", destinationPath, houseImage.FileName);
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while processing your request";
+                _logger.LogError("HouseService/DeleteHouseImageAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+            return (success, error);
         }
     }
 }

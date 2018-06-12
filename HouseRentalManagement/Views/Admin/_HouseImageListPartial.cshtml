@@ -11,15 +11,15 @@
 		{
 			@foreach (var image in Model.HouseImages)
 			{
-		<tr>
-			<td>
-				<a class="house-image-preview" href="@image.ImageSrc">
-					<img class="img img-responsive house-image-preview" src="@image.ImageSrc" height="200px" width="200px" />
-				</a>
-			</td>
-			<td>@image.fileName</td>
-			<td><a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminHouses.deleteHouse('@image.HouseId', '@image.ImageId');" title="Delete @image.fileName"><i class="fa fa-close"></i></a></td>
-		</tr>
+				<tr>
+					<td>
+						<a class="house-image-preview" href="@image.ImageSrc">
+							<img class="img img-responsive house-image-preview" src="@image.ImageSrc" height="200px" width="200px" />
+						</a>
+					</td>
+					<td>@image.fileName</td>
+					<td><a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminEditHouse.deleteImage('@image.ImageId');" title="Delete @image.fileName"><i class="fa fa-close"></i></a></td>
+				</tr>
 			}
 		}
 		else

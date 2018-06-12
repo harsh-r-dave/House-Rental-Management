@@ -9,6 +9,8 @@ namespace HouseRentalManagement.Data.Interface
     public interface IHouseImageRepository
     {
         Task<bool> SaveHouseImageAsync(HouseImage record);
-        Task<ICollection<HouseImage>> FetchHouseImagesAsync(Guid houseId);
+        Task<ICollection<HouseImage>> ListHouseImagesAsync(Guid houseId);
+        Task<HouseImage> FetchHouseImageByHouseImageId(Guid imageId);
+        Task<bool> DeleteHouseImageAsync(HouseImage houseImage);
     }
 }

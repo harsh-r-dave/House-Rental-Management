@@ -64,7 +64,6 @@ Hrm.AdminEditHouse = function () {
 				houseId: $('#upload-image-form #HouseId').val()
 			},
 			success: function (result) {
-				console.log(result);
 				if (result.hasOwnProperty('success') && !result.success) {
 					if (result.hasOwnProperty('noImage') && result.noImage) {
 						toastr.info(result.error, '', Hrm.Toastr.tipConfig);
@@ -72,7 +71,7 @@ Hrm.AdminEditHouse = function () {
 					} else {
 						toastr.error(result.error, '', Hrm.Toastr.config);
 						$('#house-image-list-partial-container').html('Failed to load images');
-					}					
+					}
 				}
 				else {
 					$('#house-image-list-partial-container').html(result);
@@ -116,7 +115,42 @@ Hrm.AdminEditHouse = function () {
 	var initHouseImageLoader = function () {
 		setTimeout(function () {
 			loadHouseImages();
-		}, 5000);
+		}, 2500);
+	};
+
+
+	var deleteImage = function (imageId) {
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#337ab7',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function (result) {
+			if (result.value) {
+				$.ajax({
+					url: "/Admin/DeleteHouseImage",
+					method: "post",
+					data: {
+						imageId: imageId
+					}
+				}).done(function (result) {
+					if (result.success) {
+						toastr.success('Image deleted successfully', '', Hrm.Toastr.config);
+						$('#house-image-list-partial-container').html('<h4>Loading Images <i class="fa fa-spinner fa-spin"></i></h4>');
+						loadHouseImages();
+					}
+					else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+					}
+				}).fail(function (jqXHR, textStatus) {
+					console.log(textStatus);
+					toastr.error("Something went wrong while deleting image", '', Hrm.Toastr.config);
+				});
+			}
+		});
 	};
 
 	var initPage = function () {
@@ -139,7 +173,8 @@ Hrm.AdminEditHouse = function () {
 
 	var oPublic = {
 		init: init,
-		loadAmenity: loadAmenity
+		loadAmenity: loadAmenity,
+		deleteImage: deleteImage
 	};
 	return oPublic;
 }();
