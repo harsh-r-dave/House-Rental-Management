@@ -29,6 +29,10 @@ Hrm.AdminEditHouse = function () {
 		$('#house-image-uploader').dropify();
 	};
 
+	var initFancybox = function () {
+		$('a.house-image-preview').fancybox();
+	};
+
 	var loadAmenity = function () {
 		$.ajax({
 			url: "/Admin/GetHouseAmenities",
@@ -52,9 +56,36 @@ Hrm.AdminEditHouse = function () {
 		});
 	};
 
+	var loadHouseImages = function () {
+		$.ajax({
+			url: "/Admin/GetHouseImages",
+			type: "get",
+			data: {
+				houseId: $('#upload-image-form #HouseId').val()
+			},
+			success: function (result) {
+				console.log(result);
+				if (result.hasOwnProperty('success') && !result.success) {
+					if (result.hasOwnProperty('noImage') && result.noImage) {
+						toastr.info(result.error, '', Hrm.Toastr.tipConfig);
+						$('#house-image-list-partial-container').html("<div class='text-danger mt-10'>This house doesn't have any photos, please consider uploading some photos for this house.</div>");
+					} else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+						$('#house-image-list-partial-container').html('Failed to load images');
+					}					
+				}
+				else {
+					$('#house-image-list-partial-container').html(result);
+					initFancybox();
+				}
+			}
+		});
+	};
+
 	var uploadHouseImage = function () {
 		$('#upload-image-form').on('submit', function (e) {
 			e.preventDefault();
+			$('#upload-spinner').show();
 			$.ajax({
 				url: "/Admin/UploadHouseImage",
 				type: "POST",
@@ -63,7 +94,15 @@ Hrm.AdminEditHouse = function () {
 				cache: false,
 				processData: false,
 				success: function (data) {
-					console.log(data);
+					if (data) {
+						$('.dropify-clear').trigger('click');
+						loadHouseImages();
+						toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);
+					}
+					else {
+						toastr.error("Something went wrong while uploading image", '', Hrm.Toastr.config);
+					}
+					$('#upload-spinner').hide();
 				}
 			});
 		});
@@ -74,13 +113,20 @@ Hrm.AdminEditHouse = function () {
 		});
 	};
 
+	var initHouseImageLoader = function () {
+		setTimeout(function () {
+			loadHouseImages();
+		}, 5000);
+	};
+
 	var initPage = function () {
 		initDatePickers();
 		initDropify();
 		loadAmenity();
 		initClearCheckboxes();
-
+		initHouseImageLoader();
 		uploadHouseImage();
+		initFancybox();
 	};
 
 	var init = function (model) {

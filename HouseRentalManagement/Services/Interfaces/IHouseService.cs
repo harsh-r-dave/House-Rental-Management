@@ -16,5 +16,6 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<HouseAmenityViewModel> GetHouseAmenityViewModelAsync(Guid houseId);
         Task<(bool Success, IErrorDictionary Errors)> UpdateHouseAmenitiesAsync(HouseAmenityViewModel model);
         Task<(bool Success, IErrorDictionary Errors)> UploadHouseImageAsync(AddHouseImageViewModel model);
+        Task<(bool Success, string Error, bool NoImage, ListHouseImageViewModel Model)> FetchHouseImageListAsync(Guid houseId);
     }
 }

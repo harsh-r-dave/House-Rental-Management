@@ -277,5 +277,21 @@ namespace HouseRentalManagement.Controllers
             }
             return Json(false);
         }
+
+        public async Task<IActionResult> GetHouseImages(Guid houseId)
+        {
+            var result = await _houseService.FetchHouseImageListAsync(houseId);
+            if (result.Success)
+            {
+                return PartialView("~/Views/Admin/_HouseImageListPartial.cshtml", result.Model);
+            }
+
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error,
+                noImage = result.NoImage
+            });
+        }
     }
 }

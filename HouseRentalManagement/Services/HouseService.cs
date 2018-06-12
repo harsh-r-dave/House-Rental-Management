@@ -20,18 +20,21 @@ namespace HouseRentalManagement.Services
         private readonly IAmenityRepository _amenityRepository;
         private readonly ImageOptions _imageOptions;
         private readonly IHostingEnvironment _env;
+        private readonly IHouseImageRepository _houseImageRepository;
 
         public HouseService(IHouseRepository houseRepository,
             IFacilityRepository facilityRepository,
             IAmenityRepository amenityRepository,
             IOptions<ImageOptions> imageOptions,
-            IHostingEnvironment env)
+            IHostingEnvironment env,
+            IHouseImageRepository houseImageRepository)
         {
             _houseRepository = houseRepository;
             _facilityRepository = facilityRepository;
             _amenityRepository = amenityRepository;
             _imageOptions = imageOptions.Value;
             _env = env;
+            _houseImageRepository = houseImageRepository;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -340,12 +343,24 @@ namespace HouseRentalManagement.Services
 
                     var fullPath = string.Format("{0}{1}", destinationPath, model.Image.FileName);
 
-                    using (FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                    if (!File.Exists(fullPath))
                     {
-                        await model.Image.CopyToAsync(fs);  
-                    }
+                        using (FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                        {
+                            await model.Image.CopyToAsync(fs);
+                        }
 
-                    // todo: save image filename to database
+                        // save image filename to database
+                        HouseImage hi = new HouseImage()
+                        {
+                            HouseId = model.HouseId,
+                            FileName = model.Image.FileName,
+                            CreateUtc = DateTime.Now,
+                            InUse = true
+                        };
+
+                        await _houseImageRepository.SaveHouseImageAsync(hi);
+                    }                    
 
                     success = true;
                 }
@@ -356,6 +371,59 @@ namespace HouseRentalManagement.Services
             }
 
             return (success, errors);
+        }
+
+        public async Task<(bool Success, String Error, bool NoImage, ListHouseImageViewModel Model)> FetchHouseImageListAsync(Guid houseId)
+        {
+            bool success = false;
+            var error = string.Empty;
+            var model = new ListHouseImageViewModel()
+            {
+                HouseImages = new List<HouseImageViewModel>()
+            };
+            bool noImage = false;
+
+            try
+            {
+                if (houseId != Guid.NewGuid())
+                {
+                    var houseImages = await _houseImageRepository.FetchHouseImagesAsync(houseId);
+                    if (houseImages != null && houseImages.Any())
+                    {
+                        foreach (var image in houseImages)
+                        {
+                            // save image to directory
+                            var imageDirectory = string.Format(_imageOptions.HouseImagePath, image.HouseId);
+                            var fullPath = string.Format("{0}{1}{2}", "/", imageDirectory, image.FileName);
+
+                            model.HouseImages.Add(new HouseImageViewModel()
+                            {
+                                ImageId = image.HouseImageId,
+                                HouseId = image.HouseId,
+                                ImageSrc = fullPath,
+                                fileName = image.FileName
+                            });
+                        }
+
+                        success = true;
+                    }
+                    else
+                    {
+                        noImage = true;
+                        error = "This house doesn't have any photos, please consider uploading some photos for this house under Photos tab.";
+                    }
+                }
+                else
+                {
+                    error = "Invalid house Id";
+                }
+            }
+            catch (Exception)
+            {
+                error = "Unexpected error occurred while processing your request";
+            }
+
+            return (Success: success, Error: error, NoImage: noImage, Model: model);
         }
     }
 }

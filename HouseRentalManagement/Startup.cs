@@ -51,6 +51,7 @@ namespace HouseRentalManagement
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<IFacilityService, FacilityService>();
+            services.AddScoped<IHouseImageRepository, HouseImageRepository>();
 
             // business
             services.AddScoped<IHouseRepository, HouseRepository>();

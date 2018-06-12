@@ -1,20 +1,26 @@
 ﻿@model HouseRentalManagement.Models.AdminViewModels.AddHouseImageViewModel
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-6">
 		<form asp-action="AddHouseImage" asp-controller="Admin" method="post" enctype="multipart/form-data" id="upload-image-form">
 			<input asp-for="HouseId" />
 			<div class="row">
-				<div class="col-md-4">
-					<label class="text-muted">Upload pictures of this house</label>
+				<div class="col-md-12">
+					<h4>Upload photo for this house</h4>
 					<input asp-for="Image" id="house-image-uploader" />
 				</div>
 			</div>
 			<div class="row mt-10">
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<input type="submit" class="btn btn-primary" value="Upload" id="upload-image-button" />
+					<span><i class="fa fa-spinner fa-spin" id="upload-spinner" style="display: none;"></i></span>
 				</div>
 			</div>
 		</form>
+	</div>
+	<div class="col-md-6">
+		<div id="house-image-list-partial-container">
+			<h4>Loading Images <i class="fa fa-spinner fa-spin"></i></h4>
+		</div>
 	</div>
 </div>

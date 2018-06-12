@@ -6,12 +6,13 @@
 @section Styles{
 	<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 	<link href="~/lib/dropify/css/dropify.css" rel="stylesheet" />
+	<link href="~/lib/fancybox/jquery.fancybox.css" rel="stylesheet" />
 }
 
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h3>Edit - @Model.AddressLine1 <a class="btn btn-danger" asp-action="Houses" asp-controller="Admin">Go back to house list</a></h3>			
+			<h3>Edit - @Model.AddressLine1 <a class="btn btn-danger" asp-action="Houses" asp-controller="Admin">Go back to house list</a></h3>
 		</div>
 	</div>
 	<ul class="nav nav-tabs mt-20">
@@ -135,7 +136,7 @@
 			Tenants - coming soon!
 		</div>
 		<div id="photo-info" class="tab-pane fade">
-			@await  Html.PartialAsync("~/Views/Admin/_HouseImagesAdd.cshtml", Model.AddHouseImageViewModel)
+			@await Html.PartialAsync("~/Views/Admin/_HouseImagesAdd.cshtml", Model.AddHouseImageViewModel)
 		</div>
 	</div>
 </div>
@@ -143,6 +144,7 @@
 @section Scripts{
 	<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="~/lib/dropify/js/dropify.js"></script>
+	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
 	<script src="~/js/pages/admin-edithouse.js"></script>
 	<script>
 		$(document).ready(function () {
