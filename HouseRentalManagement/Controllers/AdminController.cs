@@ -293,10 +293,20 @@ namespace HouseRentalManagement.Controllers
                 noImage = result.NoImage
             });
         }
-
+        
         public async Task<IActionResult> DeleteHouseImage(Guid imageId)
         {
             var result = await _houseService.DeleteHouseImageAsync(imageId);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> SetMainHouseImage(Guid houseId, Guid imageId)
+        {
+            var result = await _houseService.SetHomePageImageAsync(houseId, imageId);
             return Json(new
             {
                 success = result.Success,

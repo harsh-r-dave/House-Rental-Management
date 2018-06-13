@@ -29,7 +29,7 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<HouseImage>> ListHouseImagesAsync(Guid houseId)
         {
-            return await _context.HouseImage.Where(a=>a.HouseId == houseId).OrderByDescending(a=>a.CreateUtc).ToListAsync();
+            return await _context.HouseImage.Where(a=>a.HouseId == houseId).OrderByDescending(a=>a.IsHomePageImage).ThenByDescending(a=>a.CreateUtc).ToListAsync();
         }
 
         public async Task<HouseImage> FetchHouseImageByHouseImageId(Guid imageId)
@@ -41,6 +41,13 @@ namespace HouseRentalManagement.Data
         {
             _context.HouseImage.Remove(houseImage);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<HouseImage> GetMainImageByHouseIdAsync(Guid houseId)
+        {
+            return await _context.HouseImage
+                .Where(a => a.HouseId == houseId && (a.IsHomePageImage.HasValue && a.IsHomePageImage.Value))
+                .FirstOrDefaultAsync();
         }
     }
 }

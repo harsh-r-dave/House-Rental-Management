@@ -9,7 +9,7 @@ namespace HouseRentalManagement.Models
     {
         public Guid HouseImageId { get; set; }
         public string FileName { get; set; }
-        public bool? InUse { get; set; }
+        public bool? IsHomePageImage { get; set; }
         public DateTime CreateUtc { get; set; }
 
         public Guid HouseId { get; set; }

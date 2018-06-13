@@ -17,10 +17,10 @@
 	</div>
 	<ul class="nav nav-tabs mt-20">
 		<li class="active"><a data-toggle="tab" href="#house-info">Details</a></li>
+		<li><a data-toggle="tab" href="#photo-info">Photos</a></li>
 		<li><a data-toggle="tab" href="#amenity-info">Amenities</a></li>
 		<li><a data-toggle="tab" href="#faciliy-info">Facilities</a></li>
 		<li><a data-toggle="tab" href="#tenant-info">Tenants</a></li>
-		<li><a data-toggle="tab" href="#photo-info">Photos</a></li>
 	</ul>
 	<div class="tab-content col-md-12">
 		<div id="house-info" class="tab-pane fade in active">
@@ -126,6 +126,9 @@
 				</div>
 			</form>
 		</div>
+		<div id="photo-info" class="tab-pane fade">
+			@await Html.PartialAsync("~/Views/Admin/_HouseImagesAdd.cshtml", Model.AddHouseImageViewModel)
+		</div>
 		<div id="amenity-info" class="tab-pane fade">
 			<div>Please contact IT support if you see this message here</div>
 		</div>
@@ -134,9 +137,6 @@
 		</div>
 		<div id="tenant-info" class="tab-pane fade">
 			Tenants - coming soon!
-		</div>
-		<div id="photo-info" class="tab-pane fade">
-			@await Html.PartialAsync("~/Views/Admin/_HouseImagesAdd.cshtml", Model.AddHouseImageViewModel)
 		</div>
 	</div>
 </div>

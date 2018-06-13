@@ -18,5 +18,6 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, IErrorDictionary Errors)> UploadHouseImageAsync(AddHouseImageViewModel model);
         Task<(bool Success, string Error, bool NoImage, ListHouseImageViewModel Model)> FetchHouseImageListAsync(Guid houseId);
         Task<(bool Success, string Error)> DeleteHouseImageAsync(Guid imageId);
+        Task<(bool Success, string Error)> SetHomePageImageAsync(Guid houseId, Guid imageId);
     }
 }

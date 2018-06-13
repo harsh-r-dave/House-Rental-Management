@@ -18,11 +18,30 @@ Hrm.Toastr = function () {
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-    };
+	};
+
+	var tipConfig = {
+		"closeButton": true,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": false,
+		"positionClass": "toast-top-right",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "0",
+		"extendedTimeOut": "0",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	};
 
     var oPublic =
         {
-            config: config
+			config: config,
+			tipConfig: tipConfig
         };
     return oPublic;
 }();

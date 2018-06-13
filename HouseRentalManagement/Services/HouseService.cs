@@ -354,13 +354,26 @@ namespace HouseRentalManagement.Services
                             await model.Image.CopyToAsync(fs);
                         }
 
+                        // determine whether it should be main image or not
+                        if (model.IsHomePageImage)
+                        {
+                            // reset house image
+                            await ResetMainImageByHouseIdAsync(model.HouseId);
+                        }
+                        else
+                        {
+                            // check if house has any main image
+                            var mainImage = await _houseImageRepository.GetMainImageByHouseIdAsync(model.HouseId);
+                            model.IsHomePageImage = mainImage == null;
+                        }
+
                         // save image filename to database
                         HouseImage hi = new HouseImage()
                         {
                             HouseId = model.HouseId,
                             FileName = model.Image.FileName,
                             CreateUtc = DateTime.Now,
-                            InUse = true
+                            IsHomePageImage = model.IsHomePageImage
                         };
 
                         await _houseImageRepository.SaveHouseImageAsync(hi);
@@ -405,7 +418,8 @@ namespace HouseRentalManagement.Services
                                 ImageId = image.HouseImageId,
                                 HouseId = image.HouseId,
                                 ImageSrc = fullPath,
-                                fileName = image.FileName
+                                fileName = image.FileName,
+                                isHomePageImage = image.IsHomePageImage ?? false
                             });
                         }
 
@@ -467,6 +481,54 @@ namespace HouseRentalManagement.Services
                 });
             }
             return (success, error);
+        }
+
+        public async Task<(bool Success, string Error)> SetHomePageImageAsync(Guid houseId, Guid imageId)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                // reset house image
+                await ResetMainImageByHouseIdAsync(houseId);
+
+                // update record
+                var houseImage = await _houseImageRepository.FetchHouseImageByHouseImageId(imageId);
+                if (houseImage != null)
+                {
+                    houseImage.IsHomePageImage = true;
+                    await _houseImageRepository.SaveHouseImageAsync(houseImage);
+                    success = true;
+                }
+                else
+                {
+                    error = "Image not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while processing your request";
+                _logger.LogError("HouseService/DeleteHouseImageAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+            return (success, error);
+        }
+
+        private async Task ResetMainImageByHouseIdAsync(Guid houseId)
+        {
+            // reset homepage image for house
+            var houseImages = await _houseImageRepository.ListHouseImagesAsync(houseId);
+            if (houseImages != null)
+            {
+                foreach (var image in houseImages)
+                {
+                    image.IsHomePageImage = false;
+
+                    await _houseImageRepository.SaveHouseImageAsync(image);
+                }
+            }
         }
     }
 }

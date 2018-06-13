@@ -15,5 +15,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
 
         [Required]
         public IFormFile Image { get; set; }
+
+        public bool IsHomePageImage { get; set; }
     }
 }

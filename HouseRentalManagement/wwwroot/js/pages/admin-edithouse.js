@@ -26,7 +26,7 @@ Hrm.AdminEditHouse = function () {
 	};
 
 	var initDropify = function () {
-		$('#house-image-uploader').dropify();
+		$('.house-image-uploader').dropify();
 	};
 
 	var initFancybox = function () {
@@ -95,8 +95,9 @@ Hrm.AdminEditHouse = function () {
 				success: function (data) {
 					if (data) {
 						$('.dropify-clear').trigger('click');
+						$('#IsHomePageImage').prop('checked', false);
 						loadHouseImages();
-						toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);
+						toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);						
 					}
 					else {
 						toastr.error("Something went wrong while uploading image", '', Hrm.Toastr.config);
@@ -153,6 +154,30 @@ Hrm.AdminEditHouse = function () {
 		});
 	};
 
+	var setMainImage = function (houseId, imageId) {
+		$(this).text('loading');
+		$.ajax({
+			url: "/Admin/SetMainHouseImage",
+			method: "post",
+			data: {
+				houseId: houseId,
+				imageId: imageId
+			}
+		}).done(function (result) {
+			if (result.success) {
+				toastr.success('Main image set successfully', '', Hrm.Toastr.config);
+				$('#house-image-list-partial-container').html('<h4>Loading Images <i class="fa fa-spinner fa-spin"></i></h4>');
+				loadHouseImages();
+			}
+			else {
+				toastr.error(result.error, '', Hrm.Toastr.config);
+			}
+		}).fail(function (jqXHR, textStatus) {
+			console.log(textStatus);
+			toastr.error("Something went wrong while setting image", '', Hrm.Toastr.config);
+		});
+	};
+
 	var initPage = function () {
 		initDatePickers();
 		initDropify();
@@ -174,7 +199,8 @@ Hrm.AdminEditHouse = function () {
 	var oPublic = {
 		init: init,
 		loadAmenity: loadAmenity,
-		deleteImage: deleteImage
+		deleteImage: deleteImage,
+		setMainImage: setMainImage
 	};
 	return oPublic;
 }();

@@ -178,7 +178,7 @@ namespace HouseRentalManagement.Data.Migrations
 
                     b.HasIndex("HouseId");
 
-                    b.ToTable("houseAmenity");
+                    b.ToTable("HouseAmenity");
                 });
 
             modelBuilder.Entity("HouseRentalManagement.Models.HouseFacility", b =>
@@ -212,7 +212,7 @@ namespace HouseRentalManagement.Data.Migrations
 
                     b.Property<Guid>("HouseId");
 
-                    b.Property<bool?>("InUse");
+                    b.Property<bool?>("IsHomePageImage");
 
                     b.HasKey("HouseImageId");
 

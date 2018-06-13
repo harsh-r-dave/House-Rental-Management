@@ -12,5 +12,6 @@ namespace HouseRentalManagement.Data.Interface
         Task<ICollection<HouseImage>> ListHouseImagesAsync(Guid houseId);
         Task<HouseImage> FetchHouseImageByHouseImageId(Guid imageId);
         Task<bool> DeleteHouseImageAsync(HouseImage houseImage);
+        Task<HouseImage> GetMainImageByHouseIdAsync(Guid houseId);
     }
 }

@@ -3,7 +3,13 @@
 <table class="table table-responsive table-hover">
 	<thead>
 		<tr>
-			<th colspan="3"><h4>Uploaded Images</h4></th>
+			<th colspan="4"><h4>Uploaded Images</h4></th>
+		</tr>
+		<tr>
+			<th></th>
+			<th>File</th>
+			<th>Main Image</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,9 +24,18 @@
 						</a>
 					</td>
 					<td>@image.fileName</td>
-					<td><a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminEditHouse.deleteImage('@image.ImageId');" title="Delete @image.fileName"><i class="fa fa-close"></i></a></td>
-				</tr>
-			}
+					<td>
+						@if (image.isHomePageImage)
+						{<i class="fa fa-check"></i>}
+						else
+						{<i class="fa fa-close"></i>}
+				</td>
+				<td>
+					<a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminEditHouse.deleteImage('@image.ImageId');" title="Delete @image.fileName"><i class="fa fa-close"></i></a>
+					<a href="javascript:void(0)" class="btn btn-primary" onclick="Hrm.AdminEditHouse.setMainImage('@image.HouseId', '@image.ImageId');" title="Use this as home page image"><i class="fa fa-check"></i> Main Image?</a>
+				</td>
+			</tr>
+		}
 		}
 		else
 		{
