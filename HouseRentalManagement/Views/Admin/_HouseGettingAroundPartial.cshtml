@@ -1,0 +1,61 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.AddHouseGettingAroundViewModel
+
+<div class="row">
+	<div class="col-md-4">
+		<form id="add-getting-around-form">
+			<input asp-for="HouseId" />
+			<input asp-for="GetingAroundId" />
+			<div class="form-group row mt-10">
+				<label asp-for="Location" class="control-label"></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+					<input asp-for="Location" class="form-control"  placeholder="Walmart" />
+				</div>
+				<span asp-validation-for="Location" class="text-danger"></span>
+			</div>
+			<div class="form-group row mt-10">
+				<label asp-for="Distance" class="control-label"></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+					<input asp-for="Distance" class="form-control" type="number"  placeholder="5.3" />
+				</div>
+				<span asp-validation-for="Distance" class="text-danger"></span>
+			</div>
+			<div class="form-group row mt-10">
+				<label asp-for="WalkingTime" class="control-label"></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-map"></i></span>
+					<input asp-for="WalkingTime" class="form-control" placeholder="21 min" />
+				</div>
+				<span asp-validation-for="WalkingTime" class="text-danger"></span>
+			</div>
+			<div class="form-group row mt-10">
+				<label asp-for="BikeTime" class="control-label"></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-bicycle"></i></span>
+					<input asp-for="BikeTime" class="form-control" placeholder="14 min" />
+				</div>
+				<span asp-validation-for="BikeTime" class="text-danger"></span>
+			</div>
+			<div class="form-group row mt-10">
+				<label asp-for="CarTime" class="control-label"></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-car"></i></span>
+					<input asp-for="CarTime" class="form-control" placeholder="8 min" />
+				</div>
+				<span asp-validation-for="CarTime" class="text-danger"></span>
+			</div>
+			<div class="form-group row">
+				<button type="submit" class="btn btn-primary" id="save-getting-around">
+					Save
+					<i class="fa fa-spinner fa-spin" id="save-getting-around-loader" style="display: none"></i>
+				</button>
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-8">
+		<div id="house-getting-around-container">
+		</div>
+	</div>
+</div>

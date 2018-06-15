@@ -20,6 +20,7 @@ namespace HouseRentalManagement.Data
         public DbSet<LeaseLength> LeaseLengths { get; set; }
         public DbSet<HouseLeaseLength> HouseLeaseLengths { get; set; }
         public DbSet<HouseAmenity> HouseAmenity { get; set; }
+        public DbSet<HouseGettingAround> HouseGettingAround { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -71,7 +72,7 @@ namespace HouseRentalManagement.Data
             {
                 entity.HasKey(a => a.LeaseLengthId);
                 entity.HasMany(a => a.HouseLeaseLength)
-                .WithOne(hl=>hl.LeaseLength);
+                .WithOne(hl => hl.LeaseLength);
             });
 
             builder.Entity<HouseLeaseLength>(entity =>
@@ -87,6 +88,14 @@ namespace HouseRentalManagement.Data
                 .HasForeignKey(a => a.HouseLeaseLengthId);
             });
 
+            builder.Entity<HouseGettingAround>(entity =>
+            {
+                entity.HasKey(a => a.HouseGettingAroundId);
+
+                entity.HasOne(a => a.House)
+                .WithMany(b => b.HouseGettingArounds)
+                .HasForeignKey(a => a.HouseId);
+            });
         }
     }
 }

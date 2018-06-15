@@ -20,6 +20,8 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\Houses.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\ManageFacility.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseAmenityPartial.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseGettingAroundListPartial.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseGettingAroundPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseImageListPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseImagesAdd.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\About.cshtml

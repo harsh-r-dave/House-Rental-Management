@@ -28,6 +28,7 @@ namespace HouseRentalManagement.Models
         public virtual ICollection<HouseFacility> Facilities { get; set; } = new HashSet<HouseFacility>();
         public virtual ICollection<Tenant> Tenants { get; set; } = new HashSet<Tenant>();
         public virtual ICollection<HouseImage> HouseImages { get; set; } = new HashSet<HouseImage>();
+        public virtual ICollection<HouseGettingAround> HouseGettingArounds { get; set; } = new HashSet<HouseGettingAround>();
 
         public virtual HouseLeaseLength HouseLeaseLength { get; set; }
 

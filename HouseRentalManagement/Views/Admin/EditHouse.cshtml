@@ -19,6 +19,7 @@
 		<li class="active"><a data-toggle="tab" href="#house-info">Details</a></li>
 		<li><a data-toggle="tab" href="#photo-info">Photos</a></li>
 		<li><a data-toggle="tab" href="#amenity-info">Amenities</a></li>
+		<li><a data-toggle="tab" href="#getting-around">Getting Around</a></li>
 		<li><a data-toggle="tab" href="#faciliy-info">Facilities</a></li>
 		<li><a data-toggle="tab" href="#tenant-info">Tenants</a></li>
 	</ul>
@@ -132,6 +133,9 @@
 		<div id="amenity-info" class="tab-pane fade">
 			<div>Please contact IT support if you see this message here</div>
 		</div>
+		<div id="getting-around" class="tab-pane fade">
+			@await Html.PartialAsync("~/Views/Admin/_HouseGettingAroundPartial.cshtml", Model.AddHouseGettingAroundViewModel)
+		</div>
 		<div id="faciliy-info" class="tab-pane fade">
 			Facility - coming soon!
 		</div>
@@ -142,6 +146,7 @@
 </div>
 
 @section Scripts{
+	@await Html.PartialAsync("_ValidationScriptsPartial")
 	<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="~/lib/dropify/js/dropify.js"></script>
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>

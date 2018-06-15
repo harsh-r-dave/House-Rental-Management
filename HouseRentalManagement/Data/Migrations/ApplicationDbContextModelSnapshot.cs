@@ -201,6 +201,32 @@ namespace HouseRentalManagement.Data.Migrations
                     b.ToTable("HouseFacility");
                 });
 
+            modelBuilder.Entity("HouseRentalManagement.Models.HouseGettingAround", b =>
+                {
+                    b.Property<int>("HouseGettingAroundId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BikeTime");
+
+                    b.Property<string>("CarTime");
+
+                    b.Property<DateTime>("Create");
+
+                    b.Property<decimal>("Distance");
+
+                    b.Property<Guid>("HouseId");
+
+                    b.Property<string>("LocationName");
+
+                    b.Property<string>("WalkingTime");
+
+                    b.HasKey("HouseGettingAroundId");
+
+                    b.HasIndex("HouseId");
+
+                    b.ToTable("HouseGettingAround");
+                });
+
             modelBuilder.Entity("HouseRentalManagement.Models.HouseImage", b =>
                 {
                     b.Property<Guid>("HouseImageId")
@@ -439,6 +465,14 @@ namespace HouseRentalManagement.Data.Migrations
 
                     b.HasOne("HouseRentalManagement.Models.House", "House")
                         .WithMany("Facilities")
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HouseRentalManagement.Models.HouseGettingAround", b =>
+                {
+                    b.HasOne("HouseRentalManagement.Models.House", "House")
+                        .WithMany("HouseGettingArounds")
                         .HasForeignKey("HouseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

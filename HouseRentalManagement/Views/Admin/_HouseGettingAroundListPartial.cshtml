@@ -1,0 +1,42 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.ListHouseGettingAroundViewModel
+
+<table class="table table-responsive table-hover" id="house-getting-around-table">
+	<thead>
+		<tr>
+			<th colspan="4"><h4>Getting Arounds</h4></th>
+		</tr>
+		<tr>
+			<th>Location</th>
+			<th>Distance</th>
+			<th>Walk Time</th>
+			<th>Bike Time</th>
+			<th>Car Time</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.GettingAroundCollection != null && Model.GettingAroundCollection.Any())
+		{
+			@foreach (var item in Model.GettingAroundCollection)
+			{
+				<tr>
+					<td>@item.Location</td>
+					<td>@item.Distance</td>
+					<td>@item.WalkingTime</td>
+					<td>@item.BikeTime</td>
+					<td>@item.CarTime</td>
+					<td>
+
+						<a href="javascript:void(0)" class="btn btn-primary" onclick="Hrm.AdminEditHouse.editGettingAround('@item.HouseId', '@item.GetingAroundId');" title="Edit"><i class="fa fa-pencil"></i></a>
+						<a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminEditHouse.deleteHouseGettingAround('@item.GetingAroundId');" title="Delete @item.Location"><i class="fa fa-close"></i></a>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr style="text-align: center">
+				<td colspan="6"> No getting around is set</td>
+			</tr>
+		}
+	</tbody>
+</table>

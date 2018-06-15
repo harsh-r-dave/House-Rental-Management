@@ -22,6 +22,7 @@ namespace HouseRentalManagement.Services
         private readonly ImageOptions _imageOptions;
         private readonly IHostingEnvironment _env;
         private readonly IHouseImageRepository _houseImageRepository;
+        private readonly IGettingAroundRepository _gettingAroundRepository;
         private readonly ILogger _logger;
 
         public HouseService(IHouseRepository houseRepository,
@@ -30,7 +31,8 @@ namespace HouseRentalManagement.Services
             IOptions<ImageOptions> imageOptions,
             IHostingEnvironment env,
             IHouseImageRepository houseImageRepository,
-            ILogger<HouseService> logger)
+            ILogger<HouseService> logger,
+            IGettingAroundRepository gettingAroundRepository)
         {
             _houseRepository = houseRepository;
             _facilityRepository = facilityRepository;
@@ -39,6 +41,7 @@ namespace HouseRentalManagement.Services
             _env = env;
             _houseImageRepository = houseImageRepository;
             _logger = logger;
+            _gettingAroundRepository = gettingAroundRepository;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -160,6 +163,9 @@ namespace HouseRentalManagement.Services
                     {
                         HouseId = id
                     };
+
+                    // add house getting around viewmodel
+                    model.AddHouseGettingAroundViewModel = new AddHouseGettingAroundViewModel() { HouseId = id };
 
                     // set success
                     success = true;
@@ -377,7 +383,7 @@ namespace HouseRentalManagement.Services
                         };
 
                         await _houseImageRepository.SaveHouseImageAsync(hi);
-                    }                    
+                    }
 
                     success = true;
                 }
@@ -529,6 +535,113 @@ namespace HouseRentalManagement.Services
                     await _houseImageRepository.SaveHouseImageAsync(image);
                 }
             }
+        }
+
+        public async Task<(bool Success, String Error, ListHouseGettingAroundViewModel Model)> FetchHouseGettingAroundByHouseId(Guid houseId)
+        {
+            bool success = false;
+            var error = string.Empty;
+            var model = new ListHouseGettingAroundViewModel()
+            {
+                GettingAroundCollection = new List<AddHouseGettingAroundViewModel>()
+            };
+
+            try
+            {
+                if (houseId != Guid.NewGuid())
+                {
+                    var gettingArounds = await _gettingAroundRepository.ListGettingAroundByHouseIdAsync(houseId);
+                    if (gettingArounds != null && gettingArounds.Any())
+                    {
+                        foreach (var item in gettingArounds)
+                        {
+                            model.GettingAroundCollection.Add(new AddHouseGettingAroundViewModel()
+                            {
+                                HouseId = item.HouseId,
+                                GetingAroundId = item.HouseGettingAroundId,
+                                WalkingTime = item.WalkingTime,
+                                BikeTime = item.BikeTime,
+                                CarTime = item.CarTime,
+                                Distance = item.Distance,
+                                Location = item.LocationName
+                            });
+                        }
+
+                        success = true;
+                    }
+                    if (gettingArounds != null && gettingArounds.Count() == 0)
+                    {
+                        // set success true if no record is uploaded
+                        success = true;
+                    }
+                }
+                else
+                {
+                    error = "Invalid house Id";
+                }
+            }
+            catch (Exception)
+            {
+                error = "Unexpected error occurred while processing your request";
+            }
+
+            return (Success: success, Error: error, Model: model);
+        }
+
+        public async Task<(bool Success, string Error)> AddHouseGettingAroundAsync(AddHouseGettingAroundViewModel model)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                HouseGettingAround hga = new HouseGettingAround()
+                {
+                    HouseId = model.HouseId,
+                    Distance = model.Distance ?? 1,
+                    BikeTime = model.BikeTime,
+                    CarTime = model.CarTime,
+                    WalkingTime = model.WalkingTime,
+                    LocationName = model.Location,
+                    Create = DateTime.UtcNow
+                };
+
+                success = await _gettingAroundRepository.SaveGettingAroundAsync(hga);
+            }
+            catch (Exception)
+            {
+                error = "Unexpected error occured while processing your request";
+            }
+
+            return (Success: success, Error: error);
+        }
+
+        public async Task<(bool Success, string Error)> DeleteHouseGettingAroundAsync(int houseGettingAroundId)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                // update record
+                var houseGettingAround = await _gettingAroundRepository.FetchHouseGettingAroundByIdAsync(houseGettingAroundId);
+                if (houseGettingAround != null)
+                {
+                    success = await _gettingAroundRepository.DeleteGettingAroundByIdAsync(houseGettingAround);
+                }
+                else
+                {
+                    error = "Info not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while processing your request";
+                _logger.LogError("HouseService/DeleteHouseGettingAroundAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+            return (success, error);
         }
     }
 }

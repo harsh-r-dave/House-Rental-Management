@@ -26,13 +26,14 @@ Hrm.AdminEditHouse = function () {
 	};
 
 	var initDropify = function () {
-		$('#house-image-uploader').dropify();
+		$('.house-image-uploader').dropify();
 	};
 
 	var initFancybox = function () {
 		$('a.house-image-preview').fancybox();
 	};
 
+	// house amenity
 	var loadAmenity = function () {
 		$.ajax({
 			url: "/Admin/GetHouseAmenities",
@@ -51,11 +52,13 @@ Hrm.AdminEditHouse = function () {
 		$('input:checkbox').removeAttr('checked');
 	};
 	var initClearCheckboxes = function () {
-		$('#amenity-info').on('click', '#clear-checkbox', function () {
+		$('#amenity-info').off().on('click', '#clear-checkbox', function () {
 			clearCheckboxes();
 		});
 	};
+	// ^house amenity
 
+	// house images
 	var loadHouseImages = function () {
 		$.ajax({
 			url: "/Admin/GetHouseImages",
@@ -80,34 +83,41 @@ Hrm.AdminEditHouse = function () {
 			}
 		});
 	};
-
+	
 	var uploadHouseImage = function () {
 		$('#upload-image-form').on('submit', function (e) {
 			e.preventDefault();
-			$('#upload-spinner').show();
-			$.ajax({
-				url: "/Admin/UploadHouseImage",
-				type: "POST",
-				data: new FormData(this),
-				contentType: false,
-				cache: false,
-				processData: false,
-				success: function (data) {
-					if (data) {
-						$('.dropify-clear').trigger('click');
-						loadHouseImages();
-						toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);
+			var allValid = true;
+			if (!$('#Image').valid()) {
+				allValid = false;
+			}
+			if (allValid) {
+				$('#upload-spinner').show();
+				$.ajax({
+					url: "/Admin/UploadHouseImage",
+					type: "POST",
+					data: new FormData(this),
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function (data) {
+						if (data) {
+							$('.dropify-clear').trigger('click');
+							$('#IsHomePageImage').prop('checked', false);
+							loadHouseImages();
+							toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);
+						}
+						else {
+							toastr.error("Something went wrong while uploading image", '', Hrm.Toastr.config);
+						}
+						$('#upload-spinner').hide();
 					}
-					else {
-						toastr.error("Something went wrong while uploading image", '', Hrm.Toastr.config);
-					}
-					$('#upload-spinner').hide();
-				}
-			});
+				});
+			}			
 		});
 	};
 	var initUploadHouseImage = function () {
-		$('#upload-image-button').on('click', function () {
+		$('#upload-image-button').off().on('click', function () {
 			uploadHouseImage();
 		});
 	};
@@ -117,7 +127,6 @@ Hrm.AdminEditHouse = function () {
 			loadHouseImages();
 		}, 2500);
 	};
-
 
 	var deleteImage = function (imageId) {
 		swal({
@@ -153,18 +162,152 @@ Hrm.AdminEditHouse = function () {
 		});
 	};
 
+	var setMainImage = function (houseId, imageId) {
+		$(this).text('loading');
+		$.ajax({
+			url: "/Admin/SetMainHouseImage",
+			method: "post",
+			data: {
+				houseId: houseId,
+				imageId: imageId
+			}
+		}).done(function (result) {
+			if (result.success) {
+				toastr.success('Main image set successfully', '', Hrm.Toastr.config);
+				$('#house-image-list-partial-container').html('<h4>Loading Images <i class="fa fa-spinner fa-spin"></i></h4>');
+				loadHouseImages();
+			}
+			else {
+				toastr.error(result.error, '', Hrm.Toastr.config);
+			}
+		}).fail(function (jqXHR, textStatus) {
+			console.log(textStatus);
+			toastr.error("Something went wrong while setting image", '', Hrm.Toastr.config);
+		});
+	};
+	// ^house images
+
+	// house getting around
+	var loadHouseGettingAround = function () {
+		$.ajax({
+			url: "/Admin/GetHouseGettingAround",
+			type: "get",
+			data: {
+				houseId: viewModel.houseId
+			},
+			success: function (result) {
+				if (result.hasOwnProperty('success') && !result.success) {
+					toastr.error(result.error, '', Hrm.Toastr.config);
+					$('#house-getting-around-container').html('Failed to load data');
+				}
+				else {
+					$('#house-getting-around-container').html(result);
+				}
+			}
+		});
+	};
+	var saveHouseGettingAround = function () {
+		$('#add-getting-around-form').off().on('submit', function (e) {
+			e.preventDefault();
+			var allValid = true;
+			if (!$('#Distance').valid()) {
+				allValid = false;
+			}
+			if (!$('#Location').valid()) {
+				allValid = false;
+			}
+			if (allValid) {
+				$('#save-getting-around-loader').show();
+				$.ajax({
+					url: "/Admin/AddHouseGettingAround",
+					type: "POST",
+					data: new FormData(this),
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function (data) {
+						if (data) {
+							loadHouseGettingAround();
+							toastr.success("Info has been saved successfully", "", Hrm.Toastr.config);
+							$('#add-getting-around-form').trigger('reset');
+						}
+						else {
+							toastr.error("Something went wrong while saving info", '', Hrm.Toastr.config);
+						}
+						$('#save-getting-around-loader').hide();
+					}
+				});
+			}			
+		});
+	};
+	var initSaveHouseGettingAround = function () {
+		$('#save-getting-around').off().on('click', function () {
+			saveHouseGettingAround();
+		});
+	};
+	var deleteHouseGettingAround = function (id) {
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#337ab7',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function (result) {
+			if (result.value) {
+				$.ajax({
+					url: "/Admin/DeleteHouseGettingAround",
+					method: "post",
+					data: {
+						houseGettingAroundId: id
+					}
+				}).done(function (result) {
+					if (result.success) {
+						toastr.success('Info deleted successfully', '', Hrm.Toastr.config);
+						$('#house-getting-around-container').html('<h4>Loading Images <i class="fa fa-spinner fa-spin"></i></h4>');
+						loadHouseGettingAround();
+					}
+					else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+					}
+				}).fail(function (jqXHR, textStatus) {
+					console.log(textStatus);
+					toastr.error("Something went wrong while deleting info", '', Hrm.Toastr.config);
+				});
+			}
+		});
+	};
+	// ^house getting around
+
+	// business processes
+	var initAmenitiesProcess = function () {
+		initClearCheckboxes();	
+		loadAmenity();
+	};
+	var initHouseImagesProcess = function () {
+		uploadHouseImage();
+		initHouseImageLoader();
+	};
+	var initHouseGettingAroundProcess = function () {
+		loadHouseGettingAround();
+		initSaveHouseGettingAround();
+	};
+	// ^business processes
+
 	var initPage = function () {
 		initDatePickers();
-		initDropify();
-		loadAmenity();
-		initClearCheckboxes();
-		initHouseImageLoader();
-		uploadHouseImage();
-		initFancybox();
+		initDropify();					
+		initFancybox();	
+
+		// business process
+		initAmenitiesProcess();
+		initHouseGettingAroundProcess();
+		initHouseImagesProcess();
 	};
 
 	var init = function (model) {
-		console.log("Hrm.AdminEditHouse");
+		console.log("Hrm.AdminEditHouse init()");
 
 		viewModel = model;
 
@@ -174,7 +317,9 @@ Hrm.AdminEditHouse = function () {
 	var oPublic = {
 		init: init,
 		loadAmenity: loadAmenity,
-		deleteImage: deleteImage
+		deleteImage: deleteImage,
+		setMainImage: setMainImage,
+		deleteHouseGettingAround: deleteHouseGettingAround
 	};
 	return oPublic;
 }();

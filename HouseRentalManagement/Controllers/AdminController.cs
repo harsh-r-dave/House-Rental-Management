@@ -293,7 +293,7 @@ namespace HouseRentalManagement.Controllers
                 noImage = result.NoImage
             });
         }
-        
+
         public async Task<IActionResult> DeleteHouseImage(Guid imageId)
         {
             var result = await _houseService.DeleteHouseImageAsync(imageId);
@@ -307,6 +307,41 @@ namespace HouseRentalManagement.Controllers
         public async Task<IActionResult> SetMainHouseImage(Guid houseId, Guid imageId)
         {
             var result = await _houseService.SetHomePageImageAsync(houseId, imageId);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> GetHouseGettingAround(Guid houseId)
+        {
+            var result = await _houseService.FetchHouseGettingAroundByHouseId(houseId);
+            if (result.Success)
+            {
+                return PartialView("~/Views/Admin/_HouseGettingAroundListPartial.cshtml", result.Model);
+            }
+
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> AddHouseGettingAround(AddHouseGettingAroundViewModel model)
+        {
+            var result = await _houseService.AddHouseGettingAroundAsync(model);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> DeleteHouseGettingAround(int houseGettingAroundId)
+        {
+            var result = await _houseService.DeleteHouseGettingAroundAsync(houseGettingAroundId);
             return Json(new
             {
                 success = result.Success,
