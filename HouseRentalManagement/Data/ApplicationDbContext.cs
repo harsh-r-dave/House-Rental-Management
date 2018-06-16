@@ -41,7 +41,10 @@ namespace HouseRentalManagement.Data
             builder.Entity<House>().HasOne<HouseLeaseLength>(e => e.HouseLeaseLength);
 
             builder.Entity<Tenant>().HasKey(e => e.TenantId);
-            builder.Entity<Tenant>().HasOne<House>(e => e.House);
+            builder.Entity<Tenant>().
+                HasOne<House>(e => e.House)
+                .WithMany(h=>h.Tenants)
+                .HasForeignKey(e=>e.HouseId);
 
             builder.Entity<HouseImage>().HasKey(e => e.HouseImageId);
             builder.Entity<HouseImage>().HasOne<House>(e => e.House);

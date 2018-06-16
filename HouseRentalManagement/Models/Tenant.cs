@@ -18,7 +18,11 @@ namespace HouseRentalManagement.Models
         public string ReferencedEmail { get; set; }
         public string ReferencePhone { get; set; }
 
-        public Guid HouseId { get; set; }
+        public DateTime StayStartDate { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public Guid? HouseId { get; set; }
         public virtual House House { get; set; }
     }
 }

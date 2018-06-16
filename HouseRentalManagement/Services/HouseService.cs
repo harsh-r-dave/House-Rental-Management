@@ -134,7 +134,7 @@ namespace HouseRentalManagement.Services
             try
             {
                 // fetch house by id
-                if (id != Guid.NewGuid())
+                if (id != Guid.Empty)
                 {
                     House house = await _houseRepository.FetchHouseByIdAsync(id);
                     if (house != null)

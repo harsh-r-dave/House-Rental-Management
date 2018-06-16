@@ -9,64 +9,77 @@
 
 <div class="container">
 	<div class="row">
-		<h3>Add House</h3>
+		<div class="col-md-12">
+		<h3>Add House</h3></div>
 	</div>
 	<form asp-action="AddHouse" asp-controller="Admin" method="post">
 		<div class="row">
 			<div class="col-md-5">
 				<input asp-for="HouseId" />
 				<div class="row form-group">
-					<label asp-for="AddressLine1"></label> <span class="required">*</span>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-						<input asp-for="AddressLine1" class="form-control" placeholder="123 Main Street" />
+					<div class="col-md-12">
+						<label asp-for="AddressLine1"></label> <span class="required">*</span>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<input asp-for="AddressLine1" class="form-control" placeholder="123 Main Street" />
+						</div>
+						<span asp-validation-for="AddressLine1" class="text-danger"></span>
 					</div>
-					<span asp-validation-for="AddressLine1" class="text-danger"></span>
 				</div>
 				<div class="row form-group">
-					<label asp-for="AddressLine2"></label>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-						<input asp-for="AddressLine2" class="form-control" placeholder="Golf Club Rd" />
+					<div class="col-md-12">
+						<label asp-for="AddressLine2"></label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<input asp-for="AddressLine2" class="form-control" placeholder="Golf Club Rd" />
+						</div>
+						<span asp-validation-for="AddressLine2" class="text-danger"></span>
 					</div>
-					<span asp-validation-for="AddressLine2" class="text-danger"></span>
 				</div>
 				<div class="row form-group">
-					<label asp-for="City"></label> <span class="required">*</span>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-						<input asp-for="City" class="form-control" placeholder="Toronto" />
+					<div class="col-md-12">
+						<label asp-for="City"></label> <span class="required">*</span>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<input asp-for="City" class="form-control" placeholder="Toronto" />
+						</div>
+						<span asp-validation-for="City" class="text-danger"></span>
 					</div>
-					<span asp-validation-for="City" class="text-danger"></span>
 				</div>
 				<div class="row form-group">
-					<label asp-for="PostalCode"></label>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-						<input asp-for="PostalCode" class="form-control" placeholder="M1H2Y7" />
+					<div class="col-md-12">
+						<label asp-for="PostalCode"></label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<input asp-for="PostalCode" class="form-control" placeholder="M1H2Y7" />
+						</div>
+						<span asp-validation-for="PostalCode" class="text-danger"></span>
 					</div>
-					<span asp-validation-for="PostalCode" class="text-danger"></span>
 				</div>
 				<div class="row form-group">
-					<label asp-for="Province"></label>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-						<input asp-for="Province" class="form-control" value="ON" readonly />
+					<div class="col-md-12">
+						<label asp-for="Province"></label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+							<input asp-for="Province" class="form-control" value="ON" readonly />
+						</div>
+						<span asp-validation-for="Province" class="text-danger"></span>
 					</div>
-					<span asp-validation-for="Province" class="text-danger"></span>
 				</div>
 				<div class="row form-group">
-					<label asp-for="Country"></label>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-						<input asp-for="Country" class="form-control" value="CA" readonly />
+					<div class="col-md-12">
+						<label asp-for="Country"></label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+							<input asp-for="Country" class="form-control" value="CA" readonly />
+						</div>
+						<span asp-validation-for="Country" class="text-danger"></span>
 					</div>
-					<span asp-validation-for="Country" class="text-danger"></span>
 				</div>
 			</div>
 		</div>
 		<div class="row mt-20">
-			<div class="col">
+			<div class="col-md-12">
 				<button class="btn btn-primary">Submit</button>
 				<a class="btn btn-danger" asp-action="Houses" asp-controller="Admin">Cancel</a>
 			</div>

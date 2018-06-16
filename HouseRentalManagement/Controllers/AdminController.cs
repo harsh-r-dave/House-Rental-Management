@@ -17,16 +17,20 @@ namespace HouseRentalManagement.Controllers
         private readonly IHouseService _houseService;
         private readonly IFacilityService _facilityService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ITenantService _tenantService;
 
         public AdminController(IHouseService houseService,
            UserManager<ApplicationUser> userManager,
-           IFacilityService facilityService)
+           IFacilityService facilityService,
+           ITenantService tenantService)
         {
             _houseService = houseService;
             _userManager = userManager;
             _facilityService = facilityService;
+            _tenantService = tenantService;
         }
 
+        #region House
         public async Task<IActionResult> Houses()
         {
             var model = new ListHouseViewModel();
@@ -139,29 +143,9 @@ namespace HouseRentalManagement.Controllers
             }
             return RedirectToAction(nameof(Houses));
         }
+        #endregion
 
-        [HttpPost]
-        public async Task AddHouseImage()
-        {
-
-        }
-
-        public async Task<IActionResult> Tenants()
-        {
-            return View(new ListTenantViewModel());
-        }
-
-        public async Task AddTenant()
-        {
-
-        }
-
-        [HttpPost]
-        public async Task AddTenant(AddTenantViewModel model)
-        {
-
-        }
-
+        #region Facility
         public async Task<IActionResult> ManageFacility()
         {
             var model = new ManageFacilityViewModel();
@@ -240,7 +224,9 @@ namespace HouseRentalManagement.Controllers
             }
             return RedirectToAction(nameof(ManageFacility));
         }
+        #endregion
 
+        #region Amenity
         public async Task<IActionResult> GetHouseAmenities(string houseId)
         {
             var model = await _houseService.GetHouseAmenityViewModelAsync(Guid.Parse(houseId));
@@ -267,7 +253,9 @@ namespace HouseRentalManagement.Controllers
 
             return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
         }
+        #endregion
 
+        #region House images
         public async Task<IActionResult> UploadHouseImage(AddHouseImageViewModel model)
         {
             var result = await _houseService.UploadHouseImageAsync(model);
@@ -313,7 +301,9 @@ namespace HouseRentalManagement.Controllers
                 error = result.Error
             });
         }
+        #endregion
 
+        #region House Getting Around
         public async Task<IActionResult> GetHouseGettingAround(Guid houseId)
         {
             var result = await _houseService.FetchHouseGettingAroundByHouseId(houseId);
@@ -348,5 +338,100 @@ namespace HouseRentalManagement.Controllers
                 error = result.Error
             });
         }
+        #endregion
+
+        #region Tenants
+        public IActionResult AddTenant()
+        {
+            ViewData["Title"] = "Add Tenant";
+            return View(new AddTenantViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTenant(AddTenantViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _tenantService.AddTenantAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Tenant added successfully");
+                    return RedirectToAction(nameof(Tenants));
+                }
+                else
+                {
+                    if (result.Errors != null)
+                    {
+                        foreach (var error in result.Errors.GetErrors())
+                        {
+                            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                        }
+                    }
+                }
+            }
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
+            return View(model);
+        }
+
+        public async Task<IActionResult> Tenants()
+        {
+            var model = new ListTenantViewModel();
+            var result = await _tenantService.ListTenantsAsync();
+            if (result.Success)
+            {
+                model = result.Model;
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> EditTenant(Guid id)
+        {
+            ViewData["Title"] = "Edit Tenant";
+            var model = new AddTenantViewModel();
+
+            var result = await _tenantService.GetEditTenantViewModelAsync(id);
+            if (result.Success)
+            {
+                model = result.Model;
+                return View("~/Views/Admin/AddTenant.cshtml",model);
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+            return RedirectToAction(nameof(AdminController.Tenants));
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditTenant(AddTenantViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _tenantService.AddTenantAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Tenant updated successfully");
+                    return RedirectToAction(nameof(Tenants));
+                }
+                else
+                {
+                    if (result.Errors != null)
+                    {
+                        foreach (var error in result.Errors.GetErrors())
+                        {
+                            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                        }
+                    }
+                }
+            }
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
+            return View(model);
+        }
+        #endregion
     }
 }

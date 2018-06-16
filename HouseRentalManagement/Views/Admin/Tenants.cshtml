@@ -1,0 +1,60 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.ListTenantViewModel;
+
+@{
+	Layout = "~/views/shared/_HouseLayout.cshtml";
+}
+
+@section Styles{
+	<link href="~/lib/datatable/datatables.css" rel="stylesheet" />
+}
+
+<div class="container mt-20">
+	<div class="row">
+		<div class="col-md-10">
+			<a class="btn btn-primary" asp-action="AddTenant" asp-controller="Admin">Add Tenant</a>
+			<table id="tenant-list-table" class="table table-responsive table-hover hrm-table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Reference Name</th>
+						<th>Reference Phone</th>
+						<th>House</th>
+						<th style="width: 30px;"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.TenantCollection != null)
+					{
+						foreach (var tenant in Model.TenantCollection)
+						{
+							<tr>
+								<td>@tenant.FullName</td>
+								<td>@tenant.PhoneNumber</td>
+								<td>@tenant.ReferenceName</td>
+								<td>@tenant.ReferencePhone</td>
+								<td>@tenant.HouseAddress</td>
+								<td>
+									<a asp-controller="Admin" asp-action="EditTenant" asp-route-id="@tenant.TenantId" class="edit-control"><i class="fa fa-pencil"></i></a>
+									<a href="javascript:void(0)" onclick="Hrm.AdminTenants.deleteTenant('@tenant.TenantId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+								</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+	<script src="~/lib/datatable/datatables.js"></script>
+	<script src="~/lib/sweetalert/sweetalert2.js"></script>
+	<script src="~/js/pages/admin-tenants.js"></script>
+	<script>
+		$(document).ready(function () {
+			var adminTenantsModel = {};
+			Hrm.AdminTenants.init(adminTenantsModel);
+		});
+	</script>
+}

@@ -51,13 +51,15 @@ namespace HouseRentalManagement
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<IFacilityService, FacilityService>();
-            services.AddScoped<IHouseImageRepository, HouseImageRepository>();
+            services.AddScoped<ITenantService, TenantService>();
 
             // business
             services.AddScoped<IHouseRepository, HouseRepository>();
             services.AddScoped<IFacilityRepository, FacilityRepository>();
             services.AddScoped<IAmenityRepository, AmenityRepository>();
             services.AddScoped<IGettingAroundRepository, GettingAroundRepository>();
+            services.AddScoped<IHouseImageRepository, HouseImageRepository>();
+            services.AddScoped<ITenantRepository, TenantRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

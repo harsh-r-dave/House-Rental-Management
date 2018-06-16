@@ -11,9 +11,10 @@ using System;
 namespace HouseRentalManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180615233711_datastructure_changes_to_Tenant_table")]
+    partial class datastructure_changes_to_Tenant_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
