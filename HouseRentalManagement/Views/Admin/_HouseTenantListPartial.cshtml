@@ -1,0 +1,42 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.ListTenantViewModel
+
+<div class="row">
+	<div class="col-md-10">
+		<table id="tenant-list-table" class="table table-responsive table-hover">
+			<thead>
+				<tr>
+					<th colspan="6"><h4>Tenants</h4></th>
+				</tr>
+				<tr>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Occupation</th>
+					<th>Reference Name</th>
+					<th>Reference Phone</th>
+					<th>House</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.TenantCollection != null)
+				{
+					foreach (var tenant in Model.TenantCollection)
+					{
+						<tr>
+							<td>@tenant.FullName</td>
+							<td>@tenant.PhoneNumber</td>
+							<td>@tenant.Occupation</td>
+							<td>@tenant.ReferenceName</td>
+							<td>@tenant.ReferencePhone</td>
+							<td>@tenant.HouseAddress</td>
+							<td>
+								<a target="_blank" asp-controller="Admin" asp-action="EditTenant" asp-route-id="@tenant.TenantId" class="edit-control"><i class="fa fa-pencil"></i></a>
+								<a href="javascript:void(0)" onclick="Hrm.AdminTenants.deleteTenant('@tenant.TenantId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

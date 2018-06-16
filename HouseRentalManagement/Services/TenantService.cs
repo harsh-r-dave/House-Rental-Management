@@ -145,7 +145,7 @@ namespace HouseRentalManagement.Services
                     {
                         errors.AddError("", "Unable to locate the tenant details");
                     }
-                    
+
                     // set success
                     success = true;
                 }
@@ -234,6 +234,60 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Errors: errors);
+        }
+
+        public async Task<(bool Success, String Error, bool NoTenants, ListTenantViewModel Model)> FetchHouseTenantListAsync(Guid houseId)
+        {
+            bool success = false;
+            var error = string.Empty;
+            var model = new ListTenantViewModel()
+            {
+                TenantCollection = new List<AddTenantViewModel>()
+            };
+            bool noTenants = false;
+
+            try
+            {
+                if (houseId != Guid.NewGuid())
+                {
+                    var houseTenants = await _tenantRepository.FetchTenantsListByHouseIdAsync(houseId);
+                    if (houseTenants != null && houseTenants.Any())
+                    {
+                        foreach (var tenant in houseTenants)
+                        {
+                            var parts = new string[] { tenant.LastName, tenant.FirstName };
+                            var fullName = string.Join(",", parts.Where(a => !string.IsNullOrEmpty(a)));
+
+                            model.TenantCollection.Add(new AddTenantViewModel()
+                            {
+                                FullName = fullName,
+                                PhoneNumber = tenant.PhoneNumber,
+                                Occupation = tenant.Occupation,
+                                ReferenceName = tenant.ReferenceName,
+                                ReferencePhone = tenant.ReferencePhone,
+                                TenantId = tenant.TenantId
+                            });
+                        }
+
+                        success = true;
+                    }
+                    else
+                    {
+                        noTenants = true;
+                        error = "This house doesn't have any tenants.";
+                    }
+                }
+                else
+                {
+                    error = "Invalid house Id";
+                }
+            }
+            catch (Exception)
+            {
+                error = "Unexpected error occurred while processing your request";
+            }
+
+            return (Success: success, Error: error, NoTenants: noTenants, Model: model);
         }
     }
 }

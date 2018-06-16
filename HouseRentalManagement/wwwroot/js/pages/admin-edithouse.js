@@ -83,7 +83,7 @@ Hrm.AdminEditHouse = function () {
 			}
 		});
 	};
-	
+
 	var uploadHouseImage = function () {
 		$('#upload-image-form').on('submit', function (e) {
 			e.preventDefault();
@@ -113,7 +113,7 @@ Hrm.AdminEditHouse = function () {
 						$('#upload-spinner').hide();
 					}
 				});
-			}			
+			}
 		});
 	};
 	var initUploadHouseImage = function () {
@@ -237,7 +237,7 @@ Hrm.AdminEditHouse = function () {
 						$('#save-getting-around-loader').hide();
 					}
 				});
-			}			
+			}
 		});
 	};
 	var initSaveHouseGettingAround = function () {
@@ -280,9 +280,35 @@ Hrm.AdminEditHouse = function () {
 	};
 	// ^house getting around
 
+	// house tenants
+	var loadHouseTenants = function () {
+		$.ajax({
+			url: "/Admin/GetHouseTenants",
+			type: "get",
+			data: {
+				houseId: viewModel.houseId
+			},
+			success: function (result) {
+				if (result.hasOwnProperty('success') && !result.success) {
+					if (result.hasOwnProperty('noTenants') && result.noTenants) {
+						toastr.info(result.error, '', Hrm.Toastr.tipConfig);
+						$('#tenant-list-container').html("<div class='text-danger mt-10'>This house doesn't have any tenants.</div>");
+					} else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+						$('#tenant-list-container').html('Failed to load tenants');
+					}
+				}
+				else {
+					$('#tenant-list-container').html(result);
+				}
+			}
+		});
+	};
+	// ^house tenants
+
 	// business processes
 	var initAmenitiesProcess = function () {
-		initClearCheckboxes();	
+		initClearCheckboxes();
 		loadAmenity();
 	};
 	var initHouseImagesProcess = function () {
@@ -293,17 +319,21 @@ Hrm.AdminEditHouse = function () {
 		loadHouseGettingAround();
 		initSaveHouseGettingAround();
 	};
+	var initHouseTenantProcess = function () {
+		loadHouseTenants();
+	};
 	// ^business processes
 
 	var initPage = function () {
 		initDatePickers();
-		initDropify();					
-		initFancybox();	
+		initDropify();
+		initFancybox();
 
 		// business process
 		initAmenitiesProcess();
 		initHouseGettingAroundProcess();
 		initHouseImagesProcess();
+		initHouseTenantProcess();
 	};
 
 	var init = function (model) {

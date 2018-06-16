@@ -432,6 +432,22 @@ namespace HouseRentalManagement.Controllers
             SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
             return View(model);
         }
+
+        public async Task<IActionResult> GetHouseTenants(Guid houseId)
+        {
+            var result = await _tenantService.FetchHouseTenantListAsync(houseId);
+            if (result.Success)
+            {
+                return PartialView("~/Views/Admin/_HouseTenantListPartial.cshtml", result.Model);
+            }
+
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error,
+                noTenants = result.NoTenants
+            });
+        }
         #endregion
     }
 }

@@ -13,5 +13,6 @@ namespace HouseRentalManagement.Data.Interface
         Task<ICollection<Tenant>> ListTenantsAsync();
         Task<Tenant> FetchTenantByIdAsync(Guid id);
         Task<bool> DeleteTenantAsync(Tenant Tenant);
+        Task<ICollection<Tenant>> FetchTenantsListByHouseIdAsync(Guid houseId);
     }
 }

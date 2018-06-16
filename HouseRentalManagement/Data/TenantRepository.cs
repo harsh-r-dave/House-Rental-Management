@@ -54,5 +54,10 @@ namespace HouseRentalManagement.Data
             _context.Tenant.Remove(Tenant);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<ICollection<Tenant>> FetchTenantsListByHouseIdAsync(Guid houseId)
+        {
+            return await _context.Tenant.Where(a => a.HouseId == houseId).ToListAsync();
+        }
     }
 }
