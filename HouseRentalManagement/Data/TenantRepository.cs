@@ -1,5 +1,6 @@
 ﻿using HouseRentalManagement.Data.Interface;
 using HouseRentalManagement.Models;
+using HouseRentalManagement.Models.AdminViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,12 @@ namespace HouseRentalManagement.Data
             //await _context.Tenant.AddAsync(tenant);
             var success = await _context.SaveChangesAsync() > 0;
             var id = tenant.TenantId;
+
+            // consider it as successful transaction if entity is not changed
+            if (_context.Entry(tenant).State == EntityState.Unchanged)
+            {
+                success = true;
+            }
 
             return (success, id);
         }
@@ -58,6 +65,19 @@ namespace HouseRentalManagement.Data
         public async Task<ICollection<Tenant>> FetchTenantsListByHouseIdAsync(Guid houseId)
         {
             return await _context.Tenant.Where(a => a.HouseId == houseId).ToListAsync();
+        }
+
+        public async Task<ICollection<TenantDropdownViewModel>> FetchTenantListForHouseEditPageAsync(Guid houseId)
+        {
+            return await (from t in _context.Tenant
+                          where t.HouseId != houseId
+                          select new TenantDropdownViewModel()
+                          {
+                              FullName = $"{t.LastName}, {t.FirstName}",
+                              TenantId = t.TenantId
+                          })
+                          .ToListAsync();
+                          
         }
     }
 }

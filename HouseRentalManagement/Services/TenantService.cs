@@ -156,85 +156,7 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Errors: errors, Model: model);
-        }
-
-        public async Task<(bool Success, IErrorDictionary Errors)> DeleteTenantAsync(Guid id)
-        {
-            bool success = false;
-            var errors = new ErrorDictionary();
-
-            try
-            {
-                //// fetch facility by id
-                //House house = await _houseRepository.FetchHouseByIdAsync(id);
-
-                //// remove it
-                //if (house != null)
-                //{
-                //    success = await _houseRepository.DeleteHouseAsync(house);
-                //}
-                //else
-                //{
-                //    errors.AddError("", "Unable to locate house");
-                //}
-            }
-            catch (Exception e)
-            {
-                errors.AddError("", "Unexpected error occured while deleting facility");
-            }
-
-            return (Success: success, Errors: errors);
-        }
-
-        public async Task<(bool Success, IErrorDictionary Errors)> EditTenantAsync(AddTenantViewModel model)
-        {
-            bool success = false;
-            var errors = new ErrorDictionary();
-
-            try
-            {
-                //if (model != null)
-                //{
-                //    House house = await _houseRepository.FetchHouseByIdAsync(model.HouseId);
-                //    if (house != null)
-                //    {
-                //        house.AddressLine1 = model.AddressLine1;
-                //        house.AddressLine2 = model.AddressLine2;
-                //        house.City = model.City;
-                //        house.PostalCode = model.PostalCode;
-                //        house.Province = model.Province;
-                //        house.Country = model.Country;
-                //        house.AvailableFrom = model.DateAvailableFrom ?? DateTime.Now;
-                //        house.AvailableTo = model.DateAvailableTo ?? DateTime.Now.AddMonths(4);
-                //        house.Rent = model.Rent ?? 0;
-                //        house.Description = model.Description;
-                //        house.ParakingSpace = model.ParkingSpace;
-                //        house.AuditUtc = DateTime.UtcNow;
-                //    }
-
-                //    // save record
-
-                //    if (await _houseRepository.UpdateHouseAsync(house))
-                //    {
-                //        success = true;
-                //    }
-                //    else
-                //    {
-                //        errors.AddError("", "Unexpected error occured while saving data");
-                //    }
-                //}
-                //else
-                //{
-                //    errors.AddError("", "Invalid data submitted");
-                //}
-            }
-            catch (Exception e)
-            {
-                errors.AddError("", "Unexpected error occured while saving data");
-            }
-
-            return (Success: success, Errors: errors);
-        }
+        }       
 
         public async Task<(bool Success, String Error, bool NoTenants, ListTenantViewModel Model)> FetchHouseTenantListAsync(Guid houseId)
         {
@@ -269,7 +191,7 @@ namespace HouseRentalManagement.Services
                             });
                         }
 
-                        success = true;
+                        success = true;                        
                     }
                     else
                     {
@@ -288,6 +210,112 @@ namespace HouseRentalManagement.Services
             }
 
             return (Success: success, Error: error, NoTenants: noTenants, Model: model);
+        }
+
+        public async Task<(bool Success, string Error)> AddTenantToHouseAsync(Guid houseId, Guid tenantId)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                if (houseId != Guid.Empty && tenantId != Guid.Empty)
+                {
+                    // fetch tenant
+                    var tenant = await _tenantRepository.FetchTenantByIdAsync(tenantId);
+                    if (tenant != null)
+                    {
+                        tenant.HouseId = houseId;
+                        success = await _tenantRepository.UpdateTenantAsync(tenant);
+                    }
+                    else
+                    {
+                        error = "Unable to locate tenant info";
+                    }
+                }
+                else
+                {
+                    error = "Invalid Id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while processing your request";
+                _logger.LogError("TenantService/AddTenantToHouseAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (success, error);
+        }
+
+        public async Task<ICollection<TenantDropdownViewModel>> GetTenantListForHouseEditPageAsync(Guid houseId)
+        {
+            ICollection<TenantDropdownViewModel> model = new List<TenantDropdownViewModel>();
+
+            try
+            {
+                model = await _tenantRepository.FetchTenantListForHouseEditPageAsync(houseId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TenantService/GetTenantListForHouseEditPageAsync - exception:{@Ex}", new object[] { ex });
+            }
+            return model;
+        }
+
+        public async Task<(bool Success, string Error)> RemoveTenantFromHouseAsync(Guid tenantId)
+        {
+            bool success = false;
+            string error = string.Empty;
+            try
+            {
+                if (tenantId != Guid.Empty)
+                {
+                    var tenant = await _tenantRepository.FetchTenantByIdAsync(tenantId);
+                    if (tenant != null)
+                    {
+                        tenant.HouseId = null;
+                        success = await _tenantRepository.UpdateTenantAsync(tenant);
+                    }
+                }
+                else
+                {
+                    error = "Invalid Id";
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TenantService/RemoveTenantFromHouseAsync - exception:{@Ex}", new object[] { ex });
+            }
+            return (Success: success, Error: error);
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> DeleteTenantAsync(Guid id)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                // fetch tenant
+                Tenant tenant = await _tenantRepository.FetchTenantByIdAsync(id);
+
+                // remove it
+                if (tenant != null)
+                {
+                    success = await _tenantRepository.DeleteTenantAsync(tenant);
+                }
+                else
+                {
+                    errors.AddError("", "Unable to locate tenant");
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.AddError("", "Unexpected error occured while deleting facility");
+                _logger.LogError("TenantService/DeleteTenantAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (Success: success, Errors: errors);
         }
     }
 }

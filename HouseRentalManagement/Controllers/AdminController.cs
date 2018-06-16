@@ -393,7 +393,7 @@ namespace HouseRentalManagement.Controllers
             if (result.Success)
             {
                 model = result.Model;
-                return View("~/Views/Admin/AddTenant.cshtml",model);
+                return View("~/Views/Admin/AddTenant.cshtml", model);
             }
             else
             {
@@ -430,7 +430,7 @@ namespace HouseRentalManagement.Controllers
                 }
             }
             SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Please check all the info and try again");
-            return View(model);
+            return View("~/Views/Admin/AddTenant.cshtml", model);
         }
 
         public async Task<IActionResult> GetHouseTenants(Guid houseId)
@@ -447,6 +447,50 @@ namespace HouseRentalManagement.Controllers
                 error = result.Error,
                 noTenants = result.NoTenants
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTenantToHouse(Guid houseId, Guid tenantId)
+        {
+            var result = await _tenantService.AddTenantToHouseAsync(houseId, tenantId);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetTenantListForHouseEditPage(Guid houseId)
+        {
+            var result = await _tenantService.GetTenantListForHouseEditPageAsync(houseId);
+            return Json(new { list = result });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveTenantFromHouse (Guid tenantId, Guid houseId)
+        {
+            var result = await _tenantService.RemoveTenantFromHouseAsync(tenantId);
+            return Json(new { success = result.Success, error = result.Error });
+        }
+        public async Task<IActionResult> DeleteTenant(Guid id)
+        {
+            var result = await _tenantService.DeleteTenantAsync(id);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Tenant deleted successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Tenants));
         }
         #endregion
     }

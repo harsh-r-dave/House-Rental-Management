@@ -1,4 +1,5 @@
 ﻿using HouseRentalManagement.Models;
+using HouseRentalManagement.Models.AdminViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace HouseRentalManagement.Data.Interface
         Task<Tenant> FetchTenantByIdAsync(Guid id);
         Task<bool> DeleteTenantAsync(Tenant Tenant);
         Task<ICollection<Tenant>> FetchTenantsListByHouseIdAsync(Guid houseId);
+        Task<ICollection<TenantDropdownViewModel>> FetchTenantListForHouseEditPageAsync(Guid houseId);
     }
 }
