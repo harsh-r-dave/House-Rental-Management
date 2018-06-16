@@ -45,7 +45,8 @@ namespace HouseRentalManagement.Services
                             PhoneNumber = tenant.PhoneNumber,
                             ReferenceName = tenant.ReferenceName,
                             ReferencePhone = tenant.ReferencePhone,
-                            HouseAddress = tenant.House?.AddressLine1
+                            HouseAddress = tenant.House?.AddressLine1,
+                            IsOnWaitList = tenant.IsOnWaitList
                         });
                     }
                 }
@@ -89,6 +90,7 @@ namespace HouseRentalManagement.Services
                     tenant.ReferencedEmail = model.ReferenceEmail;
                     tenant.ReferencePhone = model.ReferencePhone;
                     tenant.HouseId = model.HouseId ?? null;
+                    tenant.IsOnWaitList = model.IsOnWaitList;
 
                     // save record
                     var result = await _tenantRepository.AddTenantAsync(tenant);
@@ -140,6 +142,7 @@ namespace HouseRentalManagement.Services
                         model.ReferencePhone = tenant.ReferencePhone;
                         model.HouseId = tenant.HouseId;
                         model.TenantId = id;
+                        model.IsOnWaitList = tenant.IsOnWaitList;
                     }
                     else
                     {
@@ -226,6 +229,7 @@ namespace HouseRentalManagement.Services
                     if (tenant != null)
                     {
                         tenant.HouseId = houseId;
+                        tenant.IsOnWaitList = false;
                         success = await _tenantRepository.UpdateTenantAsync(tenant);
                     }
                     else
@@ -258,6 +262,21 @@ namespace HouseRentalManagement.Services
             catch (Exception ex)
             {
                 _logger.LogError("TenantService/GetTenantListForHouseEditPageAsync - exception:{@Ex}", new object[] { ex });
+            }
+            return model;
+        }
+
+        public async Task<ICollection<TenantDropdownViewModel>> GetTenantWaitListDropdownAsync()
+        {
+            ICollection<TenantDropdownViewModel> model = new List<TenantDropdownViewModel>();
+
+            try
+            {
+                model = await _tenantRepository.GetTenantWaitListDropdownAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TenantService/GetTenantWaitListDropdownAsync - exception:{@Ex}", new object[] { ex });
             }
             return model;
         }

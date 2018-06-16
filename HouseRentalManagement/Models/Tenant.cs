@@ -19,6 +19,7 @@ namespace HouseRentalManagement.Models
         public string ReferencePhone { get; set; }
 
         public DateTime StayStartDate { get; set; }
+        public bool IsOnWaitList { get; set; }
 
         public DateTime CreateDate { get; set; }
 

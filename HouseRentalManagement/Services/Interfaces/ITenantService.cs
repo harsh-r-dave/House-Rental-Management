@@ -16,5 +16,6 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, string Error)> AddTenantToHouseAsync(Guid houseId, Guid tenantId);
         Task<ICollection<TenantDropdownViewModel>> GetTenantListForHouseEditPageAsync(Guid houseId);
         Task<(bool Success, string Error)> RemoveTenantFromHouseAsync(Guid tenantId);
+        Task<ICollection<TenantDropdownViewModel>> GetTenantWaitListDropdownAsync();
     }
 }

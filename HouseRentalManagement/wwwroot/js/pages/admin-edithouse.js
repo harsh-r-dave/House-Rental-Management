@@ -329,11 +329,24 @@ Hrm.AdminEditHouse = function () {
 			$.each(result.list, function () {
 				$('#add-tenant-dropdown').append($("<option />").val(this.tenantId).text(this.fullName));
 			});
-		}).fail(function (jqXHR, textStatux) {
+		}).fail(function (jqXHR, textStatus) {
 			console.log(textStatus);
 		});
 
+	}; var fetchWaitListTenantDropDownOptions = function () {
+		$.ajax({
+			url: "/Admin/GetTenantWaitList",
+			method: "post"
+		}).done(function (result) {
+			$('#add-waitlist-tenant-dropdown').children('option:not(:first)').remove();
+			$.each(result.list, function () {
+				$('#add-waitlist-tenant-dropdown').append($("<option />").val(this.tenantId).text(this.fullName));
+			});
+		}).fail(function (jqXHR, textStatus) {
+			console.log(textStatus);
+		});
 	};
+	///// tenant without waitlist
 	var setTenantDropDownError = function () {
 		$('#add-tenant-dropdown').css('border', '1px solid red');
 		$('#add-tenant-dropdown-error').show();
@@ -374,6 +387,7 @@ Hrm.AdminEditHouse = function () {
 						toastr.success('Tenant added successfully.', '', Hrm.Toastr.config);
 						loadHouseTenants();
 						fetchTenantDropDownOptions();
+						fetchWaitListTenantDropDownOptions();
 					}
 					else {
 						toastr.error(result.error, '', Hrm.Toastr.config);
@@ -388,6 +402,64 @@ Hrm.AdminEditHouse = function () {
 			}
 		});
 	};
+	///// ^tenant without waitlist
+	///// wait list tenants	
+	var setWaitListTenantDropDownError = function () {
+		$('#add-waitlist-tenant-dropdown').css('border', '1px solid red');
+		$('#add-waitlist-tenant-dropdown-error').show();
+	};
+	var clearWaitListTenantDropDownError = function () {
+		$('#add-waitlist-tenant-dropdown').css('border', '');
+		$('#add-waitlist-tenant-dropdown-error').hide();
+	};
+	var initWaitListTenantDropDown = function () {
+		$('#add-waitlist-tenant-dropdown').on('change', function () { clearWaitListTenantDropDownError(); });
+		$('#add-waitlist-tenant-dropdown-error').hide();
+	};
+	var initWaitListAddTenantModal = function () {
+		$('#add-waitlist-tenant-modal').on('hide.bs.modal', function () { clearWaitListTenantDropDownError(); });
+	};
+	var initWaitListAddTenant = function () {
+		$('#add-waitlist-tenant-button').on('click', function () {
+			var allValid = true;
+			if ($('#add-waitlist-tenant-dropdown').val() === '' || $('#add-waitlist-tenant-dropdown').val() === null
+				|| $('#add-waitlist-tenant-dropdown').val() === undefined) {
+				allValid = false;
+				setWaitListTenantDropDownError();
+			}
+			else {
+				clearWaitListTenantDropDownError();
+			}
+			if (allValid) {
+				$('#add-waitlist-tenant-loader').show();
+				$.ajax({
+					url: "/Admin/AddTenantToHouse",
+					method: "post",
+					data: {
+						houseId: viewModel.houseId,
+						tenantId: $('#add-waitlist-tenant-dropdown').val()
+					}
+				}).done(function (result) {
+					if (result.success) {
+						toastr.success('Tenant added successfully.', '', Hrm.Toastr.config);
+						loadHouseTenants();
+						fetchTenantDropDownOptions();
+						fetchWaitListTenantDropDownOptions();
+					}
+					else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+					}
+					$('#add-waitlist-tenant-modal').modal('hide');
+					$('#add-waitlist-tenant-loader').hide();
+				}).fail(function (jqXHR, textStatus) {
+					console.log(textStatus);
+					toastr.error('Something went wrong while processing your request.', '', Hrm.Toastr.config);
+					$('#add-waitlist-tenant-loader').hide();
+				});
+			}
+		});
+	};
+	///// ^ wait list tenants
 	var removeTenant = function (tenantId) {
 		swal({
 			title: 'Are you sure?',
@@ -441,6 +513,9 @@ Hrm.AdminEditHouse = function () {
 		initTenantDropDown();
 		initAddTenant();
 		initAddTenantModal();
+		initWaitListAddTenant();
+		initWaitListTenantDropDown();
+		initWaitListAddTenantModal();
 	};
 	// ^business processes
 

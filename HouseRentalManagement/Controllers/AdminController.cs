@@ -492,6 +492,13 @@ namespace HouseRentalManagement.Controllers
             }
             return RedirectToAction(nameof(Tenants));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> GetTenantWaitList()
+        {
+            var result = await _tenantService.GetTenantWaitListDropdownAsync();
+            return Json(new { list = result });
+        }
         #endregion
     }
 }

@@ -47,6 +47,9 @@ namespace HouseRentalManagement.Models.AdminViewModels
         [Display(Name = "House")]
         public Guid? HouseId { get; set; }
 
+        [Display(Name = "Is on wait list?")]
+        public bool IsOnWaitList { get; set; }
+
         public string FullName { get; set; }
         public string HouseAddress { get; set; }
     }

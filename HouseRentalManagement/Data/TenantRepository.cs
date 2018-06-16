@@ -70,7 +70,7 @@ namespace HouseRentalManagement.Data
         public async Task<ICollection<TenantDropdownViewModel>> FetchTenantListForHouseEditPageAsync(Guid houseId)
         {
             return await (from t in _context.Tenant
-                          where t.HouseId != houseId
+                          where t.HouseId != houseId && !t.IsOnWaitList
                           select new TenantDropdownViewModel()
                           {
                               FullName = $"{t.LastName}, {t.FirstName}",
@@ -78,6 +78,19 @@ namespace HouseRentalManagement.Data
                           })
                           .ToListAsync();
                           
+        }
+
+        public async Task<ICollection<TenantDropdownViewModel>> GetTenantWaitListDropdownAsync()
+        {
+            return await (from t in _context.Tenant
+                          where t.IsOnWaitList
+                          select new TenantDropdownViewModel()
+                          {
+                              FullName = $"{t.LastName}, {t.FirstName}",
+                              TenantId = t.TenantId
+                          })
+                          .ToListAsync();
+
         }
     }
 }

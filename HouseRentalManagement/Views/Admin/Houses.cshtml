@@ -8,58 +8,61 @@
     <link href="~/lib/datatable/datatables.css" rel="stylesheet" />
 }
 
-<div class="container mt-20">	
-    <div class="row">
-		<div class="col-md-8">
-			<a class="btn btn-primary" asp-action="AddHouse" asp-controller="Admin">Add House</a>
-			<table id="house-list-table" class="table table-responsive table-hover hrm-table">
-				<thead>
-					<tr>
-						<th>Address</th>
-						<th>Rent</th>
-						<th style="width: 30px;"></th>
-					</tr>
-				</thead>
-				<tbody>
-					@if (Model.Houses != null)
-					{
-						foreach (var house in Model.Houses)
-						{
-							<tr>
-								<td>@house.Address</td>
-								<td>@house.Rent.ToString("C")</td>
-								<td>
-									<a asp-controller="Admin" asp-action="EditHouse" asp-route-id="@house.HouseId" class="edit-control"><i class="fa fa-pencil"></i></a>
-									<a href="javascript:void(0)" onclick="Hrm.AdminHouses.deleteHouse('@house.HouseId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
-								</td>
-							</tr>
-						}
-					}
-					@*<tr>
-					<td>123 Main Street</td>
-					<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
-				</tr>
-				<tr>
-					<td>456 Main Street</td>
-					<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
-				</tr>
-				<tr>
-					<td>368 Dunsmore Ln</td>
-					<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
-				</tr>
-				<tr>
-					<td>11 College Cr</td>
-					<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
-				</tr>
-				<tr>
-					<td>Some other house</td>
-					<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
-				</tr>*@
-				</tbody>
-			</table>
+	<div class="container mt-20">
+		<div class="row">
+			<div class="col-md-12"><h3>Houses</h3></div>
 		</div>
-    </div>
-</div>
+		<div class="row">
+			<div class="col-md-8">
+				<a class="btn btn-primary" asp-action="AddHouse" asp-controller="Admin">Add House</a>
+				<table id="house-list-table" class="table table-responsive table-hover hrm-table">
+					<thead>
+						<tr>
+							<th>Address</th>
+							<th>Rent</th>
+							<th style="width: 30px;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model.Houses != null)
+						{
+							foreach (var house in Model.Houses)
+							{
+								<tr>
+									<td>@house.Address</td>
+									<td>@house.Rent.ToString("C")</td>
+									<td>
+										<a asp-controller="Admin" asp-action="EditHouse" asp-route-id="@house.HouseId" class="edit-control"><i class="fa fa-pencil"></i></a>
+										<a href="javascript:void(0)" onclick="Hrm.AdminHouses.deleteHouse('@house.HouseId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+									</td>
+								</tr>
+							}
+						}
+						@*<tr>
+							<td>123 Main Street</td>
+							<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+						</tr>
+						<tr>
+							<td>456 Main Street</td>
+							<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+						</tr>
+						<tr>
+							<td>368 Dunsmore Ln</td>
+							<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+						</tr>
+						<tr>
+							<td>11 College Cr</td>
+							<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+						</tr>
+						<tr>
+							<td>Some other house</td>
+							<td><a href="javascript:void(0)"><i class="fa fa-pencil"></i></a></td>
+						</tr>*@
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 @section Scripts{
     <script src="~/lib/datatable/datatables.js"></script>

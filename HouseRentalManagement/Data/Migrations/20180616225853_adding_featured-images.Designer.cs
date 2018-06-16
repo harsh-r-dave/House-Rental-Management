@@ -11,9 +11,10 @@ using System;
 namespace HouseRentalManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180616225853_adding_featured-images")]
+    partial class adding_featuredimages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,26 +110,6 @@ namespace HouseRentalManagement.Data.Migrations
                     b.HasIndex("HouseFacilityId");
 
                     b.ToTable("Facility");
-                });
-
-            modelBuilder.Entity("HouseRentalManagement.Models.FeaturedImage", b =>
-                {
-                    b.Property<int>("FeaturedImageId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedUtc");
-
-                    b.Property<DateTime>("DisplayFromDate");
-
-                    b.Property<DateTime>("DisplayToDate");
-
-                    b.Property<string>("FileName");
-
-                    b.Property<bool>("ToDisplay");
-
-                    b.HasKey("FeaturedImageId");
-
-                    b.ToTable("FeaturedImage");
                 });
 
             modelBuilder.Entity("HouseRentalManagement.Models.House", b =>

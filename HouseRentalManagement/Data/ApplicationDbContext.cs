@@ -21,6 +21,7 @@ namespace HouseRentalManagement.Data
         public DbSet<HouseLeaseLength> HouseLeaseLengths { get; set; }
         public DbSet<HouseAmenity> HouseAmenity { get; set; }
         public DbSet<HouseGettingAround> HouseGettingAround { get; set; }
+        public DbSet<FeaturedImage> FeaturedImage { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -98,6 +99,11 @@ namespace HouseRentalManagement.Data
                 entity.HasOne(a => a.House)
                 .WithMany(b => b.HouseGettingArounds)
                 .HasForeignKey(a => a.HouseId);
+            });
+
+            builder.Entity<FeaturedImage>(entity => 
+            {
+                entity.HasKey(a => a.FeaturedImageId);
             });
         }
     }
