@@ -547,6 +547,43 @@ namespace HouseRentalManagement.Controllers
                 error = result.Error
             });
         }
+
+        public async Task<IActionResult> ListToBeDisplayedFeaturedPhotos()
+        {
+            var result = await _featuredPhotoService.GetToBeDisplayedFeaturedImagesAsync();
+            if (result.Success)
+            {
+                return PartialView("~/Views/Admin/_FeaturedPhotosPreviewPartial.cshtml", result.Model);
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = result.Success,
+                    error = result.Error
+                });
+            }
+        }
+
+        public async Task<IActionResult> RemoveToDisplayForFeaturedPhoto(int imageId)
+        {
+            var result = await _featuredPhotoService.ChangeToDisplayStatusByPhotoIdAsync(imageId, toDisplayStatus: false);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> SetToDisplayForFeaturedPhoto(int imageId)
+        {
+            var result = await _featuredPhotoService.ChangeToDisplayStatusByPhotoIdAsync(imageId, toDisplayStatus: true);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
         #endregion
     }
 }

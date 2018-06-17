@@ -27,6 +27,22 @@ Hrm.AdminFeaturedPhotos = function () {
 		});
 	};
 
+	var loadFeaturedPhotosPreview = function () {
+		$.ajax({
+			url: "/Admin/ListToBeDisplayedFeaturedPhotos",
+			type: "get",
+			success: function (result) {
+				if (result.hasOwnProperty('success') && !result.success) {
+					toastr.error(result.error, '', Hrm.Toastr.config);
+					$('#featured-photo-preview-container').html('Failed to load preview');
+				}
+				else {
+					$('#featured-photo-preview-container').html(result);
+				}
+			}
+		});
+	};
+
 	var uploadFeaturedPhoto = function () {
 		$('#upload-featured-photo-form').off().on('submit', function (e) {
 			e.preventDefault();
@@ -47,6 +63,7 @@ Hrm.AdminFeaturedPhotos = function () {
 						if (data) {
 							$('.dropify-clear').trigger('click');
 							loadFeaturedPhotos();
+							loadFeaturedPhotosPreview();
 							toastr.success("Photo has been uploaded successfully", "", Hrm.Toastr.config);
 						}
 						else {
@@ -85,6 +102,7 @@ Hrm.AdminFeaturedPhotos = function () {
 					if (result.success) {
 						toastr.success("Photo deleted successfully", '', Hrm.Toastr.config);
 						loadFeaturedPhotos();
+						loadFeaturedPhotosPreview();
 					}
 					else {
 						toastr.error(result.error, '', Hrm.Toastr.config);
@@ -97,11 +115,56 @@ Hrm.AdminFeaturedPhotos = function () {
 		});
 	};
 
+	var removeToDisplay = function (id) {
+		$.ajax({
+			url: "/Admin/RemoveToDisplayForFeaturedPhoto",
+			method: "post",
+			data: {
+				imageId: id
+			}
+		}).done(function (result) {
+			if (result.success) {
+				toastr.success("Changes saved successfully", '', Hrm.Toastr.config);
+				loadFeaturedPhotos();
+				loadFeaturedPhotosPreview();
+			}
+			else {
+				toastr.error(result.error, '', Hrm.Toastr.config);
+			}
+		}).fail(function (jqXHR, textStatus) {
+			console.log(textStatus);
+			toastr.error("Something went wrong while saving your changes", '', Hrm.Toastr.config);
+		});
+	};
+
+	var setToDisplay = function (id) {
+		$.ajax({
+			url: "/Admin/SetToDisplayForFeaturedPhoto",
+			method: "post",
+			data: {
+				imageId: id
+			}
+		}).done(function (result) {
+			if (result.success) {
+				toastr.success("Changes saved successfully", '', Hrm.Toastr.config);
+				loadFeaturedPhotos();
+				loadFeaturedPhotosPreview();
+			}
+			else {
+				toastr.error(result.error, '', Hrm.Toastr.config);
+			}
+		}).fail(function (jqXHR, textStatus) {
+			console.log(textStatus);
+			toastr.error("Something went wrong while saving your changes", '', Hrm.Toastr.config);
+		});
+	};
+
 	var initPage = function () {
 		initDropify();
 		initTooltip();
 		initUploadFeaturedPhoto();
 		loadFeaturedPhotos();
+		loadFeaturedPhotosPreview();
 	};
 
 	var init = function (model) {
@@ -112,7 +175,9 @@ Hrm.AdminFeaturedPhotos = function () {
 
 	var oPublic = {
 		init: init,
-		deleteFeaturedPhoto: deleteFeaturedPhoto
+		deleteFeaturedPhoto: deleteFeaturedPhoto,
+		removeToDisplay: removeToDisplay,
+		setToDisplay: setToDisplay
 	};
 	return oPublic;
 }();

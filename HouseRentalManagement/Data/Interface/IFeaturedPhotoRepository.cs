@@ -12,5 +12,6 @@ namespace HouseRentalManagement.Data.Interface
         Task<ICollection<FeaturedImage>> ListAllFeaturedImagesAsync();
         Task<bool> DeleteFeaturedImageAsync(FeaturedImage record);
         Task<FeaturedImage> FetchFeatureImageByIdAsync(int id);
+        Task<ICollection<FeaturedImage>> ListToBeDisplayedFeaturedImagesAsync();
     }
 }

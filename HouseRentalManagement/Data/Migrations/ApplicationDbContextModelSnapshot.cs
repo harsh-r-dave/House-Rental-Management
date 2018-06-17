@@ -118,10 +118,6 @@ namespace HouseRentalManagement.Data.Migrations
 
                     b.Property<DateTime>("CreatedUtc");
 
-                    b.Property<DateTime>("DisplayFromDate");
-
-                    b.Property<DateTime>("DisplayToDate");
-
                     b.Property<string>("FileName");
 
                     b.Property<bool>("ToDisplay");

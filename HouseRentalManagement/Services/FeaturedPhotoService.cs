@@ -64,8 +64,6 @@ namespace HouseRentalManagement.Services
                         FeaturedImage fi = new FeaturedImage()
                         {
                             FileName = model.Image.FileName,
-                            DisplayFromDate = model.DisplayFrom,
-                            DisplayToDate = model.DisplayTill,
                             CreatedUtc = DateTime.Now,
                             ToDisplay = model.ToDisplay
                         };
@@ -112,10 +110,6 @@ namespace HouseRentalManagement.Services
                         {
                             PhotoId = photo.FeaturedImageId,
                             FileName = photo.FileName,
-                            DisplayFromDateString = photo.DisplayFromDate == DateTime.MinValue || photo.DisplayFromDate == DateTime.MaxValue
-                                                    ? "" : photo.DisplayFromDate.ToString("dd-MMM-yyyy"),
-                            DisplayTillDateString = photo.DisplayToDate == DateTime.MaxValue || photo.DisplayToDate == DateTime.MinValue
-                                                    ? "" : photo.DisplayToDate.ToString("dd-MMM-yyyy"),
                             ToDisplay = photo.ToDisplay,
                             FilePath = fullPath
                         });
@@ -156,6 +150,80 @@ namespace HouseRentalManagement.Services
 
                         // delete record
                         success = await _featuredPhotoRepository.DeleteFeaturedImageAsync(image);
+                    }
+                    else
+                    {
+                        error = "Image record not found";
+                    }
+                }
+                else
+                {
+                    error = "Invalid id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while processing your request";
+                _logger.LogError("FeaturedPhotoService/DeleteFeaturedImageAsyncById - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (Success: success, Error: error);
+        }
+
+        public async Task<(bool Success, string Error, ListFeaturedPhotoViewModel Model)> GetToBeDisplayedFeaturedImagesAsync()
+        {
+            bool success = false;
+            string error = string.Empty;
+            var model = new ListFeaturedPhotoViewModel()
+            {
+                featuredPhotosCollection = new List<FeaturedPhotosViewModel>()
+            };
+
+            try
+            {
+                var featuredPhotos = await _featuredPhotoRepository.ListToBeDisplayedFeaturedImagesAsync();
+                if (featuredPhotos != null)
+                {
+                    foreach (var photo in featuredPhotos)
+                    {
+                        // prepare path
+                        var destinationPath = Path.Combine(_imageOptions.FeaturedPhotoPath);
+                        var fullPath = string.Format("{0}{1}{2}", "/", destinationPath, photo.FileName);
+
+                        model.featuredPhotosCollection.Add(new FeaturedPhotosViewModel()
+                        {
+                            FilePath = fullPath
+                        });
+                    }
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while processing your request";
+                _logger.LogError("FeaturedPhotoService/GetToBeDisplayedFeaturedImagesAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+            return (Success: success, Error: error, Model: model);
+        }
+
+        public async Task<(bool Success, string Error)> ChangeToDisplayStatusByPhotoIdAsync(int imageId, bool toDisplayStatus)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                if (imageId > 0)
+                {
+                    FeaturedImage image = await _featuredPhotoRepository.FetchFeatureImageByIdAsync(imageId);
+                    if (image != null)
+                    {
+                        image.ToDisplay = toDisplayStatus;
+                        success = await _featuredPhotoRepository.SaveFeaturedPhotoAsync(image);
                     }
                     else
                     {

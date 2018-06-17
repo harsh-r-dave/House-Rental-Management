@@ -16,7 +16,7 @@ namespace HouseRentalManagement.Data
         {
             _context = context;
         }
-        
+
         public async Task<bool> SaveFeaturedPhotoAsync(FeaturedImage record)
         {
             if (_context.Entry(record).State == Microsoft.EntityFrameworkCore.EntityState.Detached)
@@ -29,7 +29,7 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<FeaturedImage>> ListAllFeaturedImagesAsync()
         {
-            return await _context.FeaturedImage.OrderByDescending(a=>a.ToDisplay).ToListAsync();
+            return await _context.FeaturedImage.OrderByDescending(a => a.ToDisplay).ToListAsync();
         }
 
         public async Task<FeaturedImage> FetchFeatureImageByIdAsync(int id)
@@ -41,6 +41,11 @@ namespace HouseRentalManagement.Data
         {
             _context.FeaturedImage.Remove(record);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<ICollection<FeaturedImage>> ListToBeDisplayedFeaturedImagesAsync()
+        {
+            return await _context.FeaturedImage.Where(a => a.ToDisplay).ToListAsync();
         }
     }
 }

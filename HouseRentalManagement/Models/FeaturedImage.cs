@@ -10,8 +10,6 @@ namespace HouseRentalManagement.Models
         public int FeaturedImageId { get; set; }
         public string FileName { get; set; }
 
-        public DateTime DisplayFromDate { get; set; }
-        public DateTime DisplayToDate { get; set; }
         public bool ToDisplay { get; set; }
 
         public DateTime CreatedUtc { get; set; }

@@ -6,6 +6,7 @@
 @section Styles{
 	<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 	<link href="~/lib/dropify/css/dropify.css" rel="stylesheet" />
+	<link href="~/css/pages/admin-featuredphoto.css" rel="stylesheet" />
 }
 
 <div class="container">
@@ -24,7 +25,7 @@
 					<div class="col-md-12">
 						<label>
 							<input asp-for="ToDisplay" checked />
-							<label asp-for="ToDisplay"></label> <span data-toggle="tooltip" title="Image will be displayed on main page of the website"><i class="fa fa-info-circle"></i></span>
+							<label asp-for="ToDisplay"></label> <span data-toggle="tooltip" title="Image will be displayed on main page of the website"><i class="fa fa-question-circle"></i></span>
 						</label>
 					</div>
 				</div>
@@ -39,8 +40,10 @@
 			</form>
 		</div>
 		<div class="col-md-8">
+			<h4>Preview <span data-toggle="tooltip" title="Actual representation of featured photos might differ on Home page"><i class="fa fa-info-circle"></i></span></h4>
+			<span>Only photos selected "To be displayed" will be displayed here.</span>
 			<div id="featured-photo-preview-container">
-				<h4>Preview</h4>
+				<h4>Loading Preview <i class="fa fa-spinner fa-spin"></i></h4>
 			</div>
 		</div>
 	</div>

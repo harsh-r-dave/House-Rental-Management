@@ -11,5 +11,7 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, string Error)> UploadFeaturePhotoAsync(FeaturedPhotosViewModel model);
         Task<(bool Success, string Error, ListFeaturedPhotoViewModel Model)> GetListFeaturedPhotosViewModelAsync();
         Task<(bool Success, string Error)> DeleteFeaturedImageAsyncById(int id);
+        Task<(bool Success, string Error, ListFeaturedPhotoViewModel Model)> GetToBeDisplayedFeaturedImagesAsync();
+        Task<(bool Success, string Error)> ChangeToDisplayStatusByPhotoIdAsync(int imageId, bool toDisplayStatus);
     }
 }

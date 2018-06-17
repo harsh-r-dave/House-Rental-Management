@@ -8,8 +8,6 @@
 		<tr>
 			<th></th>
 			<th>File</th>
-			<th>Display From</th>
-			<th>Display Till</th>
 			<th class="text-center">Is being displayed?</th>
 			<th></th>
 		</tr>
@@ -24,8 +22,6 @@
 						<img class="img img-responsive house-image-preview" src="@image.FilePath" height="200px" width="200px" />
 					</td>
 					<td>@image.FileName</td>
-					<td>@image.DisplayFromDateString</td>
-					<td>@image.DisplayTillDateString</td>
 					<td class="text-center">
 						@if (image.ToDisplay)
 						{<i class="fa fa-check"></i>}
@@ -34,7 +30,14 @@
 					</td>
 					<td>
 						<a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminFeaturedPhotos.deleteFeaturedPhoto('@image.PhotoId');" title="Delete @image.FileName"><i class="fa fa-close"></i></a>
-						<a href="javascript:void(0)" class="btn btn-primary" onclick="Hrm.AdminFeaturedPhotos.setToDisplay('@image.PhotoId');" title="Display this photo"><i class="fa fa-check"></i> Display Image?</a>
+						@if (image.ToDisplay)
+						{
+							<a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminFeaturedPhotos.removeToDisplay('@image.PhotoId');" title="Display this photo"><i class="fa fa-close"></i> Do Not Display Image?</a>
+						}
+						else
+						{
+							<a href="javascript:void(0)" class="btn btn-primary" onclick="Hrm.AdminFeaturedPhotos.setToDisplay('@image.PhotoId');" title="Display this photo"><i class="fa fa-check"></i> Display Image?</a>
+						}
 					</td>
 				</tr>
 			}
