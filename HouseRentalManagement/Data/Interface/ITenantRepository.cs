@@ -12,6 +12,7 @@ namespace HouseRentalManagement.Data.Interface
         Task<(bool Success, Guid id)> AddTenantAsync(Tenant Tenant);
         Task<bool> UpdateTenantAsync(Tenant Tenant);
         Task<ICollection<Tenant>> ListTenantsAsync();
+        Task<ICollection<Tenant>> ListTenantWaitListAsync();
         Task<Tenant> FetchTenantByIdAsync(Guid id);
         Task<bool> DeleteTenantAsync(Tenant Tenant);
         Task<ICollection<Tenant>> FetchTenantsListByHouseIdAsync(Guid houseId);

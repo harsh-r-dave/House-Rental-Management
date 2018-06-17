@@ -8,58 +8,118 @@
 	<link href="~/lib/datatable/datatables.css" rel="stylesheet" />
 }
 
-	<div class="container mt-20">
-		<div class="row">
-			<div class="col-md-12"><h3>Tenants</h3></div>
+<div class="container mt-20">
+	<div class="row">
+		<div class="col-md-12"><h3>Tenants</h3></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<a class="btn btn-primary" asp-action="AddTenant" asp-controller="Admin">Add Tenant</a>
 		</div>
-		<div class="row">
-			<div class="col-md-10">
-				<a class="btn btn-primary" asp-action="AddTenant" asp-controller="Admin">Add Tenant</a>
-				<table id="tenant-list-table" class="table table-responsive table-hover hrm-table">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Phone</th>
-							<th>Reference Name</th>
-							<th>Reference Phone</th>
-							<th>House</th>
-							<th>On Wait List?</th>
-							<th style="width: 30px;"></th>
-						</tr>
-					</thead>
-					<tbody>
-						@if (Model.TenantCollection != null)
-						{
-							foreach (var tenant in Model.TenantCollection)
+	</div>
+	<ul class="nav nav-tabs mt-20">
+		<li class="active"><a data-toggle="tab" href="#tenants">Tenants</a></li>
+		<li><a data-toggle="tab" href="#wait-list">Wait List</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tenants">
+			<div class="row">
+				<div class="col-md-10">
+					<table id="tenant-list-table" class="table table-responsive table-hover hrm-table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Phone</th>
+								<th>Reference Name</th>
+								<th>Reference Phone</th>
+								<th>House</th>
+								<th>On Wait List?</th>
+								<th style="width: 30px;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model.TenantCollection != null)
 							{
-								<tr>
-									<td>@tenant.FullName</td>
-									<td>@tenant.PhoneNumber</td>
-									<td>@tenant.ReferenceName</td>
-									<td>@tenant.ReferencePhone</td>
-									<td>@tenant.HouseAddress</td>
-									<td class="text-center">
-										@if (tenant.IsOnWaitList)
-										{
-											<i class="fa fa-check"></i>
-										}
-										else
-										{
-											<i class="fa fa-close"></i>
-										}
-									</td>
-									<td>
-										<a asp-controller="Admin" asp-action="EditTenant" asp-route-id="@tenant.TenantId" class="edit-control"><i class="fa fa-pencil"></i></a>
-										<a href="javascript:void(0)" onclick="Hrm.AdminTenants.deleteTenant('@tenant.TenantId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
-									</td>
-								</tr>
+								foreach (var tenant in Model.TenantCollection)
+								{
+									<tr>
+										<td>@tenant.FullName</td>
+										<td>@tenant.PhoneNumber</td>
+										<td>@tenant.ReferenceName</td>
+										<td>@tenant.ReferencePhone</td>
+										<td>@tenant.HouseAddress</td>
+										<td class="text-center">
+											@if (tenant.IsOnWaitList)
+											{
+												<i class="fa fa-check"></i>
+											}
+											else
+											{
+												<i class="fa fa-close"></i>
+											}
+										</td>
+										<td>
+											<a asp-controller="Admin" asp-action="EditTenant" asp-route-id="@tenant.TenantId" class="edit-control"><i class="fa fa-pencil"></i></a>
+											<a href="javascript:void(0)" onclick="Hrm.AdminTenants.deleteTenant('@tenant.TenantId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+										</td>
+									</tr>
+								}
 							}
-						}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade in" id="wait-list">
+			<div class="row">
+				<div class="col-md-10">					
+					<table id="tenant-waitlist-table" class="table table-responsive table-hover hrm-table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Phone</th>
+								<th>Reference Name</th>
+								<th>Reference Phone</th>
+								<th>House</th>
+								<th>On Wait List?</th>
+								<th style="width: 30px;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model.TenantWaitListCollection != null)
+							{
+								foreach (var tenant in Model.TenantWaitListCollection)
+								{
+									<tr>
+										<td>@tenant.FullName</td>
+										<td>@tenant.PhoneNumber</td>
+										<td>@tenant.ReferenceName</td>
+										<td>@tenant.ReferencePhone</td>
+										<td>@tenant.HouseAddress</td>
+										<td class="text-center">
+											@if (tenant.IsOnWaitList)
+											{
+												<i class="fa fa-check"></i>
+											}
+											else
+											{
+												<i class="fa fa-close"></i>
+											}
+										</td>
+										<td>
+											<a asp-controller="Admin" asp-action="EditTenant" asp-route-id="@tenant.TenantId" class="edit-control"><i class="fa fa-pencil"></i></a>
+											<a href="javascript:void(0)" onclick="Hrm.AdminTenants.deleteTenant('@tenant.TenantId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+										</td>
+									</tr>
+								}
+							}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 @section Scripts{
 	<script src="~/lib/datatable/datatables.js"></script>

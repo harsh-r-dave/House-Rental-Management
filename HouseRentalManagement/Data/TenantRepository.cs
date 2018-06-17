@@ -46,8 +46,17 @@ namespace HouseRentalManagement.Data
         public async Task<ICollection<Tenant>> ListTenantsAsync()
         {
             return await (from t in _context.Tenant
+                          where !t.IsOnWaitList
                           select t)
                           .Include(a=>a.House)
+                          .ToListAsync();
+        }
+
+        public async Task<ICollection<Tenant>> ListTenantWaitListAsync() {
+            return await (from t in _context.Tenant
+                          where t.IsOnWaitList
+                          select t)
+                          .Include(a => a.House)
                           .ToListAsync();
         }
 

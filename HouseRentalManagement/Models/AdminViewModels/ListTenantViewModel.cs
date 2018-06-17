@@ -8,5 +8,6 @@ namespace HouseRentalManagement.Models.AdminViewModels
     public class ListTenantViewModel
     {
         public ICollection<AddTenantViewModel> TenantCollection = new HashSet<AddTenantViewModel>();
+        public ICollection<AddTenantViewModel> TenantWaitListCollection = new HashSet<AddTenantViewModel>();
     }
 }

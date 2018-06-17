@@ -51,6 +51,27 @@ namespace HouseRentalManagement.Services
                     }
                 }
 
+                var tenantsWaitList = await _tenantRepository.ListTenantWaitListAsync();
+                if (tenantsWaitList != null)
+                {
+                    foreach (var tenant in tenantsWaitList)
+                    {
+                        var parts = new string[] { tenant.LastName, tenant.FirstName };
+                        var fullName = string.Join(",", parts.Where(a => !string.IsNullOrEmpty(a)));
+                        model.TenantWaitListCollection.Add(new AddTenantViewModel()
+                        {
+                            HouseId = tenant.HouseId,
+                            TenantId = tenant.TenantId,
+                            FullName = fullName,
+                            PhoneNumber = tenant.PhoneNumber,
+                            ReferenceName = tenant.ReferenceName,
+                            ReferencePhone = tenant.ReferencePhone,
+                            HouseAddress = tenant.House?.AddressLine1,
+                            IsOnWaitList = tenant.IsOnWaitList
+                        });
+                    }
+                }
+
                 success = true;
             }
             catch (Exception ex)

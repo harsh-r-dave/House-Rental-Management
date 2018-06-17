@@ -11,6 +11,13 @@ Hrm.AdminTenants = function () {
 				"orderable": false
 			}]
 		});
+		$('#tenant-waitlist-table').dataTable({
+			"sDom": '<"top"f>rt<"bottom"lp><"clear">',
+			"columnDefs": [{
+				"targets": [-1],
+				"orderable": false
+			}]
+		});
 	};
 
 	var deleteTenant = function (id) {
