@@ -9,5 +9,6 @@ namespace HouseRentalManagement.Config
     {
         public string AmenityImagePath { get; set; }
         public string HouseImagePath { get; set; }
+        public string FeaturedPhotoPath { get; set; }
     }
 }

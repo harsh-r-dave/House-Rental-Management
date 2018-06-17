@@ -1,0 +1,49 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.ListFeaturedPhotoViewModel
+
+<table class="table table-responsive table-hover">
+	<thead>
+		<tr>
+			<th colspan="4"><h4>Uploaded Images</h4></th>
+		</tr>
+		<tr>
+			<th></th>
+			<th>File</th>
+			<th>Display From</th>
+			<th>Display Till</th>
+			<th class="text-center">Is being displayed?</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.featuredPhotosCollection != null && Model.featuredPhotosCollection.Any())
+		{
+			@foreach (var image in Model.featuredPhotosCollection)
+			{
+				<tr>
+					<td>
+						<img class="img img-responsive house-image-preview" src="@image.FilePath" height="200px" width="200px" />
+					</td>
+					<td>@image.FileName</td>
+					<td>@image.DisplayFromDateString</td>
+					<td>@image.DisplayTillDateString</td>
+					<td class="text-center">
+						@if (image.ToDisplay)
+						{<i class="fa fa-check"></i>}
+						else
+						{<i class="fa fa-close"></i>}
+					</td>
+					<td>
+						<a href="javascript:void(0)" class="btn btn-danger" onclick="Hrm.AdminFeaturedPhotos.deleteFeaturedPhoto('@image.PhotoId');" title="Delete @image.FileName"><i class="fa fa-close"></i></a>
+						<a href="javascript:void(0)" class="btn btn-primary" onclick="Hrm.AdminFeaturedPhotos.setToDisplay('@image.PhotoId');" title="Display this photo"><i class="fa fa-check"></i> Display Image?</a>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="2"> No featured images are uploaded.</td>
+			</tr>
+		}
+	</tbody>
+</table>

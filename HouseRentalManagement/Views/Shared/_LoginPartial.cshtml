@@ -12,32 +12,36 @@
                 <a asp-area="" asp-controller="Admin" asp-action="Index" 
                    class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Management <span class="caret"></span></a>
 
-                <ul class="dropdown-menu" role="menu" id="management-menu">
-                    <li role="presentation">
-                        <a asp-area="" asp-controller="Admin" asp-action="Houses">List House</a>
-                    </li>
-                    <li role="presentation">
-                        <a asp-area="" asp-controller="Admin" asp-action="AddHouse">Add House</a>
-                    </li>
-                    <li><hr /></li>
-                    <li role="presentation">
-                        <a asp-area="" asp-controller="Admin" asp-action="Tenants">List Tenants</a>
-                    </li>
-                    <li role="presentation">
-                        <a asp-area="" asp-controller="Admin" asp-action="AddTenant">Add Tenant</a>
-                    </li>
-                    <li><hr /></li>
-                    <li role="presentation">
-                        <a asp-action="ManageFacility" asp-controller="Admin">Manage Facilities</a>
-                    </li>
-                    <li><hr /></li>
-                    <li>
-                        <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@*Hello @UserManager.GetUserName(User)!*@ My profile</a>
-                    </li>
-                    <li>
-                        <button type="submit" class="btn-link navbar-btn navbar-link" style="padding: 0px 20px;">Log out</button>
-                    </li>
-                </ul>
+				<ul class="dropdown-menu" role="menu" id="management-menu">
+					<li role="presentation">
+						<a asp-area="" asp-controller="Admin" asp-action="Houses">List House</a>
+					</li>
+					<li role="presentation">
+						<a asp-area="" asp-controller="Admin" asp-action="AddHouse">Add House</a>
+					</li>
+					<li><hr /></li>
+					<li role="presentation">
+						<a asp-area="" asp-controller="Admin" asp-action="Tenants">List Tenants</a>
+					</li>
+					<li role="presentation">
+						<a asp-area="" asp-controller="Admin" asp-action="AddTenant">Add Tenant</a>
+					</li>
+					<li><hr /></li>
+					<li role="presentation">
+						<a asp-action="ManageFacility" asp-controller="Admin">Manage Facilities</a>
+					</li>
+					<li><hr /></li>
+					<li role="presentation">
+						<a asp-action="FeaturedPhotos" asp-controller="Admin">Manage Featured Photos</a>
+					</li>
+					<li><hr /></li>
+					<li>
+						<a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@*Hello @UserManager.GetUserName(User)!*@ My profile</a>
+					</li>
+					<li>
+						<button type="submit" class="btn-link navbar-btn navbar-link" style="padding: 0px 20px;">Log out</button>
+					</li>
+				</ul>
             </li>
         </ul>
     </form>

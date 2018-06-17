@@ -18,16 +18,19 @@ namespace HouseRentalManagement.Controllers
         private readonly IFacilityService _facilityService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITenantService _tenantService;
+        private readonly IFeaturedPhotoService _featuredPhotoService;
 
         public AdminController(IHouseService houseService,
            UserManager<ApplicationUser> userManager,
            IFacilityService facilityService,
-           ITenantService tenantService)
+           ITenantService tenantService,
+           IFeaturedPhotoService featuredPhotoService)
         {
             _houseService = houseService;
             _userManager = userManager;
             _facilityService = facilityService;
             _tenantService = tenantService;
+            _featuredPhotoService = featuredPhotoService;
         }
 
         #region House
@@ -468,7 +471,7 @@ namespace HouseRentalManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RemoveTenantFromHouse (Guid tenantId, Guid houseId)
+        public async Task<IActionResult> RemoveTenantFromHouse(Guid tenantId, Guid houseId)
         {
             var result = await _tenantService.RemoveTenantFromHouseAsync(tenantId);
             return Json(new { success = result.Success, error = result.Error });
@@ -498,6 +501,51 @@ namespace HouseRentalManagement.Controllers
         {
             var result = await _tenantService.GetTenantWaitListDropdownAsync();
             return Json(new { list = result });
+        }
+        #endregion
+
+        #region Featured Photo
+        public IActionResult FeaturedPhotos()
+        {
+            return View(new FeaturedPhotosViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFeaturedPhoto(FeaturedPhotosViewModel model)
+        {
+            var result = await _featuredPhotoService.UploadFeaturePhotoAsync(model);
+            if (result.Success)
+            {
+                return Json(true);
+            }
+            return Json(false);
+        }
+
+        public async Task<IActionResult> ListFeaturedPhotos()
+        {
+            var result = await _featuredPhotoService.GetListFeaturedPhotosViewModelAsync();
+            if (result.Success)
+            {
+                return PartialView("~/Views/Admin/_FeaturedPhotoListPartial.cshtml", result.Model);
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = result.Success,
+                    error = result.Error
+                });
+            }
+        }
+
+        public async Task<IActionResult> DeleteFeaturedPhoto(int imageId)
+        {
+            var result = await _featuredPhotoService.DeleteFeaturedImageAsyncById(imageId);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
         }
         #endregion
     }
