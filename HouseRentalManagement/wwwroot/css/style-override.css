@@ -1,6 +1,12 @@
 ﻿/*
     colors: #337ab7, #5996bb, #0b5f92
 */
+/*
+    fonts: Patua One
+*/
+
+/*@import url('https://fonts.googleapis.com/css?family=Patua+One');*/
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
 /* main container */
 #jhr-page {
@@ -12,6 +18,8 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    /*font-family: 'Patua One', cursive;*/
+    font-family: 'Roboto Slab', cursive;
 }
 
 /* navbar */
@@ -353,6 +361,16 @@ a.edit-control {
 
 .table-hover > tbody > tr:hover {
     background-color: #8dc4f3;
+}
+
+@media screen and (max-width: 767px) {
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 0px solid #ddd;
+    }
 }
 
 .dataTables_wrapper .bottom {

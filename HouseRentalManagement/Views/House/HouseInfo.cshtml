@@ -5,28 +5,139 @@
 @section Styles{
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="~/lib/fancybox/jquery.fancybox.css" rel="stylesheet" />
+	<link href="~/lib/slick-carousel/dist/slick.css" rel="stylesheet" />
+	<link href="~/lib/slick-carousel/dist/slick-theme.css" rel="stylesheet" />
 	<link href="~/css/pages/house-info.css" rel="stylesheet" />
 }
 
 <div class="container">
 	<div class="house-info">
 		<div class="row">
-			<div class="col-md-4">
-				<div class="house-image">
-					<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-				</div>
-			</div>
-			<div class="col-md-8">
+			<div class="col-md-6 col-sm-12 col-xs-12">
 				<div class="row">
-					<div class="house-title">
-						123 Main Street<br />
-						<span class="rent-amount">$350/ month</span>
+					<div class="col-md-12">
+						<div class="house-image">
+							<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					Eu ius posse quidam nonumes, est no nihil doming admodum. Postea molestie cum ea. Magna augue gloriatur ad sit, duo blandit accusata ad. Vim meis indoctum ea, sint homero deleniti vel ne. Omittam invenire cu mel. Sit in timeam adipisci reprimique.
+				<div class="row mt-10">
+					<div class="col-md-12">
+						<div id="house-images-container">
+							<a class="image" href="~/images/testimages/20180331_121713.jpg">
+								<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+							</a>
+							<a class="image" href="~/images/testimages/20180330_121325.jpg">
+								<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+							</a>
+							<a class="image" href="~/images/testimages/20180331_142913.jpg">
+								<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+							</a>
+							<a class="item image" href="~/images/testimages/20180330_162115.jpg">
+								<img src="~/images/testimages/20180330_162115.jpg" alt="" />
+							</a>
+							<a class="item image" href="~/images/testimages/20180331_130044.jpg">
+								<img src="~/images/testimages/20180331_130044.jpg" alt="" />
+							</a>
+							<a class="item image" href="~/images/testimages/20180331_142251.jpg">
+								<img src="~/images/testimages/20180331_142251.jpg" alt="" />
+							</a>
+							<a class="item image" href="~/images/testimages/_IGP0542.jpg">
+								<img src="~/images/testimages/_IGP0542.jpg" alt="" />
+							</a>
+						</div>
+					</div>
 				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 col-xs-12">
 				<div class="row">
+					<div class="col-md-12">
+						<div class="house-title">
+							<label>123 Main Street, Barrie, L4M1A1</label><br />
+							<span class="rent-amount"><strong>Rent:</strong> $350 (CDN$) per month</span>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-10">
+					<div class="col-md-12">
+						<strong>Description</strong> <br />
+						Eu ius posse quidam nonumes, est no nihil doming admodum. Postea molestie cum ea. Magna augue gloriatur ad sit, duo blandit accusata ad. Vim meis indoctum ea, sint homero deleniti vel ne. Omittam invenire cu mel. Sit in timeam adipisci reprimique.
+					</div>
+				</div>
+				<div class="row mt-10">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-6"><strong><strong>Lease options:</strong></strong></div>
+							<div class="col-md-8 col-sm-8 col-xs-6"> 4 Months, 8 Months, 12 Months</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-6"><strong>Date Availbale:</strong></div>
+							<div class="col-md-8 col-sm-8 col-xs-6">September 1, 2018</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of occupancy:</strong></div>
+							<div class="col-md-8 col-sm-8 col-xs-6">1</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of parking space:</strong></div>
+							<div class="col-md-8 col-sm-8 col-xs-6">3</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of washrooms:</strong></div>
+							<div class="col-md-8 col-sm-8 col-xs-6">2.5</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="row facility-container">
+			<div class="col-md-8">
+				<h4>Amenities</h4><br />
+				<div class="row">
+					<div class="col-md-6">
+						<img src="~/images/ameneties/wifi.png" /> <span>Wi-Fi</span><br />
+						<img src="~/images/ameneties/ac.png" /> <span>Air Condioner</span><br />
+						<img src="~/images/ameneties/heat.png" /> <span>Heat</span><br />
+						<img src="~/images/ameneties/furnished.png" /> <span>Fully Furnished</span><br />
+						<img src="~/images/ameneties/water.png" /> <span>Water</span><br />
+						<img src="~/images/ameneties/garage.png" /> <span>Private Garage</span><br />
+						<img src="~/images/ameneties/garbage.png" /> <span>Garbage Pick-up</span><br />
+						<img src="~/images/ameneties/bus.png" /> <span>Close to Bus Stop</span><br />
+						<img src="~/images/ameneties/closet.png" /> <span>Closet in Rooms</span><br />
+						<img src="~/images/ameneties/dishwasher.png" /> <span>Dishwasher</span><br />
+					</div>
+					<div class="col-md-6">
+						<img src="~/images/ameneties/fridge.png" /> <span>Refrigerator</span><br />
+						<img src="~/images/ameneties/microwave.png" /> <span>Microwave Oven</span><br />
+						<img src="~/images/ameneties/stove.png" /> <span>Stove</span><br />
+						<img src="~/images/ameneties/tv.png" /> <span>Television</span><br />
+						<img src="~/images/ameneties/washer.png" /> <span>On-site Laundry</span><br />
+						<img src="~/images/ameneties/wooden.png" /> <span>Wooden floor</span><br />
+						<img src="~/images/ameneties/cctv.png" /> <span>CCTV</span><br />
+						<img src="~/images/ameneties/bed.png" /> <span>Bed</span><br />
+						<img src="~/images/ameneties/washroom.png" /> <span>Washroom</span><br />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-6">
+						<h4>Utilities included</h4><br />
+						<img src="~/images/ameneties/electricity.png" /> <span>Electricity</span><br />
+						<img src="~/images/ameneties/ac.png" /> <span>Air Condioner</span><br />
+						<img src="~/images/ameneties/heat.png" /> <span>Heat</span><br />
+						<img src="~/images/ameneties/water.png" /> <span>Water</span><br />
+						<img src="~/images/ameneties/garage.png" /> <span>Private Garage</span><br />
+						<img src="~/images/ameneties/garbage.png" /> <span>Garbage Pick-up</span><br />
+						<img src="~/images/ameneties/washer.png" /> <span>On-site Laundry</span><br />
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			@*<div class="col-md-5">
 					<div id="contact-info-container">
 						<h4>Contact</h4>
 						<div class="row">
@@ -47,58 +158,43 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>*@
+			<div class="col-md-4">
+				<h4>Things Not Permitted</h4><br />
+				<span>Pets</span><br />
+				<span>Smoke/ Alcohol</span><br />
+				<span>Overnight Guest Stay</span><br />
+				<span>Late Night Parties</span><br />
 			</div>
-		</div>
-		<div class="row facility-container">
-			<div class="col-md-6">
-				<label class="bold">Amenities</label><br />
-				<div class="row">
-					<div class="col-md-6">
-						<img src="~/images/ameneties/wifi.png" class="img img-circle" /> <span>Wi-Fi</span><br />
-						<img src="~/images/ameneties/ac.png" class="img img-circle" /> <span>Air Condioner</span><br />
-						<img src="~/images/ameneties/heat.png" class="img img-circle" /> <span>Heat</span><br />
-						<img src="~/images/ameneties/furnished.png" class="img img-circle" /> <span>Fully Furnished</span><br />
-						<img src="~/images/ameneties/water.png" class="img img-circle" /> <span>Water</span><br />
-						<img src="~/images/ameneties/garage.png" class="img img-circle" /> <span>Private Garage</span><br />
-						<img src="~/images/ameneties/garbage.png" class="img img-circle" /> <span>Garbage Pick-up</span><br />
-						<img src="~/images/ameneties/bus.png" class="img img-circle" /> <span>Close to Bus Stop</span><br />
-						<img src="~/images/ameneties/closet.png" class="img img-circle" /> <span>Closet in Rooms</span><br />
-						<img src="~/images/ameneties/dishwasher.png" class="img img-circle" /> <span>Dishwasher</span><br />
-					</div>
-					<div class="col-md-6">
-						<img src="~/images/ameneties/fridge.png" class="img img-circle" /> <span>Refrigerator</span><br />
-						<img src="~/images/ameneties/microwave.png" class="img img-circle" /> <span>Microwave Oven</span><br />
-						<img src="~/images/ameneties/stove.png" class="img img-circle" /> <span>Stove</span><br />
-						<img src="~/images/ameneties/tv.png" class="img img-circle" /> <span>Television</span><br />
-						<img src="~/images/ameneties/washer.png" class="img img-circle" /> <span>On-site Laundry</span><br />
-						<img src="~/images/ameneties/wooden.png" class="img img-circle" /> <span>Wooden floor</span><br />
-						<img src="~/images/ameneties/cctv.png" class="img img-circle" /> <span>CCTV</span><br />
-						<img src="~/images/ameneties/bed.png" class="img img-circle" /> <span>Bed</span><br />
-						<img src="~/images/ameneties/washroom.png" class="img img-circle" /> <span>Washroom</span><br />
-					</div>
-				</div>				
-			</div>
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-6">
-						<label>Utilities included</label><br />
-						<img src="~/images/ameneties/electricity.png" class="img img-circle" /> <span>Electricity</span><br />
-						<img src="~/images/ameneties/ac.png" class="img img-circle" /> <span>Air Condioner</span><br />
-						<img src="~/images/ameneties/heat.png" class="img img-circle" /> <span>Heat</span><br />
-						<img src="~/images/ameneties/water.png" class="img img-circle" /> <span>Water</span><br />
-						<img src="~/images/ameneties/garage.png" class="img img-circle" /> <span>Private Garage</span><br />
-						<img src="~/images/ameneties/garbage.png" class="img img-circle" /> <span>Garbage Pick-up</span><br />
-						<img src="~/images/ameneties/washer.png" class="img img-circle" /> <span>On-site Laundry</span><br />
-					</div>
-					<div class="col-md-6">
-						<label>Thing Not Allowed</label><br />
-						<span>Pets</span><br />
-						<span>Smoke/ Alcohol</span><br />
-						<span>Overnight Guest Stay</span><br />
-						<span>Late Night Parties</span><br />
-					</div>
-				</div>
+			<div class="col-md-8">
+				<h4>Getting Around</h4>
+				<table class="table table-responsive" id="house-getting-around-table">
+					<thead>
+						<tr>
+							<th><img src="~/icons/building.png" class="icons" /></th>
+							<th><img src="~/icons/distance.png" class="icons" /></th>
+							<th><img src="~/icons/walking.png" class="icons" /></th>
+							<th><img src="~/icons/cycle.png" class="icons" /></th>
+							<th><img src="~/icons/car.png" class="icons" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Walmart</td>
+							<td>5 Km</td>
+							<td>15 Mins</td>
+							<td>11 Mins</td>
+							<td>6 Mins</td>
+						</tr>
+						<tr>
+							<td>Georgian College</td>
+							<td>3 Km</td>
+							<td>10 Mins</td>
+							<td>8 Mins</td>
+							<td>2 Mins</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -145,8 +241,9 @@
 </div>
 @section Scripts{
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w "
-			type="text/javascript"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w" type="text/javascript"></script>
+
+	<script src="~/lib/slick-carousel/dist/slick.js"></script>
 	<script src="~/js/pages/house-info.js"></script>
 	<script>
 		$(document).ready(function () {

@@ -9,3 +9,4 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.AssemblyInfo.cs
 C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.dll
 C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.pdb
+C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.csprojAssemblyReference.cache

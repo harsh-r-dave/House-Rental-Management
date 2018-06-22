@@ -59,7 +59,7 @@ Hrm.HouseInfo = function () {
 		}
 		google.maps.event.addDomListener(window, 'load', initialize);
 	};
-	
+
 	function calcRoute(start, end) {
 		var request = {
 			origin: start,
@@ -77,11 +77,27 @@ Hrm.HouseInfo = function () {
 
 	var initFancyBox = function () {
 		$('a.house-image').fancybox();
+		$('a.image').fancybox();
+	};
+
+	var initSlickCarousel = function () {
+		$('#house-images-container').slick({
+			autoplay: true,
+			autoplaySpeed: 2000,
+			variableWidth: true,
+			centerMode: true,
+			centerPadding: '60px',
+			slidesToShow: 3,
+			pauseOnFocus: false,
+			prevArrow: '<span class="slick-custom-nav slick-left-container"><i class="fa fa-arrow-circle-left slick-custom-left"></i></span>',
+			nextArrow: '<span class="slick-custom-nav slick-right-container"><i class="fa fa-arrow-circle-right slick-custom-right"></i></span>'
+		});
 	};
 
 	var initPage = function () {
 		initMap();
 		initFancyBox();
+		initSlickCarousel();
 	};
 
 	var init = function (model) {

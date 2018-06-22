@@ -51,8 +51,14 @@
 .house-title {
     font-size: 17px;
     text-transform: capitalize;
-    font-weight: bold;
+    font-weight: normal;
 }
+
+    .house-title label {
+        font-size: 24px;
+        text-transform: capitalize;
+        font-weight: normal;
+    }
 
 .rent-amount {
     color: black;
@@ -95,4 +101,59 @@
 
     #contact-info-container a {
         text-decoration: none;
+    }
+
+.icons {
+    height: 30px;
+    width: 30px;
+}
+
+#house-images-container {
+    padding: 0 4%;
+}
+
+    #house-images-container .image img {
+        max-height: 150px;
+        max-width: 150px;
+    }
+
+.slick-custom-nav {
+    position: absolute;
+    z-index: 10000000;
+    color: #5996bb;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.slick-left-container {
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+}
+
+    .slick-left-container:hover {
+        opacity: 1.0;
+    }
+
+    .slick-left-container .slick-custom-left {
+        top: 40%;
+        left: 0%;
+        position: absolute;
+    }
+
+.slick-right-container {
+    height: 100%;
+    right: 0;
+    top: 0;
+    opacity: 0.5;
+}
+
+    .slick-right-container:hover {
+        opacity: 1.0;
+    }
+
+    .slick-right-container .slick-custom-right {
+        top: 40%;
+        right: 0%;
+        position: absolute;
     }
