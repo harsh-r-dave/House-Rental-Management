@@ -25,34 +25,23 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="house-image">
-							<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+							@*<img src="~/images/testimages/20180330_121325.jpg" alt="" />*@
+							<a class="image" href="~/images/testimages/20180331_121713.jpg" id="main-image-anchor">
+								<img src="~/images/testimages/20180331_121713.jpg" alt="" id="main-image" />
+							</a>
 						</div>
 					</div>
 				</div>
 				<div class="row mt-10">
 					<div class="col-md-12">
 						<div id="house-images-container">
-							<a class="image" href="~/images/testimages/20180331_121713.jpg">
-								<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-							</a>
-							<a class="image" href="~/images/testimages/20180330_121325.jpg">
-								<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-							</a>
-							<a class="image" href="~/images/testimages/20180331_142913.jpg">
-								<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-							</a>
-							<a class="item image" href="~/images/testimages/20180330_162115.jpg">
-								<img src="~/images/testimages/20180330_162115.jpg" alt="" />
-							</a>
-							<a class="item image" href="~/images/testimages/20180331_130044.jpg">
-								<img src="~/images/testimages/20180331_130044.jpg" alt="" />
-							</a>
-							<a class="item image" href="~/images/testimages/20180331_142251.jpg">
-								<img src="~/images/testimages/20180331_142251.jpg" alt="" />
-							</a>
-							<a class="item image" href="~/images/testimages/_IGP0542.jpg">
-								<img src="~/images/testimages/_IGP0542.jpg" alt="" />
-							</a>
+							<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+							<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+							<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+							<img src="~/images/testimages/20180330_162115.jpg" alt="" />
+							<img src="~/images/testimages/20180331_130044.jpg" alt="" />
+							<img src="~/images/testimages/20180331_142251.jpg" alt="" />
+							<img src="~/images/testimages/_IGP0542.jpg" alt="" />
 						</div>
 					</div>
 				</div>
@@ -145,27 +134,27 @@
 		</div>
 		<div class="row">
 			@*<div class="col-md-5">
-				<div id="contact-info-container">
-					<h4>Contact</h4>
-					<div class="row">
-						<div class="col-md-12">
-							<span>Mobile: 647-123-4567</span>
-							<a href="tel:6471234567">
-								<i class="fa fa-phone social-btn"></i>
-							</a>
-							<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
-								<i class="fa fa-whatsapp social-btn"></i>
-							</a>
+					<div id="contact-info-container">
+						<h4>Contact</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Mobile: 647-123-4567</span>
+								<a href="tel:6471234567">
+									<i class="fa fa-phone social-btn"></i>
+								</a>
+								<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+									<i class="fa fa-whatsapp social-btn"></i>
+								</a>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
 
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>*@
+				</div>*@
 			<div class="col-md-4">
 				<h4>Things Not Permitted</h4><br />
 				<span>Pets</span><br />
@@ -204,48 +193,49 @@
 				</table>
 			</div>
 		</div>
-	</div>
-	<hr />
-	
-	<div id="jhr-portfolio-section" class="mt-20">
-		<div id="portfoliolist" class="bounceIn">
-			<div class="row">
-				@for (int i = 0; i < 2; i++)
-				{
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-						<div class="portfolio">
-							<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
-								<div class="portfolio-wrapper">
-									<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-						<div class="portfolio">
-							<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
-								<div class="portfolio-wrapper">
-									<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-						<div class="portfolio">
-							<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
-								<div class="portfolio-wrapper">
-									<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-								</div>
-							</a>
-						</div>
-					</div>
-				}
+		<div class="row">
+			<div class="col-md-12">
+				@*<div id="house-location"></div>*@
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div id="house-location"></div>
-	</div>
+
+	@*<div id="jhr-portfolio-section" class="mt-20">
+			<div id="portfoliolist" class="bounceIn">
+				<div class="row">
+					@for (int i = 0; i < 2; i++)
+					{
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+							<div class="portfolio">
+								<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
+									<div class="portfolio-wrapper">
+										<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+							<div class="portfolio">
+								<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
+									<div class="portfolio-wrapper">
+										<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+							<div class="portfolio">
+								<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
+									<div class="portfolio-wrapper">
+										<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+									</div>
+								</a>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>*@
 </div>
 @section Scripts{
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>

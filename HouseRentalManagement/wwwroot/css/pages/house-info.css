@@ -112,11 +112,18 @@
     padding: 0 4%;
 }
 
-    #house-images-container .image img {
+    #house-images-container img {
         max-height: 150px;
         max-width: 150px;
         padding: 0 5px;
+        cursor: -webkit-grab;
+        cursor: grab;
     }
+
+        #house-images-container img:active {
+            cursor: -webkit-grabbing;
+            cursor: grabbing;
+        }
 
 .slick-custom-nav {
     position: absolute;
