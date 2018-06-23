@@ -11,6 +11,6 @@ namespace HouseRentalManagement.Models
         public Guid HouseId { get; set; }
         public string ImageSrc { get; set; }
         public string fileName { get; set; }
-        public bool isHomePageImage { get; set; }
+        public bool isHomePageImage { get; set; }       
     }
 }

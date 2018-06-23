@@ -115,11 +115,12 @@
     #house-images-container .image img {
         max-height: 150px;
         max-width: 150px;
+        padding: 0 5px;
     }
 
 .slick-custom-nav {
     position: absolute;
-    z-index: 10000000;
+    z-index: 999;
     color: #5996bb;
     cursor: pointer;
     font-size: 2rem;

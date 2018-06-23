@@ -16,11 +16,17 @@ namespace HouseRentalManagement.Models
         public string Country { get; set; }
 
         public DateTime AvailableFrom { get; set; }
-        public DateTime AvailableTo { get; set; }
+        public bool ContactForAvailableFrom { get; set; }
+        //public DateTime AvailableTo { get; set; }
         public string Description { get; set; }
         public decimal Rent { get; set; }
 
         public int ParakingSpace { get; set; }
+        public decimal Washrooms { get; set; }
+        public string UrlSlug { get; set; }
+        public int Occupancy { get; set; }
+
+        public bool IsDisplaying { get; set; }        
 
         public DateTime CreateUtc { get; set; }
         public DateTime AuditUtc { get; set; }

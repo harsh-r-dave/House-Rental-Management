@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HouseRentalManagement.Services
@@ -63,7 +64,8 @@ namespace HouseRentalManagement.Services
                         {
                             HouseId = house.HouseId,
                             Address = address,
-                            Rent = house.Rent
+                            Rent = house.Rent,
+                            IsDisplaying = house.IsDisplaying
                         });
                     }
                 }
@@ -97,7 +99,8 @@ namespace HouseRentalManagement.Services
                         Province = model.Province,
                         Country = model.Country,
                         CreateUtc = DateTime.UtcNow,
-                        AuditUtc = DateTime.UtcNow
+                        AuditUtc = DateTime.UtcNow,
+                        UrlSlug = ConvertHouseAddressToUrlSlug(model.AddressLine1 + "-" + model.City + "-" + model.PostalCode)
                     };
 
                     // save record
@@ -147,11 +150,15 @@ namespace HouseRentalManagement.Services
                         model.Province = house.Province;
                         model.Country = house.Country;
                         model.DateAvailableFrom = house.AvailableFrom == DateTime.MinValue ? DateTime.Now : house.AvailableFrom;
-                        model.DateAvailableTo = house.AvailableTo == DateTime.MinValue ? DateTime.Now.AddMonths(4) : house.AvailableTo;
+                        model.ContactForAvailableFrom = house.ContactForAvailableFrom;
+                        //model.DateAvailableTo = house.AvailableTo == DateTime.MinValue ? DateTime.Now.AddMonths(4) : house.AvailableTo;
                         model.Rent = house.Rent;
                         model.Description = house.Description;
                         model.HouseId = house.HouseId;
                         model.ParkingSpace = house.ParakingSpace;
+                        model.Washrooms = house.Washrooms;
+                        model.Occupancy = house.Occupancy;
+                        model.IsDisplaying = house.IsDisplaying;
                     }
                     else
                     {
@@ -186,7 +193,7 @@ namespace HouseRentalManagement.Services
 
             try
             {
-                // fetch facility by id
+                // fetch house by id
                 House house = await _houseRepository.FetchHouseByIdAsync(id);
 
                 // remove it
@@ -201,7 +208,7 @@ namespace HouseRentalManagement.Services
             }
             catch (Exception e)
             {
-                errors.AddError("", "Unexpected error occured while deleting facility");
+                errors.AddError("", "Unexpected error occured while deleting house");
             }
 
             return (Success: success, Errors: errors);
@@ -226,11 +233,16 @@ namespace HouseRentalManagement.Services
                         house.Province = model.Province;
                         house.Country = model.Country;
                         house.AvailableFrom = model.DateAvailableFrom ?? DateTime.Now;
-                        house.AvailableTo = model.DateAvailableTo ?? DateTime.Now.AddMonths(4);
+                        house.ContactForAvailableFrom = model.ContactForAvailableFrom;
+                        //house.AvailableTo = model.DateAvailableTo ?? DateTime.Now.AddMonths(4);
                         house.Rent = model.Rent ?? 0;
                         house.Description = model.Description;
                         house.ParakingSpace = model.ParkingSpace;
                         house.AuditUtc = DateTime.UtcNow;
+                        house.Washrooms = model.Washrooms;
+                        house.Occupancy = model.Occupancy;
+                        house.UrlSlug = ConvertHouseAddressToUrlSlug(model.AddressLine1 + "-" + model.City + "-" + model.PostalCode);
+                        house.IsDisplaying = model.IsDisplaying;
                     }
 
                     // save record
@@ -275,7 +287,10 @@ namespace HouseRentalManagement.Services
                             AmenityId = amenity.AmenityId,
                             Title = amenity.Description,
                             Checked = houseAmenities != null ? houseAmenities.Where(ha => ha.AmenityId == amenity.AmenityId).Any() : false,
-                            ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.ImageFileName)
+                            ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.ImageFileName),
+                            IncludedInUtility = houseAmenities != null
+                                                ? amenity.HouseAmenities.Where(a => a.AmenityId == amenity.AmenityId).Select(a => a.IncludedInUtility).FirstOrDefault()
+                                                : false
                         });
                     }
                 }
@@ -307,7 +322,8 @@ namespace HouseRentalManagement.Services
                             HouseAmenity hm = new HouseAmenity()
                             {
                                 AmenityId = item.AmenityId,
-                                HouseId = model.HouseId
+                                HouseId = model.HouseId,
+                                IncludedInUtility = item.IncludedInUtility
                             };
 
                             // save record
@@ -332,10 +348,11 @@ namespace HouseRentalManagement.Services
             return (success, errors);
         }
 
-        public async Task<(bool Success, IErrorDictionary Errors)> UploadHouseImageAsync(AddHouseImageViewModel model)
+        public async Task<(bool Success, string Error, bool FileExist)> UploadHouseImageAsync(AddHouseImageViewModel model)
         {
             bool success = false;
-            var errors = new ErrorDictionary();
+            var error = string.Empty;
+            bool fileExist = false;
 
             try
             {
@@ -353,47 +370,53 @@ namespace HouseRentalManagement.Services
 
                     var fullPath = string.Format("{0}{1}", destinationPath, model.Image.FileName);
 
-                    if (!File.Exists(fullPath))
+                    if (!File.Exists(fullPath) || model.Override)
                     {
                         using (FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate))
                         {
                             await model.Image.CopyToAsync(fs);
                         }
 
-                        // determine whether it should be main image or not
-                        if (model.IsHomePageImage)
+                        if (!model.Override)
                         {
-                            // reset house image
-                            await ResetMainImageByHouseIdAsync(model.HouseId);
-                        }
-                        else
-                        {
-                            // check if house has any main image
-                            var mainImage = await _houseImageRepository.GetMainImageByHouseIdAsync(model.HouseId);
-                            model.IsHomePageImage = mainImage == null;
-                        }
+                            // determine whether it should be main image or not
+                            if (model.IsHomePageImage)
+                            {
+                                // reset house image
+                                await ResetMainImageByHouseIdAsync(model.HouseId);
+                            }
+                            else
+                            {
+                                // check if house has any main image
+                                var mainImage = await _houseImageRepository.GetMainImageByHouseIdAsync(model.HouseId);
+                                model.IsHomePageImage = mainImage == null;
+                            }
 
-                        // save image filename to database
-                        HouseImage hi = new HouseImage()
-                        {
-                            HouseId = model.HouseId,
-                            FileName = model.Image.FileName,
-                            CreateUtc = DateTime.Now,
-                            IsHomePageImage = model.IsHomePageImage
-                        };
+                            // save image filename to database
+                            HouseImage hi = new HouseImage()
+                            {
+                                HouseId = model.HouseId,
+                                FileName = model.Image.FileName,
+                                CreateUtc = DateTime.Now,
+                                IsHomePageImage = model.IsHomePageImage
+                            };
 
-                        await _houseImageRepository.SaveHouseImageAsync(hi);
+                            await _houseImageRepository.SaveHouseImageAsync(hi);
+                        }                        
+                        success = true;
                     }
-
-                    success = true;
+                    else
+                    {
+                        fileExist = true;
+                    }                    
                 }
             }
             catch (Exception e)
             {
-                errors.AddError("", "Unexpected error occurred while uploading image");
+                error = "Unexpected error occurred while uploading image";
             }
 
-            return (success, errors);
+            return (success, error, fileExist);
         }
 
         public async Task<(bool Success, String Error, bool NoImage, ListHouseImageViewModel Model)> FetchHouseImageListAsync(Guid houseId)
@@ -642,6 +665,26 @@ namespace HouseRentalManagement.Services
                 });
             }
             return (success, error);
+        }
+
+        private string ConvertHouseAddressToUrlSlug(string name)
+        {
+            var returnStr = string.Empty;
+
+            // Ensure a value was passed in
+            if (!string.IsNullOrEmpty(name))
+            {
+                // Convert to lowercase 
+                returnStr = name.ToLower();
+
+                // Replace any spaces with hyphens
+                returnStr = returnStr.Replace(" ", "-");
+
+                // Replace any character that is not a hyphen/letter/number with nothing
+                returnStr = Regex.Replace(returnStr, "[^a-z0-9\\-]+", "");
+            }
+
+            return returnStr;
         }
     }
 }

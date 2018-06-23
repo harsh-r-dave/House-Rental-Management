@@ -10,6 +10,7 @@ namespace HouseRentalManagement.Models
         public int HouseAmenityId { get; set; }
         public Guid HouseId { get; set; }
         public int AmenityId { get; set; }
+        public bool IncludedInUtility { get; set; }
 
         public ICollection<House> Houses { get; set; }
         public ICollection<Amenity> Amenities { get; set; }

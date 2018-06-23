@@ -20,6 +20,7 @@
 						<tr>
 							<th>Address</th>
 							<th>Rent</th>
+							<th class="text-center">Is Displaying on site?</th>
 							<th style="width: 30px;"></th>
 						</tr>
 					</thead>
@@ -31,6 +32,17 @@
 								<tr>
 									<td>@house.Address</td>
 									<td>@house.Rent.ToString("C")</td>
+									<td class="text-center">
+										@if (house.IsDisplaying)
+										{
+											<i class="fa fa-check"></i>
+										}
+										else
+										{
+											<i class="fa fa-close"></i>
+
+										}
+									</td>
 									<td>
 										<a asp-controller="Admin" asp-action="EditHouse" asp-route-id="@house.HouseId" class="edit-control"><i class="fa fa-pencil"></i></a>
 										<a href="javascript:void(0)" onclick="Hrm.AdminHouses.deleteHouse('@house.HouseId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>

@@ -11,5 +11,6 @@ namespace HouseRentalManagement.Models.AdminViewModels
         public string Title { get; set; }
         public bool Checked { get; set; }
         public string ImageSrc { get; set; }
+        public bool IncludedInUtility { get; set; }
     }
 }

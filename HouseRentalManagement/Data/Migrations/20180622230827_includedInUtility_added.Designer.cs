@@ -11,9 +11,10 @@ using System;
 namespace HouseRentalManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180622230827_includedInUtility_added")]
+    partial class includedInUtility_added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,9 +143,9 @@ namespace HouseRentalManagement.Data.Migrations
 
                     b.Property<DateTime>("AvailableFrom");
 
-                    b.Property<string>("City");
+                    b.Property<DateTime>("AvailableTo");
 
-                    b.Property<bool>("ContactForAvailableFrom");
+                    b.Property<string>("City");
 
                     b.Property<string>("Country");
 
@@ -157,8 +158,6 @@ namespace HouseRentalManagement.Data.Migrations
                     b.Property<Guid?>("HouseFacilityId");
 
                     b.Property<int?>("HouseLeaseLengthId");
-
-                    b.Property<bool>("IsDisplaying");
 
                     b.Property<int>("Occupancy");
 

@@ -41,11 +41,20 @@ namespace HouseRentalManagement.Models.AdminViewModels
 
         [Display(Name = "Date Available")]
         public DateTime? DateAvailableFrom { get; set; }
-        [Display(Name = "Date Available")]
-        public DateTime? DateAvailableTo { get; set; }
+        //[Display(Name = "Date Available")]
+        //public DateTime? DateAvailableTo { get; set; }
+        public bool ContactForAvailableFrom { get; set; }
 
         [Display(Name ="Parking Space")]
         public int ParkingSpace { get; set; }
+
+        [Display(Name = "# of washrooms")]
+        public decimal Washrooms { get; set; }
+
+        [Display(Name = "Occupancy")]
+        public int Occupancy { get; set; }
+
+        public bool IsDisplaying { get; set; }
 
         public ICollection<EditFacilityViewModel> Facilities { get; set; }
         public ICollection<AmenitiesListViewModel> Amenities { get; set; }

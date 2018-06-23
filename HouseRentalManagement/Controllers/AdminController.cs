@@ -264,9 +264,17 @@ namespace HouseRentalManagement.Controllers
             var result = await _houseService.UploadHouseImageAsync(model);
             if (result.Success)
             {
-                return Json(true);
+                return Json(new
+                {
+                   success = true
+                });
             }
-            return Json(false);
+            return Json(new
+            {
+                success = false,
+                fileExist = result.FileExist,
+                error  = result.Error
+            });
         }
 
         public async Task<IActionResult> GetHouseImages(Guid houseId)

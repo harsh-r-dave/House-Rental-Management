@@ -3,11 +3,13 @@
 <div class="container mt-10" style="width: 30%;
   display: inline-block;
   float: left;">
-	
-	<label>
-		<img src="@Model.ImageSrc" style="height: 30px; width: 30px;" />
+		<label>
+			<img src="@Model.ImageSrc" style="height: 30px; width: 30px;" />
 
-		<input asp-for="Checked" type="checkbox" /> @Model.Title
-		<input asp-for="AmenityId" type="hidden" />
-	</label>
+			<input asp-for="Checked" type="checkbox" /> @Model.Title
+			<input asp-for="AmenityId" type="hidden" />
+		</label>
+		<label>
+			<input asp-for="IncludedInUtility" type="checkbox" /> Included?
+		</label>
 </div>

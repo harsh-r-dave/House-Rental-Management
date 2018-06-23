@@ -9,20 +9,22 @@ Hrm.AdminEditHouse = function () {
 			startDate: 'today',
 			todayBtn: true,
 			todayHighlight: true,
-			startView: "months"
+			startView: "months",
+			format: "M-dd-yyyy"
 		}).on('changeDate', function () {
 			$(viewModel.dateAvailableToSelector).datepicker('setStartDate', $(viewModel.dateAvailableFromSelector).val());
 		});
 
-		$(viewModel.dateAvailableToSelector).datepicker({
-			'autoclose': true,
-			startDate: 'today',
-			todayBtn: true,
-			todayHighlight: true,
-			startView: "months"
-		}).on('changeDate', function () {
-			$(viewModel.dateAvailableFromSelector).datepicker('setEndDate', $(viewModel.dateAvailableToSelector).val());
-		});
+		//$(viewModel.dateAvailableToSelector).datepicker({
+		//	'autoclose': true,
+		//	startDate: 'today',
+		//	todayBtn: true,
+		//	todayHighlight: true,
+		//	startView: "months",
+		//	format: "M/dd/yyyy"
+		//}).on('changeDate', function () {
+		//	$(viewModel.dateAvailableFromSelector).datepicker('setEndDate', $(viewModel.dateAvailableToSelector).val());
+		//});
 	};
 
 	var initDropify = function () {
@@ -101,7 +103,7 @@ Hrm.AdminEditHouse = function () {
 				allValid = false;
 			}
 			if (allValid) {
-				$('#upload-spinner').show();
+				$('#upload-spinner').show();				
 				$.ajax({
 					url: "/Admin/UploadHouseImage",
 					type: "POST",
@@ -110,16 +112,37 @@ Hrm.AdminEditHouse = function () {
 					cache: false,
 					processData: false,
 					success: function (data) {
-						if (data) {
+						if (data.success) {
 							$('.dropify-clear').trigger('click');
 							$('#IsHomePageImage').prop('checked', false);
 							loadHouseImages();
 							toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);
 						}
 						else {
-							toastr.error("Something went wrong while uploading image", '', Hrm.Toastr.config);
+							if (data.hasOwnProperty("fileExist") && data.fileExist) {
+								swal({
+									title: "Filename Already Exists",
+									text: "Do you want to override the file?",
+									type: 'warning',
+									showCancelButton: true,
+									confirmButtonColor: '#337ab7',
+									cancelButtonColor: '#d33',
+									confirmButtonText: 'Yes, override it!'
+								}).then(function (result) {
+									if (result.value) {
+										// set override to true if permitted
+										$('#upload-image-form').find('#Override').val(true);
+										// submit form again
+										$('#upload-image-form').submit();
+									}
+								});
+							}
+							else {
+								toastr.error("Something went wrong while uploading image", '', Hrm.Toastr.config);
+							}
 						}
 						$('#upload-spinner').hide();
+						$('#upload-image-form').find('#Override').val(false);	// set override to false once upload is done
 					}
 				});
 			}
@@ -530,8 +553,6 @@ Hrm.AdminEditHouse = function () {
 		initHouseGettingAroundProcess();
 		initHouseImagesProcess();
 		initHouseTenantProcess();
-
-		$('#add-tenant-button').tooltip();
 	};
 
 	var init = function (model) {

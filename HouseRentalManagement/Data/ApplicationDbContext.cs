@@ -70,6 +70,8 @@ namespace HouseRentalManagement.Data
                 entity.HasMany(a => a.Houses);
 
                 entity.HasMany(a => a.Amenities);
+
+                entity.Property(a => a.IncludedInUtility).HasDefaultValue(false);
             });
 
             builder.Entity<LeaseLength>(entity =>

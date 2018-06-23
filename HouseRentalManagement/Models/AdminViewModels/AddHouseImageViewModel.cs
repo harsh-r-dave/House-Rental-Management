@@ -17,5 +17,8 @@ namespace HouseRentalManagement.Models.AdminViewModels
         public IFormFile Image { get; set; }
 
         public bool IsHomePageImage { get; set; }
+
+        [HiddenInput]
+        public bool Override { get; set; }
     }
 }

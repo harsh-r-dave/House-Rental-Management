@@ -123,13 +123,17 @@
 						<div class="form-group input-group input-daterange">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-								<input asp-for="DateAvailableFrom" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" />
+								<input asp-for="DateAvailableFrom" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" value="@Model.DateAvailableFrom.Value.ToString("MMM-dd-yyyy")" />
 							</div>
-							<div class="input-group-addon">to</div>
-							<div class="input-group">
-								<input asp-for="DateAvailableTo" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" />
-								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							</div>
+							@*<div class="input-group-addon">to</div>
+								<div class="input-group">
+									<input asp-for="DateAvailableTo" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" value="@Model.DateAvailableTo.Value.ToString("MM-dd-yyyy")" />
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								</div>*@
+							<label asp-for="ContactForAvailableFrom">
+								<input asp-for="ContactForAvailableFrom" />
+								Contact for date available
+							</label>
 						</div>
 						<div class="form-group">
 							<label asp-for="ParkingSpace"></label>
@@ -139,9 +143,35 @@
 							</div>
 							<span asp-validation-for="ParkingSpace" class="text-danger"></span>
 						</div>
+						<div class="form-group">
+							<label asp-for="Washrooms"></label>
+							<div class="input-group col-md-6">
+								<span class="input-group-addon"><i class="fa fa-bath"></i></span>
+								<input asp-for="Washrooms" class="form-control" min="0" />
+							</div>
+							<span asp-validation-for="Washrooms" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="Occupancy"></label>
+							<div class="input-group col-md-6">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input asp-for="Occupancy" class="form-control" min="0" />
+							</div>
+							<span asp-validation-for="Occupancy" class="text-danger"></span>
+						</div>
 					</div>
 				</div>
 				<div class="row mt-20">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label asp-for="IsDisplaying">
+								<input asp-for="IsDisplaying" /> Ready to display on site?
+							</label>
+							<span asp-validation-for="IsDisplaying" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col">
 						<button class="btn btn-primary">Submit</button>
 						<a class="btn btn-danger" asp-action="Houses" asp-controller="Admin">Cancel</a>
@@ -175,6 +205,7 @@
 	</div>
 </div>
 
+@* Modals *@
 <div class="modal fade" id="add-tenant-modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -236,8 +267,8 @@
 		$(document).ready(function () {
 			var editHouseModel = {
 				dateAvailableFromSelector: '#DateAvailableFrom',
-				dateAvailableToSelector: '#DateAvailableTo',
-				houseId:'@Model.HouseId'
+				//dateAvailableToSelector: '#DateAvailableTo',
+				houseId: '@Model.HouseId'
 			};
 			Hrm.AdminEditHouse.init(editHouseModel);
 		});
