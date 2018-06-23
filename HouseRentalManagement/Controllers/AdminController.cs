@@ -227,6 +227,33 @@ namespace HouseRentalManagement.Controllers
             }
             return RedirectToAction(nameof(ManageFacility));
         }
+
+        public async Task<IActionResult> GetHouseFacilities(string houseId)
+        {
+            var model = await _houseService.GetHouseFacilityViewModelAsync(Guid.Parse(houseId));
+            return PartialView("~/Views/Admin/_HouseFacilityPartial.cshtml", model);
+        }
+
+        public async Task<IActionResult> UpdateHouseFacility(HouseFacilityViewModel model)
+        {
+            var result = await _houseService.UpdateHouseFacilitesAsync(model);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Facilites saved successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
+        }
         #endregion
 
         #region Amenity

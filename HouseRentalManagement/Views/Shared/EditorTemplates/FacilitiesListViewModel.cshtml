@@ -1,0 +1,10 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.FacilitiesListViewModel
+
+<div class="container mt-10" style="width: 30%;
+  display: inline-block;
+  float: left;">
+	<label>
+		<input asp-for="Checked" type="checkbox" /> @Model.Title
+		<input asp-for="FacilityId" type="hidden" />
+	</label>
+</div>

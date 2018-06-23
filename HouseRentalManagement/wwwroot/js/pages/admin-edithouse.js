@@ -58,7 +58,7 @@ Hrm.AdminEditHouse = function () {
 	};
 
 	var clearCheckboxes = function () {
-		$('input:checkbox').removeAttr('checked');
+		$('#amenity-info').find('input:checkbox').removeAttr('checked');
 	};
 	var initClearCheckboxes = function () {
 		$('#amenity-info').off().on('click', '#clear-checkbox', function () {
@@ -518,6 +518,34 @@ Hrm.AdminEditHouse = function () {
 	};
 	// ^house tenants
 
+	// house facility
+	var loadFacility = function () {
+		$('#facility-tab-loader').show();
+		$.ajax({
+			url: "/Admin/GetHouseFacilities",
+			data: {
+				houseId: viewModel.houseId
+			},
+			method: 'get'
+		}).done(function (data) {
+			$('#faciliy-info').html(data);
+			$('#facility-tab-loader').hide();
+		}).fail(function (a, textError) {
+			console.error(textError);
+			$('#facility-tab-loader').hide();
+		});
+	};
+
+	var clearFacilityCheckboxes = function () {
+		$('#faciliy-info').find('input:checkbox').removeAttr('checked');
+	};
+	var initClearFacilityCheckboxes = function () {
+		$('#faciliy-info').off().on('click', '#clear-checkbox', function () {
+			clearFacilityCheckboxes();
+		});
+	};
+	// ^house facility
+
 	// business processes
 	var initAmenitiesProcess = function () {
 		initClearCheckboxes();
@@ -540,6 +568,10 @@ Hrm.AdminEditHouse = function () {
 		initWaitListTenantDropDown();
 		initWaitListAddTenantModal();
 	};
+	var initHouseFacilityProcess = function () {
+		loadFacility();
+		initClearFacilityCheckboxes();
+	};
 	// ^business processes
 
 	var initPage = function () {
@@ -553,6 +585,7 @@ Hrm.AdminEditHouse = function () {
 		initHouseGettingAroundProcess();
 		initHouseImagesProcess();
 		initHouseTenantProcess();
+		initHouseFacilityProcess();
 	};
 
 	var init = function (model) {
@@ -569,7 +602,8 @@ Hrm.AdminEditHouse = function () {
 		deleteImage: deleteImage,
 		setMainImage: setMainImage,
 		deleteHouseGettingAround: deleteHouseGettingAround,
-		removeTenant: removeTenant
+		removeTenant: removeTenant,
+		loadFacility: loadFacility
 	};
 	return oPublic;
 }();

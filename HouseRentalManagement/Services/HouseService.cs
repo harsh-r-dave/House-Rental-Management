@@ -686,5 +686,84 @@ namespace HouseRentalManagement.Services
 
             return returnStr;
         }
+
+        public async Task<HouseFacilityViewModel> GetHouseFacilityViewModelAsync(Guid houseId)
+        {
+            var model = new HouseFacilityViewModel();
+            try
+            {
+                model.HouseId = houseId;
+                var facilities = await _facilityRepository.ListFacilitiesAsync();
+                var houseFacilities = await _facilityRepository.ListHouseFacilitiesByHouseIdAsync(id: houseId);
+                if (facilities != null)
+                {
+                    model.Facilities = new List<FacilitiesListViewModel>();
+                    foreach (var facility in facilities)
+                    {
+                        model.Facilities.Add(new FacilitiesListViewModel
+                        {
+                            FacilityId = facility.FacilityId,
+                            Title = facility.Name,
+                            Checked = houseFacilities != null ? houseFacilities.Where(ha => ha.FacilityId == facility.FacilityId).Any() : false,                            
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("HouseService/GetHouseFacilityViewModelAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+            return model;
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> UpdateHouseFacilitesAsync(HouseFacilityViewModel model)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                if (model.Facilities != null)
+                {
+                    // clear exisiting facilites
+                    await _facilityRepository.ClearHouseFacilitiesByHouseIdAsync(model.HouseId);
+
+                    foreach (var item in model.Facilities)
+                    {
+                        if (item.Checked)
+                        {
+                            // prepare record
+                            HouseFacility hf = new HouseFacility()
+                            {
+                                FacilityId = item.FacilityId,
+                                HouseId = model.HouseId
+                            };
+
+                            // save record
+                            if (!await _facilityRepository.SaveHouseFacilityAsync(hf))
+                            {
+                                errors.AddError("", "Unable to update facility");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    errors.AddError("", "Unable to process your request");
+                }
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                errors.AddError("", "Unexpected error occurred while updating facilites");
+                _logger.LogError("HouseService/GetHouseFacilityViewModelAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (success, errors);
+        }
     }
 }

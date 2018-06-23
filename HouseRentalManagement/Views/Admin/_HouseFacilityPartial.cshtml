@@ -1,0 +1,14 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.HouseFacilityViewModel
+
+<form asp-action="UpdateHouseFacility" asp-controller="Admin" method="post" id="update-facility-form" class="facility-form">
+
+	<input asp-for="HouseId" />
+	<div class="row"><div class="col-md-12">@Html.EditorFor(m => m.Facilities)</div></div>
+	<div class="row">
+		<div class="col-md-12 mt-10">
+			<button type="submit" class="btn btn-primary" id="update-facility-button">Save</button>
+			<button type="button" class="btn btn-danger" onclick="Hrm.AdminEditHouse.loadFacility()">Reset</button>
+			<button type="button" class="btn btn-info" id="clear-checkbox">Clear All</button>
+		</div>
+	</div>
+</form>
