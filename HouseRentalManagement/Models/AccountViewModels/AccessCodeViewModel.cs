@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HouseRentalManagement.Models.AccountViewModels
 {
-    public class ForgotPasswordViewModel
+    public class AccessCodeViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Access Code")]
+        public string AccessCode { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace HouseRentalManagement.Data
         public DbSet<HouseAmenity> HouseAmenity { get; set; }
         public DbSet<HouseGettingAround> HouseGettingAround { get; set; }
         public DbSet<FeaturedImage> FeaturedImage { get; set; }
+        public DbSet<AccessCode> AccessCode { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -106,6 +107,11 @@ namespace HouseRentalManagement.Data
             builder.Entity<FeaturedImage>(entity => 
             {
                 entity.HasKey(a => a.FeaturedImageId);
+            });
+
+            builder.Entity<AccessCode>(entity =>
+            {
+                entity.HasKey(a => a.AccessCodeId);
             });
         }
     }

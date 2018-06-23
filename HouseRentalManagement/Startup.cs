@@ -32,7 +32,11 @@ namespace HouseRentalManagement
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(o => {
+                // lockout settings
+                o.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                o.Lockout.MaxFailedAccessAttempts = 3;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -48,6 +52,7 @@ namespace HouseRentalManagement
         public void AddServices(IServiceCollection services)
         {
             // services
+            services.AddScoped<ILoginService, LoginService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<IFacilityService, FacilityService>();
@@ -55,6 +60,7 @@ namespace HouseRentalManagement
             services.AddScoped<IFeaturedPhotoService, FeaturedPhotoService>();
 
             // business
+            services.AddScoped<IAccessCodeRepository, AccessCodeRepository>();
             services.AddScoped<IHouseRepository, HouseRepository>();
             services.AddScoped<IFacilityRepository, FacilityRepository>();
             services.AddScoped<IAmenityRepository, AmenityRepository>();
