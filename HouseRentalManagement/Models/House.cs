@@ -39,5 +39,7 @@ namespace HouseRentalManagement.Models
         public virtual HouseLeaseLength HouseLeaseLength { get; set; }
 
         public ICollection<HouseAmenity> HouseAmenities { get; set; } = new HashSet<HouseAmenity>();
+
+        public virtual ICollection<HouseRestriction> HouseRestrictions { get; set; }
     }
 }

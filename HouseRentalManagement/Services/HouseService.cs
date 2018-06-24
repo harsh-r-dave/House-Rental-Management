@@ -25,6 +25,7 @@ namespace HouseRentalManagement.Services
         private readonly IHouseImageRepository _houseImageRepository;
         private readonly IGettingAroundRepository _gettingAroundRepository;
         private readonly ILogger _logger;
+        private readonly IRestrictionRepository _restrictionRepository;
 
         public HouseService(IHouseRepository houseRepository,
             IFacilityRepository facilityRepository,
@@ -33,7 +34,8 @@ namespace HouseRentalManagement.Services
             IHostingEnvironment env,
             IHouseImageRepository houseImageRepository,
             ILogger<HouseService> logger,
-            IGettingAroundRepository gettingAroundRepository)
+            IGettingAroundRepository gettingAroundRepository,
+            IRestrictionRepository restrictionRepository)
         {
             _houseRepository = houseRepository;
             _facilityRepository = facilityRepository;
@@ -43,6 +45,7 @@ namespace HouseRentalManagement.Services
             _houseImageRepository = houseImageRepository;
             _logger = logger;
             _gettingAroundRepository = gettingAroundRepository;
+            _restrictionRepository = restrictionRepository;
         }
 
         public async Task<(bool Success, ListHouseViewModel Model)> ListHousesAsync()
@@ -159,6 +162,7 @@ namespace HouseRentalManagement.Services
                         model.Washrooms = house.Washrooms;
                         model.Occupancy = house.Occupancy;
                         model.IsDisplaying = house.IsDisplaying;
+                        model.UrlSlug = house.UrlSlug;
                     }
                     else
                     {
@@ -764,6 +768,85 @@ namespace HouseRentalManagement.Services
             }
 
             return (success, errors);
-        }       
+        }
+
+        public async Task<HouseRestrictionViewModel> GetHouseRestrictionViewModelAsync(Guid houseId)
+        {
+            var model = new HouseRestrictionViewModel();
+            try
+            {
+                model.HouseId = houseId;
+                var restrictions = await _restrictionRepository.ListRestrictionsAsync();
+                var houseRestrictions = await _restrictionRepository.ListHouseRestrictionsByHouseIdAsync(id: houseId);
+                if (restrictions != null)
+                {
+                    model.Restrictions = new List<RestrictionsListViewModel>();
+                    foreach (var facility in restrictions)
+                    {
+                        model.Restrictions.Add(new RestrictionsListViewModel
+                        {
+                            RestrictionId = facility.RestrictionId,
+                            Title = facility.Title,
+                            Checked = houseRestrictions != null ? houseRestrictions.Where(ha => ha.RestrictionId == facility.RestrictionId).Any() : false,
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("HouseService/GetHouseRestrictionViewModelAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+            return model;
+        }
+
+        public async Task<(bool Success, IErrorDictionary Errors)> UpdateHouseRestrictionsAsync(HouseRestrictionViewModel model)
+        {
+            bool success = false;
+            var errors = new ErrorDictionary();
+
+            try
+            {
+                if (model.Restrictions != null)
+                {
+                    // clear exisiting facilites
+                    await _restrictionRepository.ClearHouseRestrictionsByHouseIdAsync(model.HouseId);
+
+                    foreach (var item in model.Restrictions)
+                    {
+                        if (item.Checked)
+                        {
+                            // prepare record
+                            HouseRestriction hr = new HouseRestriction()
+                            {
+                                RestrictionId = item.RestrictionId,
+                                HouseId = model.HouseId
+                            };
+
+                            // save record
+                            if (!await _restrictionRepository.SaveHouseRestrictionAsync(hr))
+                            {
+                                errors.AddError("", "Unable to update restrictions");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    errors.AddError("", "Unable to process your request");
+                }
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                errors.AddError("", "Unexpected error occurred while updating restrictions.");
+                _logger.LogError("HouseService/UpdateHouseRestrictionsAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (success, errors);
+        }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.HouseRestrictionViewModel
+
+<form asp-action="UpdateHouseRestriction" asp-controller="Admin" method="post" id="update-restriction-form">
+
+	<input asp-for="HouseId" />
+	<div class="row"><div class="col-md-12">@Html.EditorFor(m => m.Restrictions)</div></div>
+	<div class="row">
+		<div class="col-md-12 mt-10">
+			<button type="submit" class="btn btn-primary" id="update-restriction-button">Save</button>
+			<button type="button" class="btn btn-danger" onclick="Hrm.AdminEditHouse.loadRestriction()">Reset</button>
+			<button type="button" class="btn btn-info" id="clear-checkbox">Clear All</button>
+		</div>
+	</div>
+</form>

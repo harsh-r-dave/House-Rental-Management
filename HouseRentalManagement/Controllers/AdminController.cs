@@ -19,18 +19,21 @@ namespace HouseRentalManagement.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITenantService _tenantService;
         private readonly IFeaturedPhotoService _featuredPhotoService;
+        private readonly IRestrictionService _restrictionService;
 
         public AdminController(IHouseService houseService,
            UserManager<ApplicationUser> userManager,
            IFacilityService facilityService,
            ITenantService tenantService,
-           IFeaturedPhotoService featuredPhotoService)
+           IFeaturedPhotoService featuredPhotoService,
+           IRestrictionService restrictionService)
         {
             _houseService = houseService;
             _userManager = userManager;
             _facilityService = facilityService;
             _tenantService = tenantService;
             _featuredPhotoService = featuredPhotoService;
+            _restrictionService = restrictionService;
         }
 
         #region House
@@ -618,6 +621,114 @@ namespace HouseRentalManagement.Controllers
                 success = result.Success,
                 error = result.Error
             });
+        }
+        #endregion
+
+        #region Restriction
+        public async Task<IActionResult> ManageRestrictions()
+        {
+            var model = new ManageRestrictionViewModel();
+            var result = await _restrictionService.GetManageRestrictionViewModelAsync();
+            if (result.Success)
+            {
+                model = result.Model;
+            }
+            else
+            {
+                foreach (var item in result.Errors.GetErrors())
+                {
+                    SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, item.Description);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRestriction(ManageRestrictionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _restrictionService.AddRestrictionAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Restriction added successfully");
+                }
+                else
+                {
+                    SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Unexpected error occured");
+                }
+            }
+
+            // redirect back where list will be populated again
+            return RedirectToAction(nameof(ManageRestrictions));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateRestriction(ManageRestrictionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _restrictionService.AddRestrictionAsync(model);
+                if (result.Success)
+                {
+                    SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Restriction updated successfully");
+                }
+                else
+                {
+                    SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, "Unexpected error occured");
+                }
+            }
+
+            // redirect back where list will be populated again
+            return RedirectToAction(nameof(ManageRestrictions));
+        }
+
+        public async Task<IActionResult> DeleteRestriction(int id)
+        {
+            var result = await _restrictionService.DeleteRestrictionAsync(id);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Restriction deleted successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+            return RedirectToAction(nameof(ManageRestrictions));
+        }
+
+        public async Task<IActionResult> GetHouseRestrictions(string houseId)
+        {
+            var model = await _houseService.GetHouseRestrictionViewModelAsync(Guid.Parse(houseId));
+            return PartialView("~/Views/Admin/_HouseRestrictionPartial.cshtml", model);
+        }
+
+        public async Task<IActionResult> UpdateHouseRestriction(HouseRestrictionViewModel model)
+        {
+            var result = await _houseService.UpdateHouseRestrictionsAsync(model);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Restrictions saved successfully");
+            }
+            else
+            {
+                if (result.Errors != null)
+                {
+                    foreach (var error in result.Errors.GetErrors())
+                    {
+                        SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, error.Description);
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
         }
         #endregion
     }

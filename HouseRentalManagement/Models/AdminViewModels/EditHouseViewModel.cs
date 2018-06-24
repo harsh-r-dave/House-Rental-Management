@@ -56,6 +56,8 @@ namespace HouseRentalManagement.Models.AdminViewModels
 
         public bool IsDisplaying { get; set; }
 
+        public string UrlSlug { get; set; }
+
         public ICollection<EditFacilityViewModel> Facilities { get; set; }
         public ICollection<AmenitiesListViewModel> Amenities { get; set; }
         public AddHouseImageViewModel AddHouseImageViewModel { get; set; }

@@ -24,7 +24,7 @@ body {
 
 /* navbar */
 .navbar {
-    /*background-color: #fff;*/
+    background-color: #0b5f92;
     color: black;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 .navbar-inverse .navbar-toggle:hover {
-    background-color: #0b5f92;
+    background-color: #5996bb;
 }
 
 .navbar-inverse {
@@ -46,7 +46,7 @@ body {
     }
 
         .navbar-inverse .navbar-brand:hover {
-            color: #0b5f92;
+            color: #5996bb;
         }
 
     .navbar-inverse .navbar-nav > li > a {
@@ -56,13 +56,13 @@ body {
 
         .navbar-inverse .navbar-nav > li > a:hover,
         .navbar-inverse .navbar-nav > li > a:focus {
-            color: #0b5f92;
+            color: #5996bb;
         }
 
     .navbar-inverse .navbar-nav > .open > a,
     .navbar-inverse .navbar-nav > .open > a:hover,
     .navbar-inverse .navbar-nav > .open > a:focus {
-        background-color: #0b5f92;
+        background-color: #5996bb;
     }
 
 @media screen and (max-width: 450px) {

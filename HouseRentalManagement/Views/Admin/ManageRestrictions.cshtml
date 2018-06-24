@@ -1,0 +1,108 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.ManageRestrictionViewModel
+@{
+	Layout = "~/views/Shared/_HouseLayout.cshtml";
+}
+
+@section Styles{
+	<link href="~/lib/datatable/datatables.css" rel="stylesheet" />
+}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12"><h3>Manage Restriction</h3></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add-restriction-modal">Add Restriction</button>
+		</div>
+	</div>
+
+	<div class="row mt-20">
+		<div class="col-md-8">
+			<table id="restriction-list-table" class="table table-responsive table-hover hrm-table">
+				<thead>
+					<tr>
+						<th>Restriction</th>
+						<th style="width: 30px;"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.ListRestrictionViewModel != null && Model.ListRestrictionViewModel.Any())
+					{
+						foreach (var item in Model.ListRestrictionViewModel)
+						{
+							<tr>
+								<td>@item.Title</td>
+								<td>
+									<a href="javascript:void(0)" onclick="Hrm.AdminManageRestriction.initUpdateRestriction('@item.RestrictionId', '@item.Title');" class="edit-control"><i class="fa fa-pencil"></i></a>
+									<a href="javascript:void(0)" onclick="Hrm.AdminManageRestriction.deleteRestriction('@item.RestrictionId');" class="edit-control"><i class="fa fa-close text-danger float-right"></i></a>
+								</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@* add modal *@
+<form asp-action="AddRestriction" asp-controller="Admin" method="post" id="add-restriction-form">
+	<div class="modal fade" id="add-restriction-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Restriction</h5>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label asp-for="RestrictionTitle"></label> <span class="required">*</span>
+						<input asp-for="RestrictionTitle" class="form-control" />
+						<span asp-validation-for="RestrictionTitle" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<form asp-action="UpdateRestriction" asp-controller="Admin" method="post" id="update-restriction-form">
+	<div class="modal fade" id="update-restriction-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Update Restriction</h5>
+				</div>
+				<div class="modal-body">
+					<input asp-for="RestrictionId" />
+					<div class="form-group">
+						<label asp-for="RestrictionTitle"></label> <span class="required">*</span>
+						<input asp-for="RestrictionTitle" class="form-control" />
+						<span asp-validation-for="RestrictionTitle" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Update</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	<script src="~/lib/datatable/datatables.js"></script>
+	<script src="~/lib/sweetalert/sweetalert2.js"></script>
+	<script src="~/js/pages/admin-managerestriction.js"></script>
+	<script>
+        $(document).ready(function () {
+			var adminManageRestrictionModel = {};
+			Hrm.AdminManageRestriction.init(adminManageRestrictionModel);
+        });
+	</script>
+}

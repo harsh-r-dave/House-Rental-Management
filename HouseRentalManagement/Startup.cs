@@ -59,6 +59,7 @@ namespace HouseRentalManagement
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IFeaturedPhotoService, FeaturedPhotoService>();
             services.AddScoped<IFrontendService, FrontendService>();
+            services.AddScoped<IRestrictionService, RestrictionService>();
 
             // business
             services.AddScoped<IAccessCodeRepository, AccessCodeRepository>();
@@ -69,6 +70,7 @@ namespace HouseRentalManagement
             services.AddScoped<IHouseImageRepository, HouseImageRepository>();
             services.AddScoped<ITenantRepository, TenantRepository>();
             services.AddScoped<IFeaturedPhotoRepository, FeaturedPhotoRepository>();
+            services.AddScoped<IRestrictionRepository, RestrictionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

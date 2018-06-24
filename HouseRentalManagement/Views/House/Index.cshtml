@@ -8,18 +8,18 @@
 	<link href="~/css/pages/house-index.css" rel="stylesheet" />
 }
 
-<div class="container">
+<div class="container-fluid" id="carousel-container">
 	<div class="row">
 		<div class="col-md-12">
 			@if (Model.FeaturedImages != null && Model.FeaturedImages.Count > 0)
 			{
-				<div id="preview-carousel" class="carousel slide mt-20" data-ride="carousel" data-interval="4000">
+				<div id="featured-image-carousel" class="carousel slide" data-ride="carousel" data-interval="4000">
 					<ol class="carousel-indicators">
 						@{
 							int index = 0;
 							foreach (var photo in Model.FeaturedImages)
 							{
-								<li data-target="#preview-carousel" data-slide-to="@index" class="@string.Format(index == 0 ? "active" : "")"></li>
+								<li data-target="#featured-image-carousel" data-slide-to="@index" class="@string.Format(index == 0 ? "active" : "")"></li>
 								index++;
 							}
 						}
@@ -36,11 +36,11 @@
 							}
 						}
 					</div>
-					<a class="left carousel-control" href="#preview-carousel" role="button" data-slide="prev">
+					<a class="left carousel-control" href="#featured-image-carousel" role="button" data-slide="prev">
 						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
-					<a class="right carousel-control" href="#preview-carousel" role="button" data-slide="next">
+					<a class="right carousel-control" href="#featured-image-carousel" role="button" data-slide="next">
 						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
@@ -48,7 +48,8 @@
 			}
 		</div>
 	</div>
-
+</div>
+<div class="container">
 	@{string dummy = "Eu ius posse quidam nonumes, est no nihil doming admodum. Postea molestie cum ea. Magna augue gloriatur ad sit, duo blandit accusata ad. Vim meis indoctum ea, sint homero deleniti vel ne. Omittam invenire cu mel. Sit in timeam adipisci reprimique."; }
 	<div class="row">
 		<div class="col-md-12 image-list">
@@ -198,6 +199,7 @@
 			Hrm.HouseIndex.init();
 		});
 	</script>
+
 }
 
 

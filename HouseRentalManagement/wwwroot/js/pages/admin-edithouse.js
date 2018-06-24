@@ -546,6 +546,34 @@ Hrm.AdminEditHouse = function () {
 	};
 	// ^house facility
 
+	// house restrictions
+	var loadRestriction = function () {
+		$('#restriction-tab-loader').show();
+		$.ajax({
+			url: "/Admin/GetHouseRestrictions",
+			data: {
+				houseId: viewModel.houseId
+			},
+			method: 'get'
+		}).done(function (data) {
+			$('#restriction-info').html(data);
+			$('#restriction-tab-loader').hide();
+		}).fail(function (a, textError) {
+			console.error(textError);
+			$('#restriction-tab-loader').hide();
+		});
+	};
+
+	var clearRestrictionCheckboxes = function () {
+		$('#restriction-info').find('input:checkbox').removeAttr('checked');
+	};
+	var initClearRestrictionCheckboxes = function () {
+		$('#restriction-info').off().on('click', '#clear-checkbox', function () {
+			clearRestrictionCheckboxes();
+		});
+	};
+	// ^house restrictions
+
 	// business processes
 	var initAmenitiesProcess = function () {
 		initClearCheckboxes();
@@ -572,6 +600,10 @@ Hrm.AdminEditHouse = function () {
 		loadFacility();
 		initClearFacilityCheckboxes();
 	};
+	var initHouseRestrictionProcess = function () {
+		loadRestriction();
+		initClearRestrictionCheckboxes();
+	};
 	// ^business processes
 
 	var initPage = function () {
@@ -586,6 +618,7 @@ Hrm.AdminEditHouse = function () {
 		initHouseImagesProcess();
 		initHouseTenantProcess();
 		initHouseFacilityProcess();
+		initHouseRestrictionProcess();
 	};
 
 	var init = function (model) {
@@ -603,7 +636,8 @@ Hrm.AdminEditHouse = function () {
 		setMainImage: setMainImage,
 		deleteHouseGettingAround: deleteHouseGettingAround,
 		removeTenant: removeTenant,
-		loadFacility: loadFacility
+		loadFacility: loadFacility,
+		loadRestriction: loadRestriction
 	};
 	return oPublic;
 }();

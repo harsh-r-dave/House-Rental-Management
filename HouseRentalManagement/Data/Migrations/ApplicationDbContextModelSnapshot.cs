@@ -306,6 +306,26 @@ namespace HouseRentalManagement.Data.Migrations
                     b.ToTable("HouseLeaseLengths");
                 });
 
+            modelBuilder.Entity("HouseRentalManagement.Models.HouseRestriction", b =>
+                {
+                    b.Property<int>("HouseRestrictionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("HouseId");
+
+                    b.Property<int>("RestrictionId");
+
+                    b.HasKey("HouseRestrictionId");
+
+                    b.HasIndex("HouseId");
+
+                    b.HasIndex("RestrictionId");
+
+                    b.ToTable("HouseRestriction");
+                });
+
             modelBuilder.Entity("HouseRentalManagement.Models.LeaseLength", b =>
                 {
                     b.Property<int>("LeaseLengthId")
@@ -316,6 +336,21 @@ namespace HouseRentalManagement.Data.Migrations
                     b.HasKey("LeaseLengthId");
 
                     b.ToTable("LeaseLengths");
+                });
+
+            modelBuilder.Entity("HouseRentalManagement.Models.Restriction", b =>
+                {
+                    b.Property<int>("RestrictionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(500);
+
+                    b.HasKey("RestrictionId");
+
+                    b.ToTable("Restriction");
                 });
 
             modelBuilder.Entity("HouseRentalManagement.Models.Tenant", b =>
@@ -542,6 +577,19 @@ namespace HouseRentalManagement.Data.Migrations
                     b.HasOne("HouseRentalManagement.Models.LeaseLength", "LeaseLength")
                         .WithMany("HouseLeaseLength")
                         .HasForeignKey("HouseLeaseLengthId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HouseRentalManagement.Models.HouseRestriction", b =>
+                {
+                    b.HasOne("HouseRentalManagement.Models.House", "Houses")
+                        .WithMany("HouseRestrictions")
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("HouseRentalManagement.Models.Restriction", "Restriction")
+                        .WithMany()
+                        .HasForeignKey("RestrictionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

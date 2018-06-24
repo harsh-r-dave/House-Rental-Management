@@ -1,11 +1,21 @@
-﻿#myCarousel img {
+﻿#carousel-container {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#featured-image-carousel img {
     max-height: 450px;
     width: 100%;
 }
 
-.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+.carousel-inner > .item > img, 
+.carousel-inner > .item > a > img {
     max-height: 500px;
     width: 100%;
+}
+
+.carousel-control{
+    width: 5%;
 }
 
 .carousel-caption {

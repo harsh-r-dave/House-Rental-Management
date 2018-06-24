@@ -1,5 +1,5 @@
 ﻿#jhr-page {
-    /*background: url("../../images/testimages/_IGP0542.jpg");*/
+    /*background: url("../../images/background/Toronto_Night.jpg");*/
     background-color: white;
     /* Set a specific height */
     /* Create the parallax scrolling effect */
@@ -7,6 +7,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    /*background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);*/   
 }
 
 #jhr-portfolio-section {

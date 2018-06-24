@@ -24,5 +24,7 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, string Error)> DeleteHouseGettingAroundAsync(int houseGettingAroundId);
         Task<HouseFacilityViewModel> GetHouseFacilityViewModelAsync(Guid houseId);
         Task<(bool Success, IErrorDictionary Errors)> UpdateHouseFacilitesAsync(HouseFacilityViewModel model);
+        Task<HouseRestrictionViewModel> GetHouseRestrictionViewModelAsync(Guid houseId);
+        Task<(bool Success, IErrorDictionary Errors)> UpdateHouseRestrictionsAsync(HouseRestrictionViewModel model);
     }
 }

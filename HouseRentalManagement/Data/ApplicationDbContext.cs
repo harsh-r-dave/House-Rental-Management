@@ -23,6 +23,8 @@ namespace HouseRentalManagement.Data
         public DbSet<HouseGettingAround> HouseGettingAround { get; set; }
         public DbSet<FeaturedImage> FeaturedImage { get; set; }
         public DbSet<AccessCode> AccessCode { get; set; }
+        public DbSet<HouseRestriction> HouseRestriction { get; set; }
+        public DbSet<Restriction> Restriction { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -112,6 +114,24 @@ namespace HouseRentalManagement.Data
             builder.Entity<AccessCode>(entity =>
             {
                 entity.HasKey(a => a.AccessCodeId);
+            });
+
+            builder.Entity<Restriction>(entity =>
+            {
+                entity.HasKey(a => a.RestrictionId);
+                entity.Property(a => a.Title).HasMaxLength(500);
+            });
+
+            builder.Entity<HouseRestriction>(entity => {
+                entity.HasKey(a => a.HouseRestrictionId);
+
+                entity.HasOne(a => a.Houses)
+                .WithMany(b => b.HouseRestrictions)
+                .HasForeignKey(a => a.HouseId);
+
+                entity.HasOne(a => a.Restriction)
+                .WithMany()
+                .HasForeignKey(a => a.RestrictionId);
             });
         }
     }
