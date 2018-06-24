@@ -58,6 +58,7 @@ namespace HouseRentalManagement
             services.AddScoped<IFacilityService, FacilityService>();
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IFeaturedPhotoService, FeaturedPhotoService>();
+            services.AddScoped<IFrontendService, FrontendService>();
 
             // business
             services.AddScoped<IAccessCodeRepository, AccessCodeRepository>();

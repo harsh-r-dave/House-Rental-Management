@@ -49,5 +49,13 @@ namespace HouseRentalManagement.Data
             _context.House.Remove(house);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<ICollection<House>> GetHouseListForIndexPageAsync()
+        {
+            return await _context.House
+                .Where(a => a.IsDisplaying)
+                .Include(a => a.HouseImages)
+                .ToListAsync();
+        }
     }
 }

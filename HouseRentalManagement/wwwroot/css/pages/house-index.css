@@ -3,6 +3,11 @@
     width: 100%;
 }
 
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    max-height: 500px;
+    width: 100%;
+}
+
 .carousel-caption {
     background-color: white;
     color: #5996bb;
