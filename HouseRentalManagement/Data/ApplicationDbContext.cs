@@ -25,6 +25,7 @@ namespace HouseRentalManagement.Data
         public DbSet<AccessCode> AccessCode { get; set; }
         public DbSet<HouseRestriction> HouseRestriction { get; set; }
         public DbSet<Restriction> Restriction { get; set; }
+        public DbSet<Inquiry> Inquiry { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -47,8 +48,8 @@ namespace HouseRentalManagement.Data
             builder.Entity<Tenant>().HasKey(e => e.TenantId);
             builder.Entity<Tenant>().
                 HasOne<House>(e => e.House)
-                .WithMany(h=>h.Tenants)
-                .HasForeignKey(e=>e.HouseId);
+                .WithMany(h => h.Tenants)
+                .HasForeignKey(e => e.HouseId);
 
             builder.Entity<HouseImage>().HasKey(e => e.HouseImageId);
             builder.Entity<HouseImage>().HasOne<House>(e => e.House);
@@ -106,7 +107,7 @@ namespace HouseRentalManagement.Data
                 .HasForeignKey(a => a.HouseId);
             });
 
-            builder.Entity<FeaturedImage>(entity => 
+            builder.Entity<FeaturedImage>(entity =>
             {
                 entity.HasKey(a => a.FeaturedImageId);
             });
@@ -122,7 +123,8 @@ namespace HouseRentalManagement.Data
                 entity.Property(a => a.Title).HasMaxLength(500);
             });
 
-            builder.Entity<HouseRestriction>(entity => {
+            builder.Entity<HouseRestriction>(entity =>
+            {
                 entity.HasKey(a => a.HouseRestrictionId);
 
                 entity.HasOne(a => a.Houses)
@@ -132,6 +134,16 @@ namespace HouseRentalManagement.Data
                 entity.HasOne(a => a.Restriction)
                 .WithMany()
                 .HasForeignKey(a => a.RestrictionId);
+            });
+
+            builder.Entity<Inquiry>(entity =>
+            {
+                entity.HasKey(a => a.InquiryId);
+
+                entity.Property(a => a.Name).HasMaxLength(100);
+                entity.Property(a => a.EmailAddress).HasMaxLength(100);
+                entity.Property(a => a.Message).HasMaxLength(500);
+                entity.Property(a => a.Read).HasDefaultValue(false);
             });
         }
     }

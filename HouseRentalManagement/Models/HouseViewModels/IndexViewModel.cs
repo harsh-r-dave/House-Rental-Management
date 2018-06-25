@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HouseRentalManagement.Models.InquiryViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,6 @@ namespace HouseRentalManagement.Models.HouseViewModels
     {
         public ICollection<FeaturedPhotosViewModel> FeaturedImages { get; set; }
         public ICollection<HouseViewModel> Houses { get; set; }
+        public AddInquiryViewModel AddInquiryViewModel { get; set; }
     }
 }

@@ -8,9 +8,9 @@
 	<link href="~/css/pages/house-index.css" rel="stylesheet" />
 }
 
-<div class="container-fluid" id="carousel-container">
+<div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
+		<div>
 			@if (Model.FeaturedImages != null && Model.FeaturedImages.Count > 0)
 			{
 				<div id="featured-image-carousel" class="carousel slide" data-ride="carousel" data-interval="4000">
@@ -50,7 +50,6 @@
 	</div>
 </div>
 <div class="container">
-	@{string dummy = "Eu ius posse quidam nonumes, est no nihil doming admodum. Postea molestie cum ea. Magna augue gloriatur ad sit, duo blandit accusata ad. Vim meis indoctum ea, sint homero deleniti vel ne. Omittam invenire cu mel. Sit in timeam adipisci reprimique."; }
 	<div class="row">
 		<div class="col-md-12 image-list">
 			<div class="house-list-container">
@@ -60,7 +59,7 @@
 						foreach (var house in Model.Houses)
 						{
 							<div class="tile mt-20 col-md-4 col-sm-6">
-								<a asp-action="HouseInfo" asp-controller="House" asp-route-slug="@house.UrlSlug">
+								<a asp-action="HouseInfo" asp-controller="House" asp-route-s="@house.UrlSlug">
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="house-image">
@@ -130,15 +129,15 @@
 				<div class="col-sm-offset-2 col-sm-8 text-center divider"><h5>OR</h5></div>
 			</div>
 			<div class="row" id="contact-us-form-container">
-				<form asp-action="" asp-controller="Admin" method="post" id="contact-us-form">
+				<form id="contact-us-form">
 					<div class="row form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<label>Name: </label> <span class="required">*</span>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								<input class="form-control" placeholder="Name" />
+								<input asp-for="AddInquiryViewModel.Name" class="form-control" placeholder="Name" />								
 							</div>
-							<span class="text-danger"></span>
+							<span asp-validation-for="AddInquiryViewModel.Name" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row form-group">
@@ -146,9 +145,9 @@
 							<label>Phone: </label> <span class="required">*</span>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-								<input class="form-control" placeholder="Phone #" />
+								<input asp-for="AddInquiryViewModel.PhoneNumber" class="form-control" placeholder="Phone #" />
 							</div>
-							<span class="text-danger"></span>
+							<span asp-validation-for="AddInquiryViewModel.PhoneNumber" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row form-group">
@@ -156,9 +155,9 @@
 							<label>Email: </label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-at"></i></span>
-								<input class="form-control" placeholder="Email Address" />
+								<input asp-for="AddInquiryViewModel.Email" class="form-control" placeholder="Email Address" />
 							</div>
-							<span class="text-danger"></span>
+							<span asp-validation-for="AddInquiryViewModel.Email" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row form-group">
@@ -166,14 +165,14 @@
 							<label>Message: </label> <span class="required">*</span>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-								<textarea class="form-control" placeholder="Message" rows="3"></textarea>
+								<textarea asp-for="AddInquiryViewModel.Message" class="form-control" placeholder="Message" rows="3"></textarea>								
 							</div>
-							<span class="text-danger"></span>
+							<span asp-validation-for="AddInquiryViewModel.Message" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row form-group">
 						<div class="col-sm-offset-2 col-sm-8 text-center">
-							<input type="button" class="btn btn-primary" value="Submit" />
+							<input type="submit" class="btn btn-primary" value="Submit" />
 						</div>
 					</div>
 				</form>
@@ -193,6 +192,7 @@
 </div>
 
 @section Scripts{
+	@await Html.PartialAsync("_ValidationScriptsPartial")
 	<script src="~/js/pages/house-index.js"></script>
 	<script>
 		$(document).ready(function () {

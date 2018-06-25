@@ -326,6 +326,33 @@ namespace HouseRentalManagement.Data.Migrations
                     b.ToTable("HouseRestriction");
                 });
 
+            modelBuilder.Entity("HouseRentalManagement.Models.Inquiry", b =>
+                {
+                    b.Property<int>("InquiryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("EmailAddress")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Message")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("Read")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.HasKey("InquiryId");
+
+                    b.ToTable("Inquiry");
+                });
+
             modelBuilder.Entity("HouseRentalManagement.Models.LeaseLength", b =>
                 {
                     b.Property<int>("LeaseLengthId")
