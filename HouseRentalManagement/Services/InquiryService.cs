@@ -115,5 +115,109 @@ namespace HouseRentalManagement.Services
 
             return model;
         }
+
+        public async Task<(bool Success, string Error, string Message, bool IsRead)> GetMessageByIdAsync(int id)
+        {
+            bool success = false;
+            string error = string.Empty;
+            string message = string.Empty;
+            bool isRead = false;
+
+            try
+            {
+                if (id>0)
+                {
+                    var inquiry = await _inquiryRepository.GetInquiryByIdAsync(id);
+                    if (inquiry != null)
+                    {
+                        message = inquiry.Message;
+                        isRead = inquiry.Read;
+                        success = true;
+                    }
+                    else
+                    {
+                        error = "Unable to find message for requested inquiry, please contact IT support";
+                    }
+                }
+                else
+                {
+                    error = "Invalid inquiry id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Something went wrong while processing your request.";
+                _logger.LogError("InquiryService/GetUnreadInquiriesAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (Success: success, Error: error, Message: message, IsRead : isRead);
+        }
+
+        public async Task<(bool Success, string Error)> MarkMessageReadByIdAsync(int id)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                if (id > 0)
+                {
+                    var inquiry = await _inquiryRepository.GetInquiryByIdAsync(id);
+                    if (inquiry != null)
+                    {
+                        inquiry.Read = true;
+                        success = await _inquiryRepository.SaveInquiryAsync(inquiry);
+                    }
+                    else
+                    {
+                        error = "Unable to find inquiry, please contact IT support";
+                    }
+                }
+                else
+                {
+                    error = "Invalid inquiry id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Something went wrong while processing your request.";
+                _logger.LogError("InquiryService/MarkMessageReadByIdAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (Success: success, Error: error);
+        }
+
+        public async Task<(bool Success, string Error)> DeleteInquiryByIdAsync(int id)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                if (id > 0)
+                {
+                    var inquiry = await _inquiryRepository.GetInquiryByIdAsync(id);
+                    if (inquiry != null)
+                    {
+                        success = await _inquiryRepository.DeleteAsync(inquiry);
+                    }
+                    else
+                    {
+                        error = "Unable to find inquiry, please contact IT support";
+                    }
+                }
+                else
+                {
+                    error = "Invalid inquiry id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Something went wrong while processing your request.";
+                _logger.LogError("InquiryService/DeleteInquiryByIdAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (Success: success, Error: error);
+        }
     }
 }

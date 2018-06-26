@@ -12,6 +12,7 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\FeaturedPhotos.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\Houses.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\ManageFacility.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\ManageRestrictions.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\Tenants.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_FeaturedPhotoListPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_FeaturedPhotosPreviewPartial.cshtml
@@ -21,12 +22,15 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseGettingAroundPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseImageListPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseImagesAdd.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseRestrictionPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Admin\_HouseTenantListPartial.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\About.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\Contact.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Home\Index.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\House\HouseInfo.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\House\Index.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Inquiry\Index.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Inquiry\Inquiries.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Manage\ChangePassword.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Manage\Disable2fa.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Manage\EnableAuthenticator.cshtml
@@ -44,6 +48,7 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\Components\SiteMessageView\Default.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\EditorTemplates\AmenitiesListViewModel.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\EditorTemplates\FacilitiesListViewModel.cshtml
+--file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\EditorTemplates\RestrictionsListViewModel.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\Error.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\_HouseLayout.cshtml
 --file=C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\Views\Shared\_Layout.cshtml

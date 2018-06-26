@@ -45,5 +45,11 @@ namespace HouseRentalManagement.Data
 
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> DeleteAsync(Inquiry inquiry)
+        {
+            _context.Inquiry.Remove(inquiry);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

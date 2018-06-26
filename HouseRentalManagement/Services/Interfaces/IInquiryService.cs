@@ -11,5 +11,8 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, string Error)> SubmitNewInquiryAsync(AddInquiryViewModel model);
         Task<ListInquiryViewModel> GetUnreadInquiriesAsync();
         Task<ListInquiryViewModel> GetReadInquiriesAsync();
+        Task<(bool Success, string Error, string Message, bool IsRead)> GetMessageByIdAsync(int id);
+        Task<(bool Success, string Error)> MarkMessageReadByIdAsync(int id);
+        Task<(bool Success, string Error)> DeleteInquiryByIdAsync(int id);
     }
 }

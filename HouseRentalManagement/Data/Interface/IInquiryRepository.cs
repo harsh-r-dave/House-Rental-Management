@@ -12,5 +12,6 @@ namespace HouseRentalManagement.Data.Interface
         Task<ICollection<Inquiry>> GetUnreadInquiriesAsync();
         Task<Inquiry> GetInquiryByIdAsync(int id);
         Task<bool> SaveInquiryAsync(Inquiry record);
+        Task<bool> DeleteAsync(Inquiry inquiry);
     }
 }

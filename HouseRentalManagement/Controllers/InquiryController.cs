@@ -62,5 +62,37 @@ namespace HouseRentalManagement.Controllers
                 error = "Please review the information and submit again"
             });
         }
+
+        public async Task<IActionResult> GetMessage(int id)
+        {
+            var result = await _inquiryService.GetMessageByIdAsync(id);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error,
+                message = result.Message,
+                isRead = result.IsRead
+            });
+        }
+
+        public async Task<IActionResult> MarkRead(int id)
+        {
+            var result = await _inquiryService.MarkMessageReadByIdAsync(id);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> DeleteInquiry(int id)
+        {
+            var result = await _inquiryService.DeleteInquiryByIdAsync(id);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
     }
 }

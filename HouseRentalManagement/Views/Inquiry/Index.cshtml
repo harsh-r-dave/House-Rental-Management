@@ -39,7 +39,24 @@
 	</div>
 </div>
 
+<div class="modal fade" id="message-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				Message
+			</div>
+			<div class="modal-body" id="message-container">
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-message-id="" id="mark-read-button">Mark Read</button>
+				<button class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 @section Scripts{
+	<script src="~/lib/sweetalert/sweetalert2.js"></script>
 	<script src="~/lib/datatable/datatables.js"></script>
 	<script src="~/js/pages/inquiry-index.js"></script>
 	<script>
