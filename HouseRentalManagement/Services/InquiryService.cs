@@ -48,7 +48,7 @@ namespace HouseRentalManagement.Services
             }
             return (Success: success, Error: error);
         }
-        
+
         public async Task<ListInquiryViewModel> GetReadInquiriesAsync()
         {
             var model = new ListInquiryViewModel()
@@ -61,7 +61,7 @@ namespace HouseRentalManagement.Services
                 var inquiries = await _inquiryRepository.GetReadInquiriesAsync();
                 if (inquiries != null && inquiries.Count > 0)
                 {
-                    foreach(var item in inquiries)
+                    foreach (var item in inquiries)
                     {
                         model.Inquiries.Add(GetInquiryViewModelFromInquiry(item));
                     }
@@ -125,7 +125,7 @@ namespace HouseRentalManagement.Services
 
             try
             {
-                if (id>0)
+                if (id > 0)
                 {
                     var inquiry = await _inquiryRepository.GetInquiryByIdAsync(id);
                     if (inquiry != null)
@@ -150,7 +150,7 @@ namespace HouseRentalManagement.Services
                 _logger.LogError("InquiryService/GetUnreadInquiriesAsync - exception:{@Ex}", new object[] { ex });
             }
 
-            return (Success: success, Error: error, Message: message, IsRead : isRead);
+            return (Success: success, Error: error, Message: message, IsRead: isRead);
         }
 
         public async Task<(bool Success, string Error)> MarkMessageReadByIdAsync(int id)
@@ -210,6 +210,44 @@ namespace HouseRentalManagement.Services
                 {
                     error = "Invalid inquiry id";
                 }
+            }
+            catch (Exception ex)
+            {
+                error = "Something went wrong while processing your request.";
+                _logger.LogError("InquiryService/DeleteInquiryByIdAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (Success: success, Error: error);
+        }
+
+        public async Task<(bool Success, string Error)> DeleteAllUnreadInquiryAsync()
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                success = await _inquiryRepository.DeleteAllUnreadInquiriesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                error = "Something went wrong while processing your request.";
+                _logger.LogError("InquiryService/DeleteInquiryByIdAsync - exception:{@Ex}", new object[] { ex });
+            }
+
+            return (Success: success, Error: error);
+        }
+
+        public async Task<(bool Success, string Error)> DeleteAllReadInquiryAsync()
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                success = await _inquiryRepository.DeleteAllReadInquiriesAsync();
+
             }
             catch (Exception ex)
             {

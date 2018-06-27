@@ -22,10 +22,36 @@ Hrm.HouseIndex = function () {
 		});
 	};
 
+	var setLoader = function () {
+		$('#contact-us-loader-container #sending-message').show();
+		$('#contact-us-loader-container #message-sent').hide();
+		$('#contact-us-loader-container #message-failed').hide();
+		$('#contact-us-form').hide();
+	};
+	var setSent = function () {		
+		$('#contact-us-loader-container #sending-message').hide();
+		$('#contact-us-loader-container #message-sent').show();
+		$('#contact-us-loader-container #message-failed').hide();
+		$('#contact-us-form').hide();
+	};
+	var setFailed = function () {
+		$('#contact-us-loader-container #sending-message').hide();
+		$('#contact-us-loader-container #message-sent').hide();
+		$('#contact-us-loader-container #message-failed').show();
+		$('#contact-us-form').hide();
+	};
+	var clearLoader = function () {
+		$('#contact-us-loader-container #sending-message').hide();
+		$('#contact-us-loader-container #message-sent').hide();
+		$('#contact-us-loader-container #message-failed').hide();
+		$('#contact-us-form').show();
+	};	
+
 	var submitInquiry = function () {
 		$('#contact-us-form').on('submit', function (e) {
 			e.preventDefault();
 			if ($('#contact-us-form').valid()) {
+				setLoader();
 				var name = $('#AddInquiryViewModel_Name').val();
 				var phone = $('#AddInquiryViewModel_PhoneNumber').val();
 				var email = $('#AddInquiryViewModel_Email').val();
@@ -41,13 +67,24 @@ Hrm.HouseIndex = function () {
 					}
 				}).done(function (result) {
 					if (result.success) {
-						toastr.success('Your inquiry has been submitted succesfully.', '', Hrm.Toastr.config);
+						setTimeout(function () {
+							clearLoader();
+							setSent();
+						}, 750);						
 					}
 					else {
 						toastr.error(result.error, '', Hrm.Toastr.config);
-					}
+						setTimeout(function () {
+							clearLoader();
+							setFailed();
+						}, 750);							
+					}					
 				}).fail(function (jqXHR, textStatus) {
 					console.log(textStatus);
+					setTimeout(function () {
+						clearLoader();
+						setFailed();
+					}, 750);	
 				});
 			}
 		});
@@ -81,7 +118,8 @@ Hrm.HouseIndex = function () {
 	};
 
 	var oPublic = {
-		init: init
+		init: init,
+		clearLoader: clearLoader
 	}
 	return oPublic;
 }();

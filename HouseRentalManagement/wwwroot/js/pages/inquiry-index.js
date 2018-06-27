@@ -136,6 +136,66 @@ Hrm.InquiryIndex = function () {
 		});		
 	};
 
+	var deleteAllUnread = function () {
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#337ab7',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function (result) {
+			if (result.value) {
+				$.ajax({
+					url: '/Inquiry/DeleteAllUnread',
+					method: 'get'
+				}).done(function (result) {
+					if (result.success) {
+						loadUnreadInquiries();
+						loadReadInquiries();
+						toastr.success('Inquiries deleted.', '', Hrm.Toastr.config);
+					}
+					else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+					}
+				}).fail(function (jqXHR, textStatus) {
+					console.log(textStatus);
+				});
+			}
+		});	
+	};
+
+	var deleteAllRead = function () {
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#337ab7',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function (result) {
+			if (result.value) {
+				$.ajax({
+					url: '/Inquiry/DeleteAllRead',
+					method: 'get'
+				}).done(function (result) {
+					if (result.success) {
+						loadUnreadInquiries();
+						loadReadInquiries();
+						toastr.success('Inquiries deleted.', '', Hrm.Toastr.config);
+					}
+					else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+					}
+				}).fail(function (jqXHR, textStatus) {
+					console.log(textStatus);
+				});
+			}
+		});
+	};
+
 	var initPage = function () {
 		loadUnreadInquiries();
 		loadReadInquiries();
@@ -152,7 +212,10 @@ Hrm.InquiryIndex = function () {
 	var oPublic = {
 		init: init,
 		loadMessage: loadMessage,
-		deleteInquiry: deleteInquiry
+		deleteInquiry: deleteInquiry,
+		refresh: initPage,
+		deleteAllUnread: deleteAllUnread,
+		deleteAllRead: deleteAllRead
 	};
 	return oPublic;
 }();

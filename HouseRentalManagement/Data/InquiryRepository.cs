@@ -51,5 +51,43 @@ namespace HouseRentalManagement.Data
             _context.Inquiry.Remove(inquiry);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> DeleteAllUnreadInquiriesAsync()
+        {
+            var inquiries = await GetUnreadInquiriesAsync();
+            if (inquiries.Count == 0)
+            {
+                return true;
+            }
+
+            if (inquiries!= null && inquiries.Count > 0)
+            {
+                foreach (var inquiry in inquiries)
+                {
+                    _context.Inquiry.Remove(inquiry);
+                }
+            }            
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeleteAllReadInquiriesAsync()
+        {
+            var inquiries = await GetReadInquiriesAsync();
+            if (inquiries.Count == 0)
+            {
+                return true;
+            }
+
+            if (inquiries != null && inquiries.Count > 0)
+            {
+                foreach (var inquiry in inquiries)
+                {
+                    _context.Inquiry.Remove(inquiry);
+                }
+            }
+
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

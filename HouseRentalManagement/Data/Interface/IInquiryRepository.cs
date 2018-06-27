@@ -13,5 +13,7 @@ namespace HouseRentalManagement.Data.Interface
         Task<Inquiry> GetInquiryByIdAsync(int id);
         Task<bool> SaveInquiryAsync(Inquiry record);
         Task<bool> DeleteAsync(Inquiry inquiry);
+        Task<bool> DeleteAllReadInquiriesAsync();
+        Task<bool> DeleteAllUnreadInquiriesAsync();
     }
 }

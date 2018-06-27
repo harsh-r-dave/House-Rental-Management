@@ -94,5 +94,25 @@ namespace HouseRentalManagement.Controllers
                 error = result.Error
             });
         }
+
+        public async Task<IActionResult> DeleteAllUnread()
+        {
+            var result = await _inquiryService.DeleteAllUnreadInquiryAsync();
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> DeleteAllRead()
+        {
+            var result = await _inquiryService.DeleteAllReadInquiryAsync();
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
     }
 }

@@ -16,13 +16,13 @@
 
 	<ul class="nav nav-tabs mt-20">
 		<li class="active">
-			<a data-toggle="tab" href="#new-inquiries">
+			<a data-toggle="tab" href="#new-inquiries-content">
 				New
 				<span id="new-inquiries-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
 			</a>
 		</li>
 		<li>
-			<a data-toggle="tab" href="#old-inquiries">
+			<a data-toggle="tab" href="#old-inquiries-content">
 				Old
 				<span id="old-inquiries-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
 			</a>
@@ -30,11 +30,19 @@
 	</ul>
 
 	<div class="tab-content col-md-12">
-		<div id="new-inquiries" class="tab-pane fade in active">
-			@* loaded using ajax *@
+		<div id="new-inquiries-content" class="tab-pane fade in active">
+			<a class="btn btn-primary" onclick="Hrm.InquiryIndex.refresh()">Refresh</a>
+			<a class="btn btn-danger" onclick="Hrm.InquiryIndex.deleteAllUnread()">Delete All New</a>
+			<div id="new-inquiries"">
+				@* loaded using ajax *@
+			</div>
 		</div>
-		<div id="old-inquiries" class="tab-pane fade">
+		<div id="old-inquiries-content" class="tab-pane fade">
 			@* loaded using ajax *@
+			<a class="btn btn-danger" onclick="Hrm.InquiryIndex.deleteAllRead()">Delete All Old</a>
+			<div id="old-inquiries"">
+				@* loaded using ajax *@
+			</div>
 		</div>
 	</div>
 </div>

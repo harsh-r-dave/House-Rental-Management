@@ -129,13 +129,28 @@
 				<div class="col-sm-offset-2 col-sm-8 text-center divider"><h5>OR</h5></div>
 			</div>
 			<div class="row" id="contact-us-form-container">
+				<div class="row" id="contact-us-loader-container">
+					<div class="col-md-12 text-center" id="sending-message">
+						<img src="~/images/loading.gif" id="loader-image" /><br /><br />
+						<span> Sending Message. . . </span>
+					</div>
+					<div class="col-md-12 text-center" id="message-sent">
+						<img src="~/images/sent.jpg" id="sent-image" /><br /><br />
+						<span> Your message has been sent, Thank you! </span>
+					</div>
+					<div class="col-md-12 text-center" id="message-failed">
+						<img src="~/images/failed.png" id="sent-image" /><br /><br />
+						<span> Sorry, we're unable to send your message, please try again! </span><br />
+						<a class="btn btn-primary" onclick="Hrm.HouseIndex.clearLoader()">Try again</a>
+					</div>
+				</div>
 				<form id="contact-us-form">
 					<div class="row form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<label>Name: </label> <span class="required">*</span>
 							<div class="input-group" id="name-container">
 								<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								<input asp-for="AddInquiryViewModel.Name" class="form-control" placeholder="Name" />								
+								<input asp-for="AddInquiryViewModel.Name" class="form-control" placeholder="Name" />
 							</div>
 							<span asp-validation-for="AddInquiryViewModel.Name" class="text-danger"></span>
 						</div>
@@ -165,7 +180,7 @@
 							<label>Message: </label> <span class="required">*</span>
 							<div class="input-group" id="message-container">
 								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-								<textarea asp-for="AddInquiryViewModel.Message" class="form-control" placeholder="Message" rows="3"></textarea>								
+								<textarea asp-for="AddInquiryViewModel.Message" class="form-control" placeholder="Message" rows="3"></textarea>
 							</div>
 							<span asp-validation-for="AddInquiryViewModel.Message" class="text-danger"></span>
 						</div>
