@@ -63,3 +63,18 @@
             font-size: 12px;
         }
 }
+
+#contact-us-loader-container #sending-message {
+    display: none;
+}
+#contact-us-loader-container #message-sent {
+    display: none;
+}
+#contact-us-loader-container #message-failed {
+    color: red;
+    display: none;
+}
+#contact-us-loader-container img {
+    max-height: 100px;
+    max-width: 100px;
+}
