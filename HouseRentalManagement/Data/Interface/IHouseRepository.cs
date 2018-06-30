@@ -14,5 +14,6 @@ namespace HouseRentalManagement.Data.Interface
         Task<House> FetchHouseByIdAsync(Guid id);
         Task<bool> DeleteHouseAsync(House house);
         Task<ICollection<House>> GetHouseListForIndexPageAsync();
+        Task<House> GetHouseByIdOrSlugAsync(string slug = "", Guid? id = null);
     }
 }

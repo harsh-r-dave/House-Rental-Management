@@ -24,7 +24,10 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<HouseAmenity>> ListHouseAmenitiesByHouseIdAsync(Guid id)
         {
-            return await _context.HouseAmenity.Where(a=>a.HouseId == id).ToListAsync();
+            return await _context.HouseAmenity
+                .Where(a => a.HouseId == id)
+                .Include(a => a.Amenity)
+                .ToListAsync();
         }
 
         public async Task<bool> SaveHouseAmenityAsync(HouseAmenity houseAmenity)
@@ -36,7 +39,7 @@ namespace HouseRentalManagement.Data
         public async Task ClearHouseAmenitiesByHouseIdAsync(Guid houseId)
         {
             var amenities = await ListHouseAmenitiesByHouseIdAsync(houseId);
-            if (amenities!=null)
+            if (amenities != null)
             {
                 foreach (var item in amenities)
                 {

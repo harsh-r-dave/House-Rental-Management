@@ -442,7 +442,7 @@ namespace HouseRentalManagement.Services
                     {
                         foreach (var image in houseImages)
                         {
-                            // save image to directory
+                            // prepare path
                             var imageDirectory = string.Format(_imageOptions.HouseImagePath, image.HouseId);
                             var fullPath = string.Format("{0}{1}{2}", "/", imageDirectory, image.FileName);
 

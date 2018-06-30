@@ -13,6 +13,6 @@ namespace HouseRentalManagement.Models
         public bool IncludedInUtility { get; set; }
 
         public ICollection<House> Houses { get; set; }
-        public ICollection<Amenity> Amenities { get; set; }
+        public virtual Amenity Amenity { get; set; }
     }
 }

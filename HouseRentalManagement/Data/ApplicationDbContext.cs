@@ -73,7 +73,9 @@ namespace HouseRentalManagement.Data
 
                 entity.HasMany(a => a.Houses);
 
-                entity.HasMany(a => a.Amenities);
+                entity.HasOne(a => a.Amenity)
+                .WithMany(b => b.HouseAmenities)
+                .HasForeignKey(a => a.AmenityId);
 
                 entity.Property(a => a.IncludedInUtility).HasDefaultValue(false);
             });

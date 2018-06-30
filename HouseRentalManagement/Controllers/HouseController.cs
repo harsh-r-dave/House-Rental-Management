@@ -25,9 +25,16 @@ namespace HouseRentalManagement.Controllers
             return View(model);
         }
 
-        public IActionResult HouseInfo()
+        public async Task<IActionResult> HouseInfo(string s, Guid houseId)
         {
-            return View();
+            var result = await _frontendService.GetHouseInfoViewModelAsync(slug: s, houseId: houseId);
+            if (result.Success)
+            {
+                return View(result.Model);
+            }
+            
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, result.Error);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

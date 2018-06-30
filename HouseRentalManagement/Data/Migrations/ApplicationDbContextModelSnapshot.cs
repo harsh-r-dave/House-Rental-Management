@@ -45,13 +45,9 @@ namespace HouseRentalManagement.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("HouseAmenityId");
-
                     b.Property<string>("ImageFileName");
 
                     b.HasKey("AmenityId");
-
-                    b.HasIndex("HouseAmenityId");
 
                     b.ToTable("Amenity");
                 });
@@ -524,13 +520,6 @@ namespace HouseRentalManagement.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("HouseRentalManagement.Models.Amenity", b =>
-                {
-                    b.HasOne("HouseRentalManagement.Models.HouseAmenity")
-                        .WithMany("Amenities")
-                        .HasForeignKey("HouseAmenityId");
-                });
-
             modelBuilder.Entity("HouseRentalManagement.Models.Facility", b =>
                 {
                     b.HasOne("HouseRentalManagement.Models.HouseFacility")
@@ -559,7 +548,7 @@ namespace HouseRentalManagement.Data.Migrations
 
             modelBuilder.Entity("HouseRentalManagement.Models.HouseAmenity", b =>
                 {
-                    b.HasOne("HouseRentalManagement.Models.Amenity")
+                    b.HasOne("HouseRentalManagement.Models.Amenity", "Amenity")
                         .WithMany("HouseAmenities")
                         .HasForeignKey("AmenityId")
                         .OnDelete(DeleteBehavior.Cascade);

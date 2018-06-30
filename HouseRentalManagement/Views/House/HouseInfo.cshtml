@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HouseRentalManagement.Models.HouseViewModels.HouseInfoViewModel
+
+@{
 	Layout = "_HouseLayout";
 }
 
@@ -15,8 +17,8 @@
 		<div class="row visible-xs visible-sm hidden-md hidden-lg">
 			<div class="col-md-12">
 				<div class="house-title">
-					<label>123 Main Street, Barrie, L4M1A1</label><br />
-					<span class="rent-amount"><strong>Rent:</strong> $350 (CDN$) per month</span>
+					<label>@Model.FullAddress</label><br />
+					<span class="rent-amount"><strong>Rent:</strong> @Model.Rent</span>
 				</div>
 			</div>
 		</div>
@@ -25,9 +27,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="house-image">
-							@*<img src="~/images/testimages/20180330_121325.jpg" alt="" />*@
-							<a class="image" href="~/images/testimages/20180331_121713.jpg" id="main-image-anchor">
-								<img src="~/images/testimages/20180331_121713.jpg" alt="" id="main-image" />
+							<a class="image" href="@Model.MainImageSrc" id="main-image-anchor">
+								<img src="@Model.MainImageSrc" alt="" id="main-image" />
 							</a>
 						</div>
 					</div>
@@ -35,13 +36,10 @@
 				<div class="row mt-10">
 					<div class="col-md-12">
 						<div id="house-images-container">
-							<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-							<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-							<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-							<img src="~/images/testimages/20180330_162115.jpg" alt="" />
-							<img src="~/images/testimages/20180331_130044.jpg" alt="" />
-							<img src="~/images/testimages/20180331_142251.jpg" alt="" />
-							<img src="~/images/testimages/_IGP0542.jpg" alt="" />
+							@foreach (var image in Model.Images)
+							{
+								<img src="@image.ImageSrc" alt="" />
+							}
 						</div>
 					</div>
 				</div>
@@ -50,15 +48,15 @@
 				<div class="row hidden-sm hidden-xs visible-md visible-lg">
 					<div class="col-md-12">
 						<div class="house-title">
-							<label>123 Main Street, Barrie, L4M1A1</label><br />
-							<span class="rent-amount"><strong>Rent:</strong> $350 (CDN$) per month</span>
+							<label>@Model.FullAddress</label><br />
+							<span class="rent-amount"><strong>Rent:</strong> @Model.Rent</span>
 						</div>
 					</div>
 				</div>
 				<div class="row mt-10">
 					<div class="col-md-12">
 						<strong>Description</strong> <br />
-						Eu ius posse quidam nonumes, est no nihil doming admodum. Postea molestie cum ea. Magna augue gloriatur ad sit, duo blandit accusata ad. Vim meis indoctum ea, sint homero deleniti vel ne. Omittam invenire cu mel. Sit in timeam adipisci reprimique.
+						@Model.Description
 					</div>
 				</div>
 				<div class="row mt-10">
@@ -69,186 +67,175 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-sm-4 col-xs-6"><strong>Date Availbale:</strong></div>
-							<div class="col-md-8 col-sm-8 col-xs-6">September 1, 2018</div>
+							<div class="col-md-8 col-sm-8 col-xs-6">@Model.DateAvailable</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of occupancy:</strong></div>
-							<div class="col-md-8 col-sm-8 col-xs-6">1</div>
+							<div class="col-md-8 col-sm-8 col-xs-6">@Model.Occupancy</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of parking space:</strong></div>
-							<div class="col-md-8 col-sm-8 col-xs-6">3</div>
+							<div class="col-md-8 col-sm-8 col-xs-6">@Model.ParkingSpace</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of washrooms:</strong></div>
-							<div class="col-md-8 col-sm-8 col-xs-6">2.5</div>
+							<div class="col-md-8 col-sm-8 col-xs-6">@Model.Washrooms</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row facility-container">
-			<div class="col-md-8">
-				<h4>Amenities</h4><br />
-				<div class="row">
-					<div class="col-md-6">
-						<img src="~/images/ameneties/wifi.png" /> <span>Wi-Fi</span><br />
-						<img src="~/images/ameneties/ac.png" /> <span>Air Condioner</span><br />
-						<img src="~/images/ameneties/heat.png" /> <span>Heat</span><br />
-						<img src="~/images/ameneties/furnished.png" /> <span>Fully Furnished</span><br />
-						<img src="~/images/ameneties/water.png" /> <span>Water</span><br />
-						<img src="~/images/ameneties/garage.png" /> <span>Private Garage</span><br />
-						<img src="~/images/ameneties/garbage.png" /> <span>Garbage Pick-up</span><br />
-						<img src="~/images/ameneties/bus.png" /> <span>Close to Bus Stop</span><br />
-						<img src="~/images/ameneties/closet.png" /> <span>Closet in Rooms</span><br />
-						<img src="~/images/ameneties/dishwasher.png" /> <span>Dishwasher</span><br />
-					</div>
-					<div class="col-md-6">
-						<img src="~/images/ameneties/fridge.png" /> <span>Refrigerator</span><br />
-						<img src="~/images/ameneties/microwave.png" /> <span>Microwave Oven</span><br />
-						<img src="~/images/ameneties/stove.png" /> <span>Stove</span><br />
-						<img src="~/images/ameneties/tv.png" /> <span>Television</span><br />
-						<img src="~/images/ameneties/washer.png" /> <span>On-site Laundry</span><br />
-						<img src="~/images/ameneties/wooden.png" /> <span>Wooden floor</span><br />
-						<img src="~/images/ameneties/cctv.png" /> <span>CCTV</span><br />
-						<img src="~/images/ameneties/bed.png" /> <span>Bed</span><br />
-						<img src="~/images/ameneties/washroom.png" /> <span>Washroom</span><br />
+			@if (Model.AllAmenities != null && Model.AllAmenities.Count > 0)
+			{
+				<div class="col-md-8">
+					<h4>Amenities</h4><br />
+					<div class="row">
+						@foreach (var amenity in Model.AllAmenities)
+						{
+							<div class="col-md-6">
+								<img src="@amenity.ImageSrc" /> <span> @amenity.Title </span>
+							</div>
+						}
 					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-6">
-						<h4>Utilities included</h4><br />
-						<img src="~/images/ameneties/electricity.png" /> <span>Electricity</span><br />
-						<img src="~/images/ameneties/ac.png" /> <span>Air Condioner</span><br />
-						<img src="~/images/ameneties/heat.png" /> <span>Heat</span><br />
-						<img src="~/images/ameneties/water.png" /> <span>Water</span><br />
-						<img src="~/images/ameneties/garage.png" /> <span>Private Garage</span><br />
-						<img src="~/images/ameneties/garbage.png" /> <span>Garbage Pick-up</span><br />
-						<img src="~/images/ameneties/washer.png" /> <span>On-site Laundry</span><br />
-					</div>
+			}
 
+			@if (Model.IncludedAmenities != null && Model.IncludedAmenities.Count > 0)
+			{
+				<div class="col-md-4">
+					<h4>Utilities included</h4><br />
+					<div class="row">
+						<div class="col-md-6">
+							@foreach (var amenity in Model.IncludedAmenities)
+							{
+								<img src="@amenity.ImageSrc" /> <span> @amenity.Title </span><br />
+							}
+						</div>
+					</div>
+				</div>
+			}
+
+			<div class="row">
+				@*<div class="col-md-5">
+						<div id="contact-info-container">
+							<h4>Contact</h4>
+							<div class="row">
+								<div class="col-md-12">
+									<span>Mobile: 647-123-4567</span>
+									<a href="tel:6471234567">
+										<i class="fa fa-phone social-btn"></i>
+									</a>
+									<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+										<i class="fa fa-whatsapp social-btn"></i>
+									</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
+
+								</div>
+							</div>
+						</div>
+					</div>*@
+				@if (Model.Restrictions != null && Model.Restrictions.Count > 0)
+				{
+					<div class="col-md-4">
+						<h4>Things Not Permitted</h4><br />
+						@foreach (var restriction in Model.Restrictions)
+						{
+							<span> @restriction </span><br />
+						}
+					</div>
+				}
+
+				@if (Model.GettingArounds != null && Model.GettingArounds.Count > 0)
+				{
+					<div class="col-md-8">
+						<h4>Getting Around</h4>
+						<table class="table table-responsive" id="house-getting-around-table">
+							<thead>
+								<tr>
+									<th><img src="~/icons/building.png" class="icons" /></th>
+									<th><img src="~/icons/distance.png" class="icons" /></th>
+									<th><img src="~/icons/walking.png" class="icons" /></th>
+									<th><img src="~/icons/cycle.png" class="icons" /></th>
+									<th><img src="~/icons/car.png" class="icons" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.GettingArounds)
+								{
+									<tr>
+										<td> @item.Location </td>
+										<td> @item.Distance KM </td>
+										<td> @item.WalkingTime </td>
+										<td> @item.BikeTime </td>
+										<td> @item.CarTime </td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				}
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					@*<div id="house-location"></div>*@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			@*<div class="col-md-5">
-					<div id="contact-info-container">
-						<h4>Contact</h4>
-						<div class="row">
-							<div class="col-md-12">
-								<span>Mobile: 647-123-4567</span>
-								<a href="tel:6471234567">
-									<i class="fa fa-phone social-btn"></i>
-								</a>
-								<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
-									<i class="fa fa-whatsapp social-btn"></i>
-								</a>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
 
+		@*<div id="jhr-portfolio-section" class="mt-20">
+				<div id="portfoliolist" class="bounceIn">
+					<div class="row">
+						@for (int i = 0; i < 2; i++)
+						{
+							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+								<div class="portfolio">
+									<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
+										<div class="portfolio-wrapper">
+											<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+										</div>
+									</a>
+								</div>
 							</div>
-						</div>
+							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+								<div class="portfolio">
+									<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
+										<div class="portfolio-wrapper">
+											<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+								<div class="portfolio">
+									<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
+										<div class="portfolio-wrapper">
+											<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+										</div>
+									</a>
+								</div>
+							</div>
+						}
 					</div>
-				</div>*@
-			<div class="col-md-4">
-				<h4>Things Not Permitted</h4><br />
-				<span>Pets</span><br />
-				<span>Smoke/ Alcohol</span><br />
-				<span>Overnight Guest Stay</span><br />
-				<span>Late Night Parties</span><br />
-			</div>
-			<div class="col-md-8">
-				<h4>Getting Around</h4>
-				<table class="table table-responsive" id="house-getting-around-table">
-					<thead>
-						<tr>
-							<th><img src="~/icons/building.png" class="icons" /></th>
-							<th><img src="~/icons/distance.png" class="icons" /></th>
-							<th><img src="~/icons/walking.png" class="icons" /></th>
-							<th><img src="~/icons/cycle.png" class="icons" /></th>
-							<th><img src="~/icons/car.png" class="icons" /></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Walmart</td>
-							<td>5 Km</td>
-							<td>15 Mins</td>
-							<td>11 Mins</td>
-							<td>6 Mins</td>
-						</tr>
-						<tr>
-							<td>Georgian College</td>
-							<td>3 Km</td>
-							<td>10 Mins</td>
-							<td>8 Mins</td>
-							<td>2 Mins</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				@*<div id="house-location"></div>*@
-			</div>
-		</div>
+				</div>
+			</div>*@
 	</div>
+	@section Scripts{
+		<script src="~/lib/fancybox/jquery.fancybox.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w" type="text/javascript"></script>
 
-	@*<div id="jhr-portfolio-section" class="mt-20">
-			<div id="portfoliolist" class="bounceIn">
-				<div class="row">
-					@for (int i = 0; i < 2; i++)
-					{
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-							<div class="portfolio">
-								<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
-									<div class="portfolio-wrapper">
-										<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-							<div class="portfolio">
-								<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
-									<div class="portfolio-wrapper">
-										<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-							<div class="portfolio">
-								<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
-									<div class="portfolio-wrapper">
-										<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-									</div>
-								</a>
-							</div>
-						</div>
-					}
-				</div>
-			</div>
-		</div>*@
-</div>
-@section Scripts{
-	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w" type="text/javascript"></script>
-
-	<script src="~/lib/slick-carousel/dist/slick.js"></script>
-	<script src="~/js/pages/house-info.js"></script>
-	<script>
-		$(document).ready(function () {
-			var houseInfoModel = {
-				location: "368 Dunsmore Ln, Barrie"
-			};
-			Hrm.HouseInfo.init(houseInfoModel);
-		});
-	</script>
-}
+		<script src="~/lib/slick-carousel/dist/slick.js"></script>
+		<script src="~/js/pages/house-info.js"></script>
+		<script>
+			$(document).ready(function () {
+				var houseInfoModel = {
+					location: "368 Dunsmore Ln, Barrie"
+				};
+				Hrm.HouseInfo.init(houseInfoModel);
+			});
+		</script>
+	}

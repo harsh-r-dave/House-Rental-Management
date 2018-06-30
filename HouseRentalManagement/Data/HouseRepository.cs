@@ -57,5 +57,19 @@ namespace HouseRentalManagement.Data
                 .Include(a => a.HouseImages)
                 .ToListAsync();
         }
+
+        public async Task<House> GetHouseByIdOrSlugAsync(string slug = "", Guid? id = null)
+        {
+            return await (from h in _context.House
+                          where h.HouseId == id || string.Equals(h.UrlSlug, slug, StringComparison.InvariantCultureIgnoreCase)
+                          select h)
+                          .Include(h => h.HouseImages)
+                          .Include(h => h.HouseAmenities)
+                            .ThenInclude(a => a.Amenity)
+                          .Include(h => h.HouseRestrictions)
+                            .ThenInclude(r => r.Restriction)
+                          .Include(h => h.HouseGettingArounds)
+                          .FirstOrDefaultAsync();
+        }
     }
 }
