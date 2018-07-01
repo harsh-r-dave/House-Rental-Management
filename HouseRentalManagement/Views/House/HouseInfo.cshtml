@@ -23,27 +23,30 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-sm-12 col-xs-12">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="house-image">
-							<a class="image" href="@Model.MainImageSrc" id="main-image-anchor">
-								<img src="@Model.MainImageSrc" alt="" id="main-image" />
-							</a>
+			@if (!string.IsNullOrEmpty(Model.MainImageSrc) || (Model.Images != null && Model.Images.Count > 0))
+			{
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="house-image">
+								<a class="image" href="@Model.MainImageSrc" id="main-image-anchor">
+									<img src="@Model.MainImageSrc" alt="" id="main-image" />
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-10">
+						<div class="col-md-12">
+							<div id="house-images-container">
+								@foreach (var image in Model.Images)
+								{
+									<img src="@image.ImageSrc" alt="" />
+								}
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row mt-10">
-					<div class="col-md-12">
-						<div id="house-images-container">
-							@foreach (var image in Model.Images)
-							{
-								<img src="@image.ImageSrc" alt="" />
-							}
-						</div>
-					</div>
-				</div>
-			</div>
+			}
 			<div class="col-md-6 col-sm-12 col-xs-12">
 				<div class="row hidden-sm hidden-xs visible-md visible-lg">
 					<div class="col-md-12">
@@ -115,127 +118,127 @@
 					</div>
 				</div>
 			}
-
-			<div class="row">
-				@*<div class="col-md-5">
-						<div id="contact-info-container">
-							<h4>Contact</h4>
-							<div class="row">
-								<div class="col-md-12">
-									<span>Mobile: 647-123-4567</span>
-									<a href="tel:6471234567">
-										<i class="fa fa-phone social-btn"></i>
-									</a>
-									<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
-										<i class="fa fa-whatsapp social-btn"></i>
-									</a>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
-
-								</div>
+		</div>
+		<div class="row">
+			@*<div class="col-md-5">
+					<div id="contact-info-container">
+						<h4>Contact</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Mobile: 647-123-4567</span>
+								<a href="tel:6471234567">
+									<i class="fa fa-phone social-btn"></i>
+								</a>
+								<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+									<i class="fa fa-whatsapp social-btn"></i>
+								</a>
 							</div>
 						</div>
-					</div>*@
-				@if (Model.Restrictions != null && Model.Restrictions.Count > 0)
-				{
-					<div class="col-md-4">
-						<h4>Things Not Permitted</h4><br />
-						@foreach (var restriction in Model.Restrictions)
-						{
-							<span> @restriction </span><br />
-						}
-					</div>
-				}
+						<div class="row">
+							<div class="col-md-12">
+								<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
 
-				@if (Model.GettingArounds != null && Model.GettingArounds.Count > 0)
-				{
-					<div class="col-md-8">
-						<h4>Getting Around</h4>
-						<table class="table table-responsive" id="house-getting-around-table">
-							<thead>
-								<tr>
-									<th><img src="~/icons/building.png" class="icons" /></th>
-									<th><img src="~/icons/distance.png" class="icons" /></th>
-									<th><img src="~/icons/walking.png" class="icons" /></th>
-									<th><img src="~/icons/cycle.png" class="icons" /></th>
-									<th><img src="~/icons/car.png" class="icons" /></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach (var item in Model.GettingArounds)
-								{
-									<tr>
-										<td> @item.Location </td>
-										<td> @item.Distance KM </td>
-										<td> @item.WalkingTime </td>
-										<td> @item.BikeTime </td>
-										<td> @item.CarTime </td>
-									</tr>
-								}
-							</tbody>
-						</table>
+							</div>
+						</div>
 					</div>
-				}
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					@*<div id="house-location"></div>*@
+				</div>*@
+			@if (Model.Restrictions != null && Model.Restrictions.Count > 0)
+			{
+				<div class="col-md-4">
+					<h4>Things Not Permitted</h4><br />
+					@foreach (var restriction in Model.Restrictions)
+					{
+						<span> @restriction </span><br />
+					}
 				</div>
+			}
+
+			@if (Model.GettingArounds != null && Model.GettingArounds.Count > 0)
+			{
+				<div class="col-md-8">
+					<h4>Getting Around</h4>
+					<table class="table table-responsive" id="house-getting-around-table">
+						<thead>
+							<tr>
+								<th><img src="~/icons/building.png" class="icons" /></th>
+								<th><img src="~/icons/distance.png" class="icons" /></th>
+								<th><img src="~/icons/walking.png" class="icons" /></th>
+								<th><img src="~/icons/cycle.png" class="icons" /></th>
+								<th><img src="~/icons/car.png" class="icons" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model.GettingArounds)
+							{
+								<tr>
+									<td> @item.Location </td>
+									<td> @item.Distance KM </td>
+									<td> @item.WalkingTime </td>
+									<td> @item.BikeTime </td>
+									<td> @item.CarTime </td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			}
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				@*<div id="house-location"></div>*@
 			</div>
 		</div>
-
-		@*<div id="jhr-portfolio-section" class="mt-20">
-				<div id="portfoliolist" class="bounceIn">
-					<div class="row">
-						@for (int i = 0; i < 2; i++)
-						{
-							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-								<div class="portfolio">
-									<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
-										<div class="portfolio-wrapper">
-											<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-								<div class="portfolio">
-									<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
-										<div class="portfolio-wrapper">
-											<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-								<div class="portfolio">
-									<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
-										<div class="portfolio-wrapper">
-											<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-										</div>
-									</a>
-								</div>
-							</div>
-						}
-					</div>
-				</div>
-			</div>*@
 	</div>
-	@section Scripts{
-		<script src="~/lib/fancybox/jquery.fancybox.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w" type="text/javascript"></script>
 
-		<script src="~/lib/slick-carousel/dist/slick.js"></script>
-		<script src="~/js/pages/house-info.js"></script>
-		<script>
-			$(document).ready(function () {
-				var houseInfoModel = {
-					location: "368 Dunsmore Ln, Barrie"
-				};
-				Hrm.HouseInfo.init(houseInfoModel);
-			});
-		</script>
-	}
+	@*<div id="jhr-portfolio-section" class="mt-20">
+			<div id="portfoliolist" class="bounceIn">
+				<div class="row">
+					@for (int i = 0; i < 2; i++)
+					{
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+							<div class="portfolio">
+								<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
+									<div class="portfolio-wrapper">
+										<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+							<div class="portfolio">
+								<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
+									<div class="portfolio-wrapper">
+										<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+							<div class="portfolio">
+								<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
+									<div class="portfolio-wrapper">
+										<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+									</div>
+								</a>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>*@
+</div>
+@section Scripts{
+	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w" type="text/javascript"></script>
+
+	<script src="~/lib/slick-carousel/dist/slick.js"></script>
+	<script src="~/js/pages/house-info.js"></script>
+	<script>
+		$(document).ready(function () {
+			var houseInfoModel = {
+				location: "368 Dunsmore Ln, Barrie"
+			};
+			Hrm.HouseInfo.init(houseInfoModel);
+		});
+	</script>
+}

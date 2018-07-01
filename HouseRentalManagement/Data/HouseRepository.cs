@@ -62,6 +62,7 @@ namespace HouseRentalManagement.Data
         {
             return await (from h in _context.House
                           where h.HouseId == id || string.Equals(h.UrlSlug, slug, StringComparison.InvariantCultureIgnoreCase)
+                          && h.IsDisplaying
                           select h)
                           .Include(h => h.HouseImages)
                           .Include(h => h.HouseAmenities)

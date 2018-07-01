@@ -36,5 +36,17 @@ namespace HouseRentalManagement.Controllers
             SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, result.Error);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Preview(Guid id)
+        {
+            var result = await _frontendService.GetHouseInfoViewModelAsync(slug: "", houseId: id);
+            if (result.Success)
+            {
+                return View("~/Views/House/HouseInfo.cshtml", result.Model);
+            }
+
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, result.Error);
+            return RedirectToAction(nameof(AdminController.EditHouse), controllerName: "Admin", routeValues: new { id = id });
+        }
     }
 }

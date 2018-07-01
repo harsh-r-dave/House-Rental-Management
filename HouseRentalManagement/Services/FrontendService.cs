@@ -124,97 +124,105 @@ namespace HouseRentalManagement.Services
 
             try
             {
-                // get house by id or slug
-                var house = await _houseRepository.GetHouseByIdOrSlugAsync(slug: slug, id: houseId);
-                if (house != null)
+                if (!string.IsNullOrEmpty(slug) || houseId != Guid.Empty)
                 {
-                    // basic info
-                    string[] parts = new string[] { house.AddressLine1, house.City, house.PostalCode };
-                    model.FullAddress = string.Join(", ", parts.Where(a => !string.IsNullOrEmpty(a)));
-                    model.DateAvailable = house.ContactForAvailableFrom ? "Please contact" : house.AvailableFrom.ToString("MMM-dd-yyyy");
-                    model.Description = house.Description;
-                    model.Rent = house.Rent > 0 ? house.Rent.ToString("C0") + " (CDN$) per month" : "Please Contact";
-                    model.ParkingSpace = house.ParakingSpace > 0 ? house.ParakingSpace.ToString() : "Please Contact";
-                    model.Occupancy = house.Occupancy > 0 ? house.Occupancy.ToString() : "Please Contact";
-                    model.Washrooms = house.Washrooms > 0 ? house.Washrooms.ToString() : "Please Contact";
-
-                    // amenities
-                    if (house.HouseAmenities != null)
+                    // get house by id or slug
+                    var house = await _houseRepository.GetHouseByIdOrSlugAsync(slug: slug, id: houseId);
+                    if (house != null)
                     {
-                        foreach (var amenity in house.HouseAmenities)
-                        {
-                            // all amenities
-                            model.AllAmenities.Add(new AmenityViewModel()
-                            {
-                                Title = amenity.Amenity?.Description,
-                                ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.Amenity?.ImageFileName)
-                            });
+                        // basic info
+                        string[] parts = new string[] { house.AddressLine1, house.City, house.PostalCode };
+                        model.FullAddress = string.Join(", ", parts.Where(a => !string.IsNullOrEmpty(a)));
+                        model.DateAvailable = house.ContactForAvailableFrom ? "Please contact" : house.AvailableFrom.ToString("MMM-dd-yyyy");
+                        model.Description = house.Description;
+                        model.Rent = house.Rent > 0 ? house.Rent.ToString("C0") + " (CDN$) per month" : "Please Contact";
+                        model.ParkingSpace = house.ParakingSpace > 0 ? house.ParakingSpace.ToString() : "Please Contact";
+                        model.Occupancy = house.Occupancy > 0 ? house.Occupancy.ToString() : "Please Contact";
+                        model.Washrooms = house.Washrooms > 0 ? house.Washrooms.ToString() : "Please Contact";
 
-                            // included amenities
-                            if (amenity.IncludedInUtility)
+                        // amenities
+                        if (house.HouseAmenities != null)
+                        {
+                            foreach (var amenity in house.HouseAmenities)
                             {
-                                model.IncludedAmenities.Add(new AmenityViewModel()
+                                // all amenities
+                                model.AllAmenities.Add(new AmenityViewModel()
                                 {
                                     Title = amenity.Amenity?.Description,
                                     ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.Amenity?.ImageFileName)
                                 });
+
+                                // included amenities
+                                if (amenity.IncludedInUtility)
+                                {
+                                    model.IncludedAmenities.Add(new AmenityViewModel()
+                                    {
+                                        Title = amenity.Amenity?.Description,
+                                        ImageSrc = string.Format(_imageOptions.AmenityImagePath, amenity.Amenity?.ImageFileName)
+                                    });
+                                }
                             }
                         }
-                    }
 
-                    // images
-                    if (house.HouseImages != null)
-                    {
-                        foreach (var image in house.HouseImages.OrderByDescending(a => a.IsHomePageImage))
+                        // images
+                        if (house.HouseImages != null)
                         {
-                            // prepare path
-                            var imageDirectory = string.Format(_imageOptions.HouseImagePath, image.HouseId);
-                            var fullPath = string.Format("{0}{1}{2}", "/", imageDirectory, image.FileName);
-
-                            model.Images.Add(new ImagesViewModel()
+                            foreach (var image in house.HouseImages.OrderByDescending(a => a.IsHomePageImage))
                             {
-                                ImageSrc = fullPath
-                            });
+                                // prepare path
+                                var imageDirectory = string.Format(_imageOptions.HouseImagePath, image.HouseId);
+                                var fullPath = string.Format("{0}{1}{2}", "/", imageDirectory, image.FileName);
 
-                            // set main image src
-                            if (image.IsHomePageImage.HasValue && image.IsHomePageImage.Value)
-                            {
-                                model.MainImageSrc = fullPath;
+                                model.Images.Add(new ImagesViewModel()
+                                {
+                                    ImageSrc = fullPath
+                                });
+
+                                // set main image src
+                                if (image.IsHomePageImage.HasValue && image.IsHomePageImage.Value)
+                                {
+                                    model.MainImageSrc = fullPath;
+                                }
                             }
                         }
-                    }
 
-                    // restrictions
-                    if (house.HouseRestrictions != null)
-                    {
-                        foreach (var restriction in house.HouseRestrictions)
+                        // restrictions
+                        if (house.HouseRestrictions != null)
                         {
-                            model.Restrictions.Add(restriction.Restriction?.Title);
-                        }
-                    }
-
-                    // getting around
-                    if (house.HouseGettingArounds != null)
-                    {
-                        foreach (var item in house.HouseGettingArounds)
-                        {
-                            model.GettingArounds.Add(new GettingAroundViewModel()
+                            foreach (var restriction in house.HouseRestrictions)
                             {
-                                Location = item.LocationName,
-                                BikeTime = item.BikeTime,
-                                Distance = item.Distance,
-                                WalkingTime = item.WalkingTime,
-                                CarTime = item.CarTime
-                            });
+                                model.Restrictions.Add(restriction.Restriction?.Title);
+                            }
                         }
-                    }
 
-                    success = true;
+                        // getting around
+                        if (house.HouseGettingArounds != null)
+                        {
+                            foreach (var item in house.HouseGettingArounds)
+                            {
+                                model.GettingArounds.Add(new GettingAroundViewModel()
+                                {
+                                    Location = item.LocationName,
+                                    BikeTime = item.BikeTime,
+                                    Distance = item.Distance,
+                                    WalkingTime = item.WalkingTime,
+                                    CarTime = item.CarTime
+                                });
+                            }
+                        }
+
+                        success = true;
+                    }
+                    else
+                    {
+                        error = "Unable to locate house details";
+                    }
                 }
                 else
                 {
-                    error = "Unable to locate house details";
+                    error = "Invalid request";
                 }
+                
             }
             catch (Exception ex)
             {
