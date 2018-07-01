@@ -111,5 +111,54 @@ namespace HouseRentalManagement.Services
             }
             return success;
         }
+
+        public async Task<(bool Success, string Error)> ResetAccessCodeAsync(Models.ManageViewModels.AccessCodeViewModel model)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                // make sure there is only one access code
+                var accessCode = await _accessCodeRepository.GetAccessCodeAsync();
+                if (accessCode != null)
+                {
+                    // verify current access code
+                    var resultManager = new Helper.EncryptionHelper.EncryptionManager();
+                    var hash = resultManager.GeneratePasswordHash(model.CurrentAccessCode, out string salt);
+                    var currentAccessCodeMatched = resultManager.IsStringMatch(model.CurrentAccessCode, accessCode.Salt, accessCode.Hash);
+
+                    if (currentAccessCodeMatched)
+                    {
+                        // encrypt code
+                        var encryptionManager = new Helper.EncryptionHelper.EncryptionManager();
+                        var hash1 = encryptionManager.GeneratePasswordHash(model.NewAccessCode, out string salt1);
+                        // save to db                
+                        accessCode.Salt = salt1;
+                        accessCode.Hash = hash1;
+
+                        success = await _accessCodeRepository.SaveAccessCodeAsync(accessCode);
+                    }
+                    else
+                    {
+                        error = "Error: Current access code is not valid";
+                    }
+                }
+                else
+                {
+                    error = "Error: No access code found. If this error happens frequently, please contact IT support.";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Error: Unexpected error occurred while processing your request.";
+
+                _logger.LogError("LoginService/ResetAccessCodeAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (Success: success, Error: error);
+        }
     }
 }

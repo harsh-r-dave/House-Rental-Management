@@ -303,7 +303,7 @@ span {
 }
 
 a {
-    color: #A7CDCC;
+    /*color: #A7CDCC;*/
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
