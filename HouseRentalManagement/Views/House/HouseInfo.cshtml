@@ -84,6 +84,34 @@
 							<div class="col-md-4 col-sm-4 col-xs-6"><strong># of washrooms:</strong></div>
 							<div class="col-md-8 col-sm-8 col-xs-6">@Model.Washrooms</div>
 						</div>
+						<div class="row mt-10">
+							<div class="col-md-12">
+								<div class="section-container">
+									<div class="section-title">
+										Contact
+									</div>
+									<div class="section-content">
+										<div class="row">
+											<div class="col-md-12">
+												<span>Mobile: 647-123-4567</span>
+												<a href="tel:6471234567">
+													<i class="fa fa-phone social-btn"></i>
+												</a>
+												<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+													<i class="fa fa-whatsapp social-btn"></i>
+												</a>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -106,27 +134,27 @@
 		</div>
 		<div class="row mt-10">
 			@*<div class="col-md-5">
-					<div id="contact-info-container">
-						<h4>Contact</h4>
-						<div class="row">
-							<div class="col-md-12">
-								<span>Mobile: 647-123-4567</span>
-								<a href="tel:6471234567">
-									<i class="fa fa-phone social-btn"></i>
-								</a>
-								<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
-									<i class="fa fa-whatsapp social-btn"></i>
-								</a>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
-
-							</div>
+				<div id="contact-info-container">
+					<h4>Contact</h4>
+					<div class="row">
+						<div class="col-md-12">
+							<span>Mobile: 647-123-4567</span>
+							<a href="tel:6471234567">
+								<i class="fa fa-phone social-btn"></i>
+							</a>
+							<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+								<i class="fa fa-whatsapp social-btn"></i>
+							</a>
 						</div>
 					</div>
-				</div>*@
+					<div class="row">
+						<div class="col-md-12">
+							<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
+
+						</div>
+					</div>
+				</div>
+			</div>*@
 			@if (Model.IncludedAmenities != null && Model.IncludedAmenities.Count > 0)
 			{
 				<div class="col-md-4 col-sm-4">
@@ -194,54 +222,53 @@
 					</table>
 				</div>
 			}
-			@if (!string.IsNullOrEmpty(Model.MapImageSrc))
-			{
-				<div class="col-md-4">
-					<hr /><h4>Map</h4><hr />
-					<a class="image" href="@Model.MapImageSrc">
-						View on map <img src="@Model.MapImageSrc" id="map-image" />
-					</a>
+			<div class="col-md-4">
+				<hr /><h4>Explore</h4><hr />
+				<div class="row" style="margin-bottom: 5px;">
+					@if (!string.IsNullOrEmpty(Model.MapImageSrc))
+					{
+						<div class="col-md-12">
+							<a class="image" href="@Model.MapImageSrc">
+								View on map <img src="@Model.MapImageSrc" id="map-image" />
+							</a>
+						</div>
+					}
 				</div>
-			}
-	</div>
-</div>
-
-@*<div id="jhr-portfolio-section" class="mt-20">
-		<div id="portfoliolist" class="bounceIn">
-			<div class="row">
-				@for (int i = 0; i < 2; i++)
-				{
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-						<div class="portfolio">
-							<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
-								<div class="portfolio-wrapper">
-									<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-								</div>
-							</a>
-						</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<a href="@Model.GoogleMapUrl" target="_blank">Locate on Google Map</a>
 					</div>
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-						<div class="portfolio">
-							<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
-								<div class="portfolio-wrapper">
-									<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-						<div class="portfolio">
-							<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
-								<div class="portfolio-wrapper">
-									<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-								</div>
-							</a>
-						</div>
-					</div>
-				}
+				</div>
 			</div>
 		</div>
-	</div>*@
+		<div class="row mt-10">
+			<div class="col-md-4">
+				<div class="section-container">
+					<div class="section-title">
+						Useful Links
+					</div>
+					<div class="section-content">						
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<a class="image" href="~/images/laundrycheatsheet.png">Laundry Cheetsheet</a>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<a href="https://www.barrie.ca/Living/Getting%20Around/BarrieTransit/Pages/BarrieTransit.aspx" target="_blank">Barrie Transit</a><br />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<a href="https://www.gotransit.com/" target="_blank">Go Transit</a><br />
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<a href="https://www.greyhound.ca/" target="_blank">Greyhound Canada</a><br />
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 @section Scripts{
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>

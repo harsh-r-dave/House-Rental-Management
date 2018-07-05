@@ -15,6 +15,8 @@ namespace HouseRentalManagement.Models.HouseViewModels
         public string MainImageSrc { get; set; }
         public string MapImageSrc { get; set; }
 
+        public string GoogleMapUrl { get; set; }
+
         public ICollection<AmenityViewModel> AllAmenities { get; set; } = new HashSet<AmenityViewModel>();
         public ICollection<AmenityViewModel> IncludedAmenities { get; set; } = new HashSet<AmenityViewModel>();
         public ICollection<ImagesViewModel> Images { get; set; } = new HashSet<ImagesViewModel>();

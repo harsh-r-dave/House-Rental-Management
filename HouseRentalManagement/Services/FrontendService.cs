@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace HouseRentalManagement.Services
@@ -240,6 +241,10 @@ namespace HouseRentalManagement.Services
                             model.MapImageSrc = fullPath;
                         }
 
+                        var query = WebUtility.UrlEncode(house.AddressLine1 + "," + house.City + "," + house.PostalCode);
+                        var url = $"https://www.google.com/maps/search/?api=1&query={query}";
+                        
+                        model.GoogleMapUrl = url;
                         success = true;
                     }
                     else

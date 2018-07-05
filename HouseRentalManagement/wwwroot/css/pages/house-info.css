@@ -109,6 +109,10 @@
     width: 30px;
 }
 
+.house-image {
+    max-height: inherit;
+}
+
 #house-images-container {
     padding: 0 4%;
 }
@@ -171,4 +175,20 @@
     height: 50px;
     width: 50px;
     border: 1px solid #337ab7;
+}
+
+
+
+/********/
+.section-container {
+    border: 1px solid #5996bb;    
+}
+
+.section-title {
+    background-color: rgba(11, 95, 146, 1);
+    padding: 5px;
+    color: white;
+}
+.section-content {
+    padding: 5px;
 }
