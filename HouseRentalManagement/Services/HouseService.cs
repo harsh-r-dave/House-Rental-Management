@@ -406,13 +406,13 @@ namespace HouseRentalManagement.Services
                             };
 
                             await _houseImageRepository.SaveHouseImageAsync(hi);
-                        }                        
+                        }
                         success = true;
                     }
                     else
                     {
                         fileExist = true;
-                    }                    
+                    }
                 }
             }
             catch (Exception e)
@@ -708,7 +708,7 @@ namespace HouseRentalManagement.Services
                         {
                             FacilityId = facility.FacilityId,
                             Title = facility.Name,
-                            Checked = houseFacilities != null ? houseFacilities.Where(ha => ha.FacilityId == facility.FacilityId).Any() : false,                            
+                            Checked = houseFacilities != null ? houseFacilities.Where(ha => ha.FacilityId == facility.FacilityId).Any() : false,
                         });
                     }
                 }
@@ -847,6 +847,164 @@ namespace HouseRentalManagement.Services
             }
 
             return (success, errors);
+        }
+
+        public async Task<(bool Success, string Error)> UploadHouseMapImageAsync(AddHouseMapImageViewModel model)
+        {
+            bool success = false;
+            var error = string.Empty;
+
+            try
+            {
+                if (model.Image != null && model.Image.Length > 0 && model.HouseId != Guid.Empty)
+                {
+                    // save image filename to database
+                    HouseMapImage image = await _houseImageRepository.FetchMapImageByHouseIdAsync(model.HouseId);
+
+                    if (image == null)
+                    {
+                        image = new HouseMapImage()
+                        {
+                            CreateUtc = DateTime.Now
+                        };
+                    }
+
+                    // delete exisiting file
+                    var baseDirectory = _env.WebRootPath;
+                    var imageDirectory = string.Format(_imageOptions.HouseMapImagePath, model.HouseId);
+                    var destinationPath = Path.Combine(baseDirectory, imageDirectory);
+                    var fullPath = string.Format("{0}{1}", destinationPath, image.FileName);
+                    if (File.Exists(fullPath))
+                    {
+                        File.Delete(fullPath);
+                    }
+
+                    image.HouseId = model.HouseId;
+                    image.FileName = model.Image.FileName;
+
+                    // save image to directory
+                    baseDirectory = _env.WebRootPath;
+                    imageDirectory = string.Format(_imageOptions.HouseMapImagePath, model.HouseId);
+                    destinationPath = Path.Combine(baseDirectory, imageDirectory);
+                    // make sure the folder exists
+                    if (!Directory.Exists(destinationPath))
+                    {
+                        Directory.CreateDirectory(destinationPath);
+                    }
+
+                    fullPath = string.Format("{0}{1}", destinationPath, model.Image.FileName);
+
+                    using (FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                    {
+                        await model.Image.CopyToAsync(fs);
+                    }
+
+                    await _houseImageRepository.SaveHouseMapImageAsync(image);
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while uploading image";
+                _logger.LogError("HouseService/UploadHouseMapImageAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (success, error);
+        }
+
+        public async Task<(bool Success, string Error, string ImageUrl, bool NoImage, Guid ImageId)> FetchHouseMapImageAsync(Guid houseId)
+        {
+            bool success = false;
+            string error = string.Empty;
+            string imageUrl = string.Empty;
+            bool noImage = false;
+            Guid imageId = Guid.Empty;
+
+            try
+            {
+                if (houseId != Guid.Empty)
+                {
+                    HouseMapImage image = await _houseImageRepository.FetchMapImageByHouseIdAsync(houseId);
+                    if (image != null)
+                    {
+                        // prepare path
+                        var imageDirectory = string.Format(_imageOptions.HouseMapImagePath, image.HouseId);
+                        var fullPath = string.Format("{0}{1}{2}", "/", imageDirectory, image.FileName);
+
+                        imageUrl = fullPath;
+                        imageId = image.HouseMapImageId;
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                        noImage = true;
+                    }
+                }
+                else
+                {
+                    error = "Invalid house id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while fetching image";
+
+                _logger.LogError("HouseService/FetchHouseMapImageAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (success, error, imageUrl, noImage, imageId);
+        }
+
+        public async Task<(bool Success, string Error)> DeleteHouseMapImageAsync(Guid imageId)
+        {
+            bool success = false;
+            string error = string.Empty;
+
+            try
+            {
+                if (imageId != Guid.Empty)
+                {
+                    HouseMapImage image = await _houseImageRepository.FetchMapImageByImageIdAsync(imageId);
+                    if (image != null)
+                    {
+                        // delete exisiting file
+                        var baseDirectory = _env.WebRootPath;
+                        var imageDirectory = string.Format(_imageOptions.HouseMapImagePath, image.HouseId);
+                        var destinationPath = Path.Combine(baseDirectory, imageDirectory);
+                        var fullPath = string.Format("{0}{1}", destinationPath, image.FileName);
+                        if (File.Exists(fullPath))
+                        {
+                            File.Delete(fullPath);
+                        }
+                        
+                        success = await _houseImageRepository.DeleteHouseMapImageAsync(image);
+                    }
+                    else
+                    {
+                        error = "Image not found";
+                    }
+                    
+                }
+                else
+                {
+                    error = "Invalid image id";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = "Unexpected error occurred while deleting image";
+
+                _logger.LogError("HouseService/DeleteHouseMapImageAsync - exception:{@Ex}", new object[]{
+                    ex
+                });
+            }
+
+            return (success, error);
         }
     }
 }

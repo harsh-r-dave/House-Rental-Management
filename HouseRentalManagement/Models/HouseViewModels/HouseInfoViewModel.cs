@@ -13,11 +13,13 @@ namespace HouseRentalManagement.Models.HouseViewModels
         public string Washrooms { get; set; }
 
         public string MainImageSrc { get; set; }
+        public string MapImageSrc { get; set; }
 
         public ICollection<AmenityViewModel> AllAmenities { get; set; } = new HashSet<AmenityViewModel>();
         public ICollection<AmenityViewModel> IncludedAmenities { get; set; } = new HashSet<AmenityViewModel>();
         public ICollection<ImagesViewModel> Images { get; set; } = new HashSet<ImagesViewModel>();
         public ICollection<string> Restrictions { get; set; } = new HashSet<string>();
+        public ICollection<string> Facilities { get; set; } = new HashSet<string>();
         public ICollection<GettingAroundViewModel> GettingArounds { get; set; } = new HashSet<GettingAroundViewModel>();
     }
 }

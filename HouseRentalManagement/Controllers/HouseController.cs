@@ -27,7 +27,7 @@ namespace HouseRentalManagement.Controllers
 
         public async Task<IActionResult> HouseInfo(string s, Guid houseId)
         {
-            var result = await _frontendService.GetHouseInfoViewModelAsync(slug: s, houseId: houseId);
+            var result = await _frontendService.GetHouseInfoViewModelAsync(slug: s, houseId: houseId, preview: false);
             if (result.Success)
             {
                 return View(result.Model);
@@ -39,7 +39,7 @@ namespace HouseRentalManagement.Controllers
 
         public async Task<IActionResult> Preview(Guid id)
         {
-            var result = await _frontendService.GetHouseInfoViewModelAsync(slug: "", houseId: id);
+            var result = await _frontendService.GetHouseInfoViewModelAsync(slug: "", houseId: id, preview: true);
             if (result.Success)
             {
                 return View("~/Views/House/HouseInfo.cshtml", result.Model);

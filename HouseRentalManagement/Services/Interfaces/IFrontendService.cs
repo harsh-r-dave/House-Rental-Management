@@ -9,6 +9,6 @@ namespace HouseRentalManagement.Services.Interfaces
     public interface IFrontendService
     {
         Task<IndexViewModel> GetIndexViewModelAsync();
-        Task<(bool Success, string Error, HouseInfoViewModel Model)> GetHouseInfoViewModelAsync(string slug, Guid houseId);
+        Task<(bool Success, string Error, HouseInfoViewModel Model)> GetHouseInfoViewModelAsync(string slug, Guid houseId, bool preview = false);
     }
 }

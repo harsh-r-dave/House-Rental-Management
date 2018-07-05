@@ -88,38 +88,23 @@
 				</div>
 			</div>
 		</div>
-		<div class="row facility-container">
+		<div class="row mt-10">
 			@if (Model.AllAmenities != null && Model.AllAmenities.Count > 0)
 			{
-				<div class="col-md-8">
-					<h4>Amenities</h4><br />
-					<div class="row">
+				<div class="col-md-12">
+					<hr /><h4>Amenities</h4><hr />
+					<div class="row facility-container">
 						@foreach (var amenity in Model.AllAmenities)
 						{
-							<div class="col-md-6">
+							<div class="col-md-3 col-sm-4">
 								<img src="@amenity.ImageSrc" /> <span> @amenity.Title </span>
 							</div>
 						}
 					</div>
 				</div>
 			}
-
-			@if (Model.IncludedAmenities != null && Model.IncludedAmenities.Count > 0)
-			{
-				<div class="col-md-4">
-					<h4>Utilities included</h4><br />
-					<div class="row">
-						<div class="col-md-6">
-							@foreach (var amenity in Model.IncludedAmenities)
-							{
-								<img src="@amenity.ImageSrc" /> <span> @amenity.Title </span><br />
-							}
-						</div>
-					</div>
-				</div>
-			}
 		</div>
-		<div class="row">
+		<div class="row mt-10">
 			@*<div class="col-md-5">
 					<div id="contact-info-container">
 						<h4>Contact</h4>
@@ -142,10 +127,25 @@
 						</div>
 					</div>
 				</div>*@
+			@if (Model.IncludedAmenities != null && Model.IncludedAmenities.Count > 0)
+			{
+				<div class="col-md-4 col-sm-4">
+					<hr /><h4>Utilities included</h4><hr />
+					<div class="row facility-container">
+						<div class="col-md-6">
+							@foreach (var amenity in Model.IncludedAmenities)
+							{
+								<img src="@amenity.ImageSrc" /> <span> @amenity.Title </span><br />
+							}
+						</div>
+					</div>
+				</div>
+			}
+
 			@if (Model.Restrictions != null && Model.Restrictions.Count > 0)
 			{
-				<div class="col-md-4">
-					<h4>Things Not Permitted</h4><br />
+				<div class="col-md-4 col-sm-4">
+					<hr /><h4>Things Not Permitted</h4><hr />
 					@foreach (var restriction in Model.Restrictions)
 					{
 						<span> @restriction </span><br />
@@ -153,18 +153,30 @@
 				</div>
 			}
 
+			@if (Model.Facilities != null && Model.Facilities.Count > 0)
+			{
+				<div class="col-md-4 col-sm-4">
+					<hr /><h4>Additional Facilities</h4><hr />
+					@foreach (var facility in Model.Facilities)
+					{
+						<span> @facility </span><br />
+					}
+				</div>
+			}
+		</div>
+		<div class="row mt-10">
 			@if (Model.GettingArounds != null && Model.GettingArounds.Count > 0)
 			{
 				<div class="col-md-8">
-					<h4>Getting Around</h4>
+					<hr /><h4>Getting Around</h4><hr />
 					<table class="table table-responsive" id="house-getting-around-table">
 						<thead>
 							<tr>
 								<th><img src="~/icons/building.png" class="icons" /></th>
-								<th><img src="~/icons/distance.png" class="icons" /></th>
-								<th><img src="~/icons/walking.png" class="icons" /></th>
-								<th><img src="~/icons/cycle.png" class="icons" /></th>
-								<th><img src="~/icons/car.png" class="icons" /></th>
+								<th class="text-center"><img src="~/icons/distance.png" class="icons" /></th>
+								<th class="text-center"><img src="~/icons/walking.png" class="icons" /></th>
+								<th class="text-center"><img src="~/icons/cycle.png" class="icons" /></th>
+								<th class="text-center"><img src="~/icons/car.png" class="icons" /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -172,60 +184,64 @@
 							{
 								<tr>
 									<td> @item.Location </td>
-									<td> @item.Distance KM </td>
-									<td> @item.WalkingTime </td>
-									<td> @item.BikeTime </td>
-									<td> @item.CarTime </td>
+									<td class="text-center"> @item.Distance KM </td>
+									<td class="text-center"> @item.WalkingTime </td>
+									<td class="text-center"> @item.BikeTime </td>
+									<td class="text-center"> @item.CarTime </td>
 								</tr>
 							}
 						</tbody>
 					</table>
 				</div>
 			}
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				@*<div id="house-location"></div>*@
-			</div>
-		</div>
-	</div>
-
-	@*<div id="jhr-portfolio-section" class="mt-20">
-			<div id="portfoliolist" class="bounceIn">
-				<div class="row">
-					@for (int i = 0; i < 2; i++)
-					{
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-							<div class="portfolio">
-								<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
-									<div class="portfolio-wrapper">
-										<img src="~/images/testimages/20180331_121713.jpg" alt="" />
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-							<div class="portfolio">
-								<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
-									<div class="portfolio-wrapper">
-										<img src="~/images/testimages/20180330_121325.jpg" alt="" />
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
-							<div class="portfolio">
-								<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
-									<div class="portfolio-wrapper">
-										<img src="~/images/testimages/20180331_142913.jpg" alt="" />
-									</div>
-								</a>
-							</div>
-						</div>
-					}
+			@if (!string.IsNullOrEmpty(Model.MapImageSrc))
+			{
+				<div class="col-md-4">
+					<hr /><h4>Map</h4><hr />
+					<a class="image" href="@Model.MapImageSrc">
+						View on map <img src="@Model.MapImageSrc" id="map-image" />
+					</a>
 				</div>
+			}
+	</div>
+</div>
+
+@*<div id="jhr-portfolio-section" class="mt-20">
+		<div id="portfoliolist" class="bounceIn">
+			<div class="row">
+				@for (int i = 0; i < 2; i++)
+				{
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+						<div class="portfolio">
+							<a class="house-image" href="~/images/testimages/20180331_121713.jpg">
+								<div class="portfolio-wrapper">
+									<img src="~/images/testimages/20180331_121713.jpg" alt="" />
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+						<div class="portfolio">
+							<a class="house-image" href="~/images/testimages/20180330_121325.jpg">
+								<div class="portfolio-wrapper">
+									<img src="~/images/testimages/20180330_121325.jpg" alt="" />
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-10">
+						<div class="portfolio">
+							<a class="house-image" href="~/images/testimages/20180331_142913.jpg">
+								<div class="portfolio-wrapper">
+									<img src="~/images/testimages/20180331_142913.jpg" alt="" />
+								</div>
+							</a>
+						</div>
+					</div>
+				}
 			</div>
-		</div>*@
+		</div>
+	</div>*@
 </div>
 @section Scripts{
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>

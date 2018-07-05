@@ -103,7 +103,7 @@ Hrm.AdminEditHouse = function () {
 				allValid = false;
 			}
 			if (allValid) {
-				$('#upload-spinner').show();				
+				$('#upload-spinner').show();
 				$.ajax({
 					url: "/Admin/UploadHouseImage",
 					type: "POST",
@@ -574,6 +574,113 @@ Hrm.AdminEditHouse = function () {
 	};
 	// ^house restrictions
 
+	// house map images
+	var loadHouseMapImages = function () {
+		$('#map-photo-tab-loader').show();
+		$.ajax({
+			url: "/Admin/GetHouseMapImages",
+			type: "get",
+			data: {
+				houseId: viewModel.houseId
+			},
+			success: function (result) {
+				if (result.hasOwnProperty('success') && !result.success) {
+					if (result.hasOwnProperty('noImage') && result.noImage) {
+						$('#house-map-image-list-partial-container').html("<div class='text-danger mt-10'>This house doesn't have any map photos.</div>");
+					} else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+						$('#house-map-image-list-partial-container').html('Failed to load images');
+					}
+				}
+				else if(result.success) {
+					var html = '<img src="' + result.imageUrl + '" style="width: 500px;height: 400px;" />';
+					html += '<a class="btn btn-danger" onclick="Hrm.AdminEditHouse.deleteMapImage(&quot;' + result.imageId +'&quot;)"><i class="fa fa-close"></i></a>';
+					$('#house-map-image-list-partial-container').html(html);
+				}
+				$('#map-photo-tab-loader').hide();
+			}
+		});
+	};
+
+	var uploadHouseMapImage = function () {
+		$('#upload-map-image-form').on('submit', function (e) {
+			e.preventDefault();
+			var allValid = true;
+			if (!$('#upload-map-image-form #Image').valid()) {
+				allValid = false;
+			}
+			if (allValid) {
+				$('#upload-map-image-spinner').show();
+				$('#upload-map-image-form').find('#HouseId').val(viewModel.houseId);
+				$.ajax({
+					url: "/Admin/UploadHouseMapImage",
+					type: "POST",
+					data: new FormData(this),
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function (data) {
+						if (data.success) {
+							$('.dropify-clear').trigger('click');
+							loadHouseMapImages();
+							toastr.success("Image has been uploaded successfully", "", Hrm.Toastr.config);
+						}
+						else {
+							toastr.error(data.error, '', Hrm.Toastr.config);
+						}
+						$('#upload-map-image-spinner').hide();
+					}
+				});
+			}
+		});
+	};
+	var initUploadHouseMapImage = function () {
+		$('#upload-map-image-button').off().on('click', function () {
+			uploadHouseMapImage();
+		});
+	};
+
+	var initHouseMapImageLoader = function () {
+		setTimeout(function () {
+			loadHouseMapImages();
+		}, 1500);
+	};
+
+	var deleteMapImage = function (imageId) {
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#337ab7',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function (result) {
+			if (result.value) {
+				$.ajax({
+					url: "/Admin/DeleteHouseMapImage",
+					method: "post",
+					data: {
+						imageId: imageId
+					}
+				}).done(function (result) {
+					if (result.success) {
+						toastr.success('Image deleted successfully', '', Hrm.Toastr.config);
+						$('#house-map-image-list-partial-container').html('<h4>Loading Images <i class="fa fa-spinner fa-spin"></i></h4>');
+						loadHouseMapImages();
+					}
+					else {
+						toastr.error(result.error, '', Hrm.Toastr.config);
+					}
+				}).fail(function (jqXHR, textStatus) {
+					console.log(textStatus);
+					toastr.error("Something went wrong while deleting image", '', Hrm.Toastr.config);
+				});
+			}
+		});
+	};
+	// ^house map images
+
 	// business processes
 	var initAmenitiesProcess = function () {
 		initClearCheckboxes();
@@ -604,6 +711,10 @@ Hrm.AdminEditHouse = function () {
 		loadRestriction();
 		initClearRestrictionCheckboxes();
 	};
+	var initHouseMapImagesProcess = function () {
+		uploadHouseMapImage();
+		initHouseMapImageLoader();
+	};
 	// ^business processes
 
 	var initPage = function () {
@@ -619,6 +730,7 @@ Hrm.AdminEditHouse = function () {
 		initHouseTenantProcess();
 		initHouseFacilityProcess();
 		initHouseRestrictionProcess();
+		initHouseMapImagesProcess();
 	};
 
 	var init = function (model) {
@@ -637,7 +749,8 @@ Hrm.AdminEditHouse = function () {
 		deleteHouseGettingAround: deleteHouseGettingAround,
 		removeTenant: removeTenant,
 		loadFacility: loadFacility,
-		loadRestriction: loadRestriction
+		loadRestriction: loadRestriction,
+		deleteMapImage: deleteMapImage
 	};
 	return oPublic;
 }();

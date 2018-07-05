@@ -731,5 +731,42 @@ namespace HouseRentalManagement.Controllers
             return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
         }
         #endregion
+
+        #region House Map images
+        public async Task<IActionResult> UploadHouseMapImage(AddHouseMapImageViewModel model)
+        {
+            var result = await _houseService.UploadHouseMapImageAsync(model);
+           
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+
+        public async Task<IActionResult> GetHouseMapImages(Guid houseId)
+        {
+            var result = await _houseService.FetchHouseMapImageAsync(houseId);
+
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error,
+                noImage = result.NoImage,
+                imageUrl = result.ImageUrl,
+                imageId = result.ImageId
+            });
+        }
+
+        public async Task<IActionResult> DeleteHouseMapImage(Guid imageId)
+        {
+            var result = await _houseService.DeleteHouseMapImageAsync(imageId);
+            return Json(new
+            {
+                success = result.Success,
+                error = result.Error
+            });
+        }
+        #endregion
     }
 }

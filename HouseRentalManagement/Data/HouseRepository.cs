@@ -70,6 +70,24 @@ namespace HouseRentalManagement.Data
                           .Include(h => h.HouseRestrictions)
                             .ThenInclude(r => r.Restriction)
                           .Include(h => h.HouseGettingArounds)
+                          .Include(h => h.Facilities)
+                            .ThenInclude(f => f.Facility)
+                          .FirstOrDefaultAsync();
+        }
+
+        public async Task<House> GetHouseByIdForPreviewAsync(Guid id)
+        {
+            return await (from h in _context.House
+                          where h.HouseId == id
+                          select h)
+                          .Include(h => h.HouseImages)
+                          .Include(h => h.HouseAmenities)
+                            .ThenInclude(a => a.Amenity)
+                          .Include(h => h.HouseRestrictions)
+                            .ThenInclude(r => r.Restriction)
+                          .Include(h => h.HouseGettingArounds)
+                          .Include(h => h.Facilities)
+                            .ThenInclude(f => f.Facility)
                           .FirstOrDefaultAsync();
         }
     }

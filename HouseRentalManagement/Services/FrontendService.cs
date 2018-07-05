@@ -116,7 +116,7 @@ namespace HouseRentalManagement.Services
             return model;
         }
 
-        public async Task<(bool Success, string Error, HouseInfoViewModel Model)> GetHouseInfoViewModelAsync(string slug, Guid houseId)
+        public async Task<(bool Success, string Error, HouseInfoViewModel Model)> GetHouseInfoViewModelAsync(string slug, Guid houseId, bool preview = false)
         {
             bool success = false;
             string error = string.Empty;
@@ -127,7 +127,16 @@ namespace HouseRentalManagement.Services
                 if (!string.IsNullOrEmpty(slug) || houseId != Guid.Empty)
                 {
                     // get house by id or slug
-                    var house = await _houseRepository.GetHouseByIdOrSlugAsync(slug: slug, id: houseId);
+                    House house = null;
+                    if (preview)
+                    {
+                        house = await _houseRepository.GetHouseByIdForPreviewAsync(houseId);
+                    }
+                    else
+                    {
+                        house = await _houseRepository.GetHouseByIdOrSlugAsync(slug: slug, id: houseId);
+                    }
+                    
                     if (house != null)
                     {
                         // basic info
@@ -138,7 +147,7 @@ namespace HouseRentalManagement.Services
                         model.Rent = house.Rent > 0 ? house.Rent.ToString("C0") + " (CDN$) per month" : "Please Contact";
                         model.ParkingSpace = house.ParakingSpace > 0 ? house.ParakingSpace.ToString() : "Please Contact";
                         model.Occupancy = house.Occupancy > 0 ? house.Occupancy.ToString() : "Please Contact";
-                        model.Washrooms = house.Washrooms > 0 ? house.Washrooms.ToString() : "Please Contact";
+                        model.Washrooms = house.Washrooms > 0 ? house.Washrooms.ToString("C") : "Please Contact";
 
                         // amenities
                         if (house.HouseAmenities != null)
@@ -209,6 +218,26 @@ namespace HouseRentalManagement.Services
                                     CarTime = item.CarTime
                                 });
                             }
+                        }
+
+                        // facilities
+                        if (house.Facilities != null)
+                        {
+                            foreach (var facility in house.Facilities)
+                            {
+                                model.Facilities.Add(facility.Facility?.Name);
+                            }
+                        }
+
+                        // map image
+                        var mapImage = await _houseImageRepository.FetchMapImageByHouseIdAsync(house.HouseId);
+                        if (mapImage != null)
+                        {
+                            // prepare path
+                            var imageDirectory = string.Format(_imageOptions.HouseMapImagePath, mapImage.HouseId);
+                            var fullPath = string.Format("{0}{1}{2}", "/", imageDirectory, mapImage.FileName);
+
+                            model.MapImageSrc = fullPath;
                         }
 
                         success = true;

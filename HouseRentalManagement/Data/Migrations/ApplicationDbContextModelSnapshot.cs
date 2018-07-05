@@ -302,6 +302,24 @@ namespace HouseRentalManagement.Data.Migrations
                     b.ToTable("HouseLeaseLengths");
                 });
 
+            modelBuilder.Entity("HouseRentalManagement.Models.HouseMapImage", b =>
+                {
+                    b.Property<Guid>("HouseMapImageId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateUtc");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<Guid>("HouseId");
+
+                    b.HasKey("HouseMapImageId");
+
+                    b.HasIndex("HouseId");
+
+                    b.ToTable("HouseMapImage");
+                });
+
             modelBuilder.Entity("HouseRentalManagement.Models.HouseRestriction", b =>
                 {
                     b.Property<int>("HouseRestrictionId")
@@ -593,6 +611,14 @@ namespace HouseRentalManagement.Data.Migrations
                     b.HasOne("HouseRentalManagement.Models.LeaseLength", "LeaseLength")
                         .WithMany("HouseLeaseLength")
                         .HasForeignKey("HouseLeaseLengthId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HouseRentalManagement.Models.HouseMapImage", b =>
+                {
+                    b.HasOne("HouseRentalManagement.Models.House", "House")
+                        .WithMany("MapImages")
+                        .HasForeignKey("HouseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

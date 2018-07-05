@@ -26,5 +26,8 @@ namespace HouseRentalManagement.Services.Interfaces
         Task<(bool Success, IErrorDictionary Errors)> UpdateHouseFacilitesAsync(HouseFacilityViewModel model);
         Task<HouseRestrictionViewModel> GetHouseRestrictionViewModelAsync(Guid houseId);
         Task<(bool Success, IErrorDictionary Errors)> UpdateHouseRestrictionsAsync(HouseRestrictionViewModel model);
+        Task<(bool Success, string Error)> UploadHouseMapImageAsync(AddHouseMapImageViewModel model);
+        Task<(bool Success, string Error, string ImageUrl, bool NoImage, Guid ImageId)> FetchHouseMapImageAsync(Guid houseId);
+        Task<(bool Success, string Error)> DeleteHouseMapImageAsync(Guid imageId);
     }
 }

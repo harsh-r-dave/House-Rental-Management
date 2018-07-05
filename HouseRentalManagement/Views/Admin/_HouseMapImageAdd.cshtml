@@ -1,0 +1,30 @@
+﻿@model HouseRentalManagement.Models.AdminViewModels.AddHouseMapImageViewModel
+
+
+<div class="row">
+	<div class="col-md-4">
+		<form method="post" enctype="multipart/form-data" id="upload-map-image-form">
+			<input asp-for="HouseId" />
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Upload photo for this house</h4>
+					<input asp-for="Image" class="house-image-uploader" />
+					<span asp-validation-for="Image" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="row mt-10">
+				<div class="col-md-12">
+					<button type="submit" class="btn btn-primary" id="upload-map-image-button">
+						Upload
+						<i class="fa fa-spinner fa-spin" id="upload-map-image-spinner" style="display: none;"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-8">
+		<div id="house-map-image-list-partial-container">
+			<h4>Loading Image <i class="fa fa-spinner fa-spin"></i></h4>
+		</div>
+	</div>
+</div>

@@ -49,5 +49,32 @@ namespace HouseRentalManagement.Data
                 .Where(a => a.HouseId == houseId && (a.IsHomePageImage.HasValue && a.IsHomePageImage.Value))
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> SaveHouseMapImageAsync(HouseMapImage record)
+        {
+            if (_context.Entry(record).State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+            {
+                _context.Add(record);
+            }
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<HouseMapImage> FetchMapImageByHouseIdAsync(Guid houseId)
+        {
+            return await  _context.HouseMapImage.Where(a => a.HouseId == houseId).FirstOrDefaultAsync();
+        }
+
+        public async Task<HouseMapImage> FetchMapImageByImageIdAsync(Guid imageId)
+        {
+            return await _context.HouseMapImage.Where(a => a.HouseMapImageId == imageId).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> DeleteHouseMapImageAsync(HouseMapImage image)
+        {
+            _context.HouseMapImage.Remove(image);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
     }
 }

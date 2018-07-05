@@ -41,5 +41,7 @@ namespace HouseRentalManagement.Models
         public ICollection<HouseAmenity> HouseAmenities { get; set; } = new HashSet<HouseAmenity>();
 
         public virtual ICollection<HouseRestriction> HouseRestrictions { get; set; }
+
+        public ICollection<HouseMapImage> MapImages { get; set; } = new HashSet<HouseMapImage>();
     }
 }

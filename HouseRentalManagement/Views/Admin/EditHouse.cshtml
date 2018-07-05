@@ -31,6 +31,11 @@
 			</a>
 		</li>
 		<li>
+			<a data-toggle="tab" href="#map-photo-info">
+				Map Photo <span id="map-photo-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
+			</a>
+		</li>
+		<li>
 			<a data-toggle="tab" href="#amenity-info">
 				Amenities <span id="amenity-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
 			</a>
@@ -137,10 +142,10 @@
 								<input asp-for="DateAvailableFrom" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" value="@Model.DateAvailableFrom.Value.ToString("MMM-dd-yyyy")" />
 							</div>
 							@*<div class="input-group-addon">to</div>
-								<div class="input-group">
-									<input asp-for="DateAvailableTo" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" value="@Model.DateAvailableTo.Value.ToString("MM-dd-yyyy")" />
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-								</div>*@
+							<div class="input-group">
+								<input asp-for="DateAvailableTo" type="text" class="form-control date" placeholder="@DateTime.Now.ToString("mm/dd/yyyy")" value="@Model.DateAvailableTo.Value.ToString("MM-dd-yyyy")" />
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>*@
 							<label asp-for="ContactForAvailableFrom">
 								<input asp-for="ContactForAvailableFrom" />
 								Contact for date available
@@ -192,6 +197,9 @@
 		</div>
 		<div id="photo-info" class="tab-pane fade">
 			@await Html.PartialAsync("~/Views/Admin/_HouseImagesAdd.cshtml", Model.AddHouseImageViewModel)
+		</div>
+		<div id="map-photo-info" class="tab-pane fade">
+			@await Html.PartialAsync("~/Views/Admin/_HouseMapImageAdd.cshtml", Model.HouseMapImageViewModel)
 		</div>
 		<div id="amenity-info" class="tab-pane fade">
 			<div>Please contact IT support if you see this message here</div>
