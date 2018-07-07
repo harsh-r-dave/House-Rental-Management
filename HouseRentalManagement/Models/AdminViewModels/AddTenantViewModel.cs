@@ -23,6 +23,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
 
         [Required]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
         
@@ -41,6 +42,7 @@ namespace HouseRentalManagement.Models.AdminViewModels
         public string ReferenceEmail { get; set; }
 
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
         [Display(Name = "Reference Phone Number")]
         public string ReferencePhone { get; set; }
 

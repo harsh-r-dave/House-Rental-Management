@@ -47,6 +47,7 @@ namespace HouseRentalManagement.Data
         {
             return await (from t in _context.Tenant
                           where !t.IsOnWaitList
+                          orderby t.LastName
                           select t)
                           .Include(a=>a.House)
                           .ToListAsync();
@@ -54,6 +55,7 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<Tenant>> ListTenantWaitListAsync() {
             return await (from t in _context.Tenant
+                          orderby t.LastName
                           where t.IsOnWaitList
                           select t)
                           .Include(a => a.House)
@@ -73,12 +75,13 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<Tenant>> FetchTenantsListByHouseIdAsync(Guid houseId)
         {
-            return await _context.Tenant.Where(a => a.HouseId == houseId).ToListAsync();
+            return await _context.Tenant.OrderBy(t=>t.LastName).Where(a => a.HouseId == houseId).ToListAsync();
         }
 
         public async Task<ICollection<TenantDropdownViewModel>> FetchTenantListForHouseEditPageAsync(Guid houseId)
         {
             return await (from t in _context.Tenant
+                          orderby t.LastName
                           where t.HouseId != houseId && !t.IsOnWaitList
                           select new TenantDropdownViewModel()
                           {
@@ -92,6 +95,7 @@ namespace HouseRentalManagement.Data
         public async Task<ICollection<TenantDropdownViewModel>> GetTenantWaitListDropdownAsync()
         {
             return await (from t in _context.Tenant
+                          orderby t.LastName
                           where t.IsOnWaitList
                           select new TenantDropdownViewModel()
                           {

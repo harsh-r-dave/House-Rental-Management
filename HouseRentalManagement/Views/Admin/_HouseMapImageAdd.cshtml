@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h4>Upload photo for this house</h4>
-					<input asp-for="Image" class="house-image-uploader" />
+					<input asp-for="Image" class="house-image-uploader" data-allowed-file-extensions="jpg jpeg png gif" />
 					<span asp-validation-for="Image" class="text-danger"></span>
 				</div>
 			</div>

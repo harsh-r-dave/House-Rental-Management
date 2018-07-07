@@ -7,7 +7,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    /*background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);*/   
+    /*background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);*/
 }
 
 #jhr-portfolio-section {
@@ -109,6 +109,10 @@
     width: 30px;
 }
 
+.house-image {
+    max-height: inherit;
+}
+
 #house-images-container {
     padding: 0 4%;
 }
@@ -166,3 +170,25 @@
         right: 0%;
         position: absolute;
     }
+
+#map-image {
+    height: 50px;
+    width: 50px;
+    border: 1px solid #337ab7;
+}
+
+
+
+/********/
+.section-container {
+    border: 1px solid #5996bb;    
+}
+
+.section-title {
+    background-color: rgba(11, 95, 146, 1);
+    padding: 5px;
+    color: white;
+}
+.section-content {
+    padding: 5px;
+}

@@ -78,3 +78,13 @@
     max-height: 100px;
     max-width: 100px;
 }
+
+.no-house-message {
+    font-size: 20px;
+    color: rgba(0,0,0, 0.5);
+}
+
+.no-house-image {
+    max-width: 400px;
+    max-height: 400px;
+}

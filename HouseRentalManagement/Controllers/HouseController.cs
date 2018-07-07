@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HouseRentalManagement.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -38,6 +39,7 @@ namespace HouseRentalManagement.Controllers
             }
         }
 
+        [Authorize]
         public async Task<IActionResult> Preview(Guid id)
         {
             var result = await _frontendService.GetHouseInfoViewModelAsync(slug: "", houseId: id, preview: true);
