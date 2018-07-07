@@ -113,7 +113,7 @@ namespace HouseRentalManagement.Controllers
                 if (result.Success)
                 {
                     SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "House updated successfully");
-                    return RedirectToAction(nameof(Houses));
+                    return RedirectToAction(nameof(EditHouse), routeValues: new { id = model.HouseId });
                 }
                 else
                 {

@@ -148,7 +148,7 @@ namespace HouseRentalManagement.Services
                         model.Rent = house.Rent > 0 ? house.Rent.ToString("C0") + " (CDN$) per month" : "Please Contact";
                         model.ParkingSpace = house.ParakingSpace > 0 ? house.ParakingSpace.ToString() : "Please Contact";
                         model.Occupancy = house.Occupancy > 0 ? house.Occupancy.ToString() : "Please Contact";
-                        model.Washrooms = house.Washrooms > 0 ? house.Washrooms.ToString("C") : "Please Contact";
+                        model.Washrooms = house.Washrooms > 0 ? string.Format("{0:0.0}", house.Washrooms) : "Please Contact";
 
                         // amenities
                         if (house.HouseAmenities != null)

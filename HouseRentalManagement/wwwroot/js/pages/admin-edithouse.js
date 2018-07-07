@@ -326,7 +326,6 @@ Hrm.AdminEditHouse = function () {
 			success: function (result) {
 				if (result.hasOwnProperty('success') && !result.success) {
 					if (result.hasOwnProperty('noTenants') && result.noTenants) {
-						toastr.info(result.error, '', Hrm.Toastr.tipConfig);
 						$('#tenant-list-container').html("<div class='text-danger mt-10'>This house doesn't have any tenants.</div>");
 					} else {
 						toastr.error(result.error, '', Hrm.Toastr.config);

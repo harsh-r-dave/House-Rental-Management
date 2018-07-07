@@ -17,7 +17,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h4>Upload Featured Photo</h4>
-						<input asp-for="Image" class="featured-photo-uploader" />
+						<input asp-for="Image" class="featured-photo-uploader" data-allowed-file-extensions="jpg jpeg png gif" />
 						<span asp-validation-for="Image" class="text-danger"></span>
 					</div>
 				</div>
