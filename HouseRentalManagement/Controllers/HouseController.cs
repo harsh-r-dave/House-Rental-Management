@@ -32,9 +32,10 @@ namespace HouseRentalManagement.Controllers
             {
                 return View(result.Model);
             }
-            
-            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, result.Error);
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                return View("~/Views/Error/Index.cshtml");
+            }
         }
 
         public async Task<IActionResult> Preview(Guid id)
