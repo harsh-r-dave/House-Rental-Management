@@ -17,6 +17,10 @@ namespace HouseRentalManagement.Models.HouseViewModels
 
         public string GoogleMapUrl { get; set; }
 
+        public string ContactEmail { get; set; }
+        public string ContactPhoneNumber { get; set; }
+        public string ContactWhatsappNumber { get; set; }
+
         public ICollection<AmenityViewModel> AllAmenities { get; set; } = new HashSet<AmenityViewModel>();
         public ICollection<AmenityViewModel> IncludedAmenities { get; set; } = new HashSet<AmenityViewModel>();
         public ICollection<ImagesViewModel> Images { get; set; } = new HashSet<ImagesViewModel>();

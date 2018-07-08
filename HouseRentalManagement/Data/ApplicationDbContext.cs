@@ -27,6 +27,7 @@ namespace HouseRentalManagement.Data
         public DbSet<Restriction> Restriction { get; set; }
         public DbSet<Inquiry> Inquiry { get; set; }
         public DbSet<HouseMapImage> HouseMapImage { get; set; }
+        public DbSet<SiteConfig> SiteConfig { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -155,6 +156,14 @@ namespace HouseRentalManagement.Data
                 entity.HasOne(a => a.House)
                 .WithMany(h => h.MapImages)
                 .HasForeignKey(a => a.HouseId);
+            });
+
+            builder.Entity<SiteConfig>(entity =>
+            {
+                entity.HasKey(a => a.SiteConfigId);
+                entity.Property(a => a.PhoneNumber).HasMaxLength(15);
+                entity.Property(a => a.WhatsappNumber).HasMaxLength(15);
+                entity.Property(a => a.PrimaryEmail).HasMaxLength(255);
             });
         }
     }

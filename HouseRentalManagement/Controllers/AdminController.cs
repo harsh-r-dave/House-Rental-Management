@@ -1,5 +1,6 @@
 ﻿using HouseRentalManagement.Models;
 using HouseRentalManagement.Models.AdminViewModels;
+using HouseRentalManagement.Models.SiteConfigViewModels;
 using HouseRentalManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,13 +21,15 @@ namespace HouseRentalManagement.Controllers
         private readonly ITenantService _tenantService;
         private readonly IFeaturedPhotoService _featuredPhotoService;
         private readonly IRestrictionService _restrictionService;
+        private readonly ISiteConfigService _siteConfigService;
 
         public AdminController(IHouseService houseService,
            UserManager<ApplicationUser> userManager,
            IFacilityService facilityService,
            ITenantService tenantService,
            IFeaturedPhotoService featuredPhotoService,
-           IRestrictionService restrictionService)
+           IRestrictionService restrictionService,
+           ISiteConfigService siteConfigService)
         {
             _houseService = houseService;
             _userManager = userManager;
@@ -34,6 +37,7 @@ namespace HouseRentalManagement.Controllers
             _tenantService = tenantService;
             _featuredPhotoService = featuredPhotoService;
             _restrictionService = restrictionService;
+            _siteConfigService = siteConfigService;
         }
 
         #region House
@@ -296,14 +300,14 @@ namespace HouseRentalManagement.Controllers
             {
                 return Json(new
                 {
-                   success = true
+                    success = true
                 });
             }
             return Json(new
             {
                 success = false,
                 fileExist = result.FileExist,
-                error  = result.Error
+                error = result.Error
             });
         }
 
@@ -736,7 +740,7 @@ namespace HouseRentalManagement.Controllers
         public async Task<IActionResult> UploadHouseMapImage(AddHouseMapImageViewModel model)
         {
             var result = await _houseService.UploadHouseMapImageAsync(model);
-           
+
             return Json(new
             {
                 success = result.Success,
@@ -766,6 +770,33 @@ namespace HouseRentalManagement.Controllers
                 success = result.Success,
                 error = result.Error
             });
+        }
+        #endregion
+
+        #region SiteConfiguration
+        [HttpGet]
+        public async Task<IActionResult> ManageSiteConfiguration()
+        {
+            var model = new AddSiteConfigViewModel();
+            var result = await _siteConfigService.GetAddSiteConfigViewModelAsync();
+            if (result.Success)
+            {
+                model = result.Model;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageSiteConfiguration(AddSiteConfigViewModel model)
+        {
+            var result = await _siteConfigService.SaveSiteConfigAsync(model);
+            if (result.Success)
+            {
+                SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Site configuration saved successfully.");
+                return RedirectToAction(nameof(ManageSiteConfiguration));
+            }
+            SetSiteMessage(MessageType.Error, DisplayFor.FullRequest, result.Error);
+            return View(model);
         }
         #endregion
     }

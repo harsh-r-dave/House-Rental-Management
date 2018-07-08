@@ -1,0 +1,64 @@
+﻿@model HouseRentalManagement.Models.SiteConfigViewModels.AddSiteConfigViewModel
+
+@{
+	Layout = "_HouseLayout";
+}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Site Configuration</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<form method="post" action="@ViewData["ReturnUrl"]">
+				<div class="form-group row">
+					<div class="col-md-12">
+						<label asp-for="PhoneNumber"></label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+							<input asp-for="PhoneNumber" class="form-control" />
+						</div>
+
+						<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row" id="whatsapp-number-container">
+					<div class="col-md-12">
+						<label asp-for="WhatsappNumber"></label> <label><input asp-for="IsWhatasappNumberSameAsPhoneNumber" /> Same as mobile number?</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-whatsapp"></i></span>
+							<input asp-for="WhatsappNumber" class="form-control" />
+						</div>
+						<span asp-validation-for="WhatsappNumber" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-12">
+						<label asp-for="Email"></label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-at"></i></span>
+							<input asp-for="Email" class="form-control" />
+						</div>
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Save</button>
+				<a class="btn btn-danger" onclick="window.location.reload();">Cancel</a>
+			</form>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+	<script src="~/js/pages/admin-managesiteconfig.js"></script>
+	<script>
+		$(document).ready(function () {
+			var viewModel = {
+				whatsAppNumber: '@Model.WhatsappNumber'
+			};
+			Hrm.AdminManageSiteConfig.init(viewModel);
+		});
+	</script>
+}

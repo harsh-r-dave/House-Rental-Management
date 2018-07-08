@@ -93,19 +93,21 @@
 									<div class="section-content">
 										<div class="row">
 											<div class="col-md-12">
-												<span>Mobile: 647-123-4567</span>
-												<a href="tel:6471234567">
+												<span>Mobile: @Model.ContactPhoneNumber</span>
+												<a href="tel:@Model.ContactPhoneNumber">
 													<i class="fa fa-phone social-btn"></i>
 												</a>
-												<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
-													<i class="fa fa-whatsapp social-btn"></i>
-												</a>
+												@if (!string.IsNullOrEmpty(Model.ContactWhatsappNumber))
+												{
+													<a href="https://api.whatsapp.com/send?phone=@Model.ContactWhatsappNumber&text=I'm%20inquiring%20about%20the%20room%20">
+														<i class="fa fa-whatsapp social-btn"></i>
+													</a>
+												}
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12">
-												<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
-
+												<span>Email: @Model.ContactEmail <a href="mailto:@Model.ContactEmail"><i class="fa fa-envelope social-btn"></i></a></span>
 											</div>
 										</div>
 									</div>

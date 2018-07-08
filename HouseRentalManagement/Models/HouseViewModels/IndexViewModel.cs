@@ -11,5 +11,9 @@ namespace HouseRentalManagement.Models.HouseViewModels
         public ICollection<FeaturedPhotosViewModel> FeaturedImages { get; set; }
         public ICollection<HouseViewModel> Houses { get; set; }
         public AddInquiryViewModel AddInquiryViewModel { get; set; }
+
+        public string ContactEmail { get; set; }
+        public string ContactPhoneNumber { get; set; }
+        public string ContactWhatsappNumber { get; set; }
     }
 }

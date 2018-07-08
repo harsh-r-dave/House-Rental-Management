@@ -23,6 +23,7 @@ namespace HouseRentalManagement.Services
         private readonly IAmenityRepository _amenityRepository;
         private readonly IRestrictionRepository _restrictionRepository;
         private readonly IHouseImageRepository _houseImageRepository;
+        private readonly ISiteConfigRepository _siteConfigRepository;
         private ILogger _logger;
 
         public FrontendService(IHouseRepository houseRepository,
@@ -31,7 +32,8 @@ namespace HouseRentalManagement.Services
             ILogger<FrontendService> logger,
             IAmenityRepository amenityRepository,
             IRestrictionRepository restrictionRepository,
-            IHouseImageRepository houseImageRepository)
+            IHouseImageRepository houseImageRepository,
+            ISiteConfigRepository siteConfigRepository)
         {
             _houseRepository = houseRepository;
             _imageOptions = imageOptions.Value;
@@ -40,6 +42,7 @@ namespace HouseRentalManagement.Services
             _amenityRepository = amenityRepository;
             _restrictionRepository = restrictionRepository;
             _houseImageRepository = houseImageRepository;
+            _siteConfigRepository = siteConfigRepository;
         }
 
         public async Task<IndexViewModel> GetIndexViewModelAsync()
@@ -70,6 +73,22 @@ namespace HouseRentalManagement.Services
                     {
                         model.FeaturedImages.Add(GetFeaturedPhotosViewModelFromFeatureImage(photo));
                     }
+                }
+
+                // add site config
+                var siteConfig = await _siteConfigRepository.GetSiteConfigAsync();
+                if (siteConfig != null)
+                {
+                    if (!string.IsNullOrEmpty(siteConfig.WhatsappNumber))
+                    {
+                        var whatsAppNumber = siteConfig.WhatsappNumber.Replace(".", "");
+                        whatsAppNumber = whatsAppNumber.Replace("-", "");
+                        whatsAppNumber = whatsAppNumber.Replace(" ", "");
+                        model.ContactWhatsappNumber = "1" + whatsAppNumber;
+                    }
+                    
+                    model.ContactEmail = siteConfig.PrimaryEmail;
+                    model.ContactPhoneNumber = siteConfig.PhoneNumber;
                 }
             }
             catch (Exception ex)
@@ -137,7 +156,7 @@ namespace HouseRentalManagement.Services
                     {
                         house = await _houseRepository.GetHouseByIdOrSlugAsync(slug: slug, id: houseId);
                     }
-                    
+
                     if (house != null)
                     {
                         // basic info
@@ -243,8 +262,25 @@ namespace HouseRentalManagement.Services
 
                         var query = WebUtility.UrlEncode(house.AddressLine1 + "," + house.City + "," + house.PostalCode);
                         var url = $"https://www.google.com/maps/search/?api=1&query={query}";
-                        
+
                         model.GoogleMapUrl = url;
+
+                        // add site config
+                        var siteConfig = await _siteConfigRepository.GetSiteConfigAsync();
+                        if (siteConfig != null)
+                        {
+                            if (!string.IsNullOrEmpty(siteConfig.WhatsappNumber))
+                            {
+                                var whatsAppNumber = siteConfig.WhatsappNumber.Replace(".", "");
+                                whatsAppNumber = whatsAppNumber.Replace("-", "");
+                                whatsAppNumber = whatsAppNumber.Replace(" ", "");
+                                model.ContactWhatsappNumber = "1" + whatsAppNumber;
+                            }
+
+                            model.ContactEmail = siteConfig.PrimaryEmail;
+                            model.ContactPhoneNumber = siteConfig.PhoneNumber;
+                        }
+
                         success = true;
                     }
                     else
@@ -256,7 +292,7 @@ namespace HouseRentalManagement.Services
                 {
                     error = "Invalid request";
                 }
-                
+
             }
             catch (Exception ex)
             {
