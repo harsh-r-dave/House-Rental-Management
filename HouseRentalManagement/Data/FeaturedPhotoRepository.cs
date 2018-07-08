@@ -29,7 +29,7 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<FeaturedImage>> ListAllFeaturedImagesAsync()
         {
-            return await _context.FeaturedImage.OrderByDescending(a => a.ToDisplay).ToListAsync();
+            return await _context.FeaturedImage.OrderByDescending(a => a.ToDisplay).ThenByDescending(a => a.CreatedUtc).ToListAsync();
         }
 
         public async Task<FeaturedImage> FetchFeatureImageByIdAsync(int id)
@@ -45,7 +45,7 @@ namespace HouseRentalManagement.Data
 
         public async Task<ICollection<FeaturedImage>> ListToBeDisplayedFeaturedImagesAsync()
         {
-            return await _context.FeaturedImage.Where(a => a.ToDisplay).ToListAsync();
+            return await _context.FeaturedImage.OrderByDescending(a=>a.CreatedUtc).Where(a => a.ToDisplay).ToListAsync();
         }
     }
 }
