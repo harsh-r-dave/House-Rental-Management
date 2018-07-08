@@ -272,15 +272,11 @@
 </div>
 @section Scripts{
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBcH3xWHIKvmtjH-0Xs9E9zI8KG9C7bY8w" type="text/javascript"></script>
-
 	<script src="~/lib/slick-carousel/dist/slick.js"></script>
 	<script src="~/js/pages/house-info.js"></script>
 	<script>
 		$(document).ready(function () {
-			var houseInfoModel = {
-				location: "368 Dunsmore Ln, Barrie"
-			};
+			var houseInfoModel = {};
 			Hrm.HouseInfo.init(houseInfoModel);
 		});
 	</script>

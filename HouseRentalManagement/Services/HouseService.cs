@@ -204,6 +204,15 @@ namespace HouseRentalManagement.Services
                 if (house != null)
                 {
                     success = await _houseRepository.DeleteHouseAsync(house);
+
+                    // delete house directory and content
+                    var baseDirectory = _env.WebRootPath;
+                    var imageDirectory = string.Format(_imageOptions.HouseImagePath, house.HouseId);
+                    var destinationPath = Path.Combine(baseDirectory, imageDirectory);
+                    if (Directory.Exists(destinationPath))
+                    {
+                        Directory.Delete(destinationPath, recursive: true);
+                    }
                 }
                 else
                 {
@@ -981,14 +990,14 @@ namespace HouseRentalManagement.Services
                         {
                             File.Delete(fullPath);
                         }
-                        
+
                         success = await _houseImageRepository.DeleteHouseMapImageAsync(image);
                     }
                     else
                     {
                         error = "Image not found";
                     }
-                    
+
                 }
                 else
                 {

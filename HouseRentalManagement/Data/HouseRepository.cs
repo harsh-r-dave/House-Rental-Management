@@ -41,7 +41,11 @@ namespace HouseRentalManagement.Data
 
         public async Task<House> FetchHouseByIdAsync(Guid id)
         {
-            return await _context.House.Where(h => h.HouseId == id).FirstOrDefaultAsync();
+            return await _context.House
+                .Where(h => h.HouseId == id)
+                .Include(a => a.HouseImages)
+                .Include(a => a.MapImages)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<bool> DeleteHouseAsync(House house)

@@ -110,7 +110,7 @@
 }
 
 .house-image {
-    max-height: inherit;
+    max-height: 350px;
 }
 
 #house-images-container {
