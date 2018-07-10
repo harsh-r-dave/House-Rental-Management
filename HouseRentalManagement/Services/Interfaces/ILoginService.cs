@@ -9,7 +9,7 @@ namespace HouseRentalManagement.Services.Interfaces
     public interface ILoginService
     {
         Task<(bool Success, string Error)> LogUserIn(LoginViewModel model);
-        Task<bool> VerifyAccessCodeAsync(AccessCodeViewModel model);
+        Task<bool> VerifyAccessCodeAsync(string accessCode);
         Task<bool> SetAccessCodeAsync(AccessCodeViewModel model);
         Task<(bool Success, string Error)> ResetAccessCodeAsync(Models.ManageViewModels.AccessCodeViewModel model);
     }

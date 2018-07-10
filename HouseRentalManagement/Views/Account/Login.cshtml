@@ -17,7 +17,6 @@
 			<section>
 				<form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
 					<hr />
-					<div asp-validation-summary="All" class="text-danger"></div>
 					<div class="form-group">
 						<label asp-for="Email"></label>
 						<input asp-for="Email" class="form-control" />
@@ -27,6 +26,11 @@
 						<label asp-for="Password"></label>
 						<input asp-for="Password" class="form-control" />
 						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="AccessCode"></label>
+						<input asp-for="AccessCode" class="form-control" />
+						<span asp-validation-for="AccessCode" class="text-danger"></span>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-default">Log in</button>

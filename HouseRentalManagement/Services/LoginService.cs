@@ -34,28 +34,38 @@ namespace HouseRentalManagement.Services
             bool success = false;
             string error = string.Empty;
 
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
-            if (result.Succeeded)
+            // verify access code first
+            var accessCodeVerified = await VerifyAccessCodeAsync(model.AccessCode);
+            if (accessCodeVerified)
             {
-                success = true;
-            }
-            else if (result.IsLockedOut)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                var lockoutEndTime = user.LockoutEnd;
-                var remainingTime = (lockoutEndTime.Value - DateTime.UtcNow).TotalMinutes;
-                error = $"Your account has been locked for {Math.Ceiling(remainingTime)} minutes due to invalid login attempts.";
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, lockoutOnFailure: true);
+                if (result.Succeeded)
+                {
+                    success = true;
+                }
+                else if (result.IsLockedOut)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    var lockoutEndTime = user.LockoutEnd;
+                    var remainingTime = (lockoutEndTime.Value - DateTime.UtcNow).TotalMinutes;
+                    error = $"Your account has been locked for {Math.Ceiling(remainingTime)} minutes due to invalid login attempts.";
+                }
+                else
+                {
+                    error = "Invalid login attempt.";
+                }
             }
             else
             {
                 error = "Invalid login attempt.";
             }
+            
 
             return (success, error);
         }
 
-        public async Task<bool> VerifyAccessCodeAsync(AccessCodeViewModel model)
+        public async Task<bool> VerifyAccessCodeAsync(string enteredAccessCode)
         {
             bool success = false;
             try
@@ -64,8 +74,8 @@ namespace HouseRentalManagement.Services
                 if (accessCode != null)
                 {
                     var resultManager = new Helper.EncryptionHelper.EncryptionManager();
-                    var hash = resultManager.GeneratePasswordHash(model.AccessCode, out string salt);
-                    success = resultManager.IsStringMatch(model.AccessCode, accessCode.Salt, accessCode.Hash);
+                    var hash = resultManager.GeneratePasswordHash(enteredAccessCode, out string salt);
+                    success = resultManager.IsStringMatch(enteredAccessCode, accessCode.Salt, accessCode.Hash);
                 }
             }
             catch (Exception ex)
