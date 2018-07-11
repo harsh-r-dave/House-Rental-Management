@@ -19,7 +19,7 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     /*font-family: 'Patua One', cursive;*/
-    font-family: 'Roboto Slab', cursive;
+    font-family: 'Roboto Slab', Arial;
 }
 
 /* navbar */
@@ -29,10 +29,14 @@ body {
 }
 
 .navbar-toggle {
-    background-color: #333;
+    background-color: #5996bb;
 }
 
 .navbar-inverse .navbar-toggle:hover {
+    background-color: #5996bb;
+}
+
+.navbar-inverse .navbar-toggle:focus {
     background-color: #5996bb;
 }
 
@@ -45,9 +49,9 @@ body {
         color: white;
     }
 
-        .navbar-inverse .navbar-brand:hover {
+        /*.navbar-inverse .navbar-brand:hover {
             color: #5996bb;
-        }
+        }*/
 
     .navbar-inverse .navbar-nav > li > a {
         color: white;
@@ -56,7 +60,7 @@ body {
 
         .navbar-inverse .navbar-nav > li > a:hover,
         .navbar-inverse .navbar-nav > li > a:focus {
-            color: #5996bb;
+            background-color: #5996bb;
         }
 
     .navbar-inverse .navbar-nav > .open > a,
@@ -65,7 +69,7 @@ body {
         background-color: #5996bb;
     }
 
-    /* brand-image */
+/* brand-image */
 .navbar-brand > img {
     display: inline-block;
     margin-bottom: -35px;
@@ -74,6 +78,7 @@ body {
     height: 50px;
     width: 50px;
 }
+
 @media screen and (max-width: 530px) {
     .navbar-inverse .navbar-brand {
         font-size: 17px;
@@ -100,10 +105,10 @@ body {
         text-decoration: none;
     }
 
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+/*.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
     color: #5996bb;
     background-color: transparent;
-}
+}*/
 
 /* image section */
 #portfoliolist .portfolio {
