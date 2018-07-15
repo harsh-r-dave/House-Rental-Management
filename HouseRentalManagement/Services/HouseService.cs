@@ -498,6 +498,17 @@ namespace HouseRentalManagement.Services
                 if (houseImage != null)
                 {
                     success = await _houseImageRepository.DeleteHouseImageAsync(houseImage);
+
+                    // if deleted image is main image, set another image as main image
+                    if (success && houseImage.IsHomePageImage.HasValue && houseImage.IsHomePageImage.Value)
+                    {
+                        // hd.20180715 fetch first image by house id
+                        var houseImages = await _houseImageRepository.ListHouseImagesAsync(houseImage.HouseId);
+                        if (houseImages != null)
+                        {
+                            await SetHomePageImageAsync(houseId: houseImage.HouseId, imageId: houseImages.Select(i=>i.HouseImageId).FirstOrDefault());
+                        }
+                    }                    
                 }
                 else
                 {
@@ -551,7 +562,7 @@ namespace HouseRentalManagement.Services
             catch (Exception ex)
             {
                 error = "Unexpected error occurred while processing your request";
-                _logger.LogError("HouseService/DeleteHouseImageAsync - exception:{@Ex}", new object[]{
+                _logger.LogError("HouseService/SetHomePageImageAsync - exception:{@Ex}", new object[]{
                     ex
                 });
             }
