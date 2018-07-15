@@ -111,7 +111,7 @@
 		</div>
 	</div>
 
-	<div class="row mt-20" id="contact-us-container">
+	<div class="row mt-20">
 		<div class="col-sm-12 visible-sm visible-xs order-sm-1 col-md-4">
 			<div class="alert alert-info business-info-container">
 				<h3>
@@ -133,21 +133,30 @@
 			</div>
 			<div class="row mt-10">
 				<div class="col-sm-offset-2 col-sm-8 text-center">
-					<span>Mobile: @Model.ContactPhoneNumber</span>
-					<a href="tel:@Model.ContactPhoneNumber">
+					Mobile:
+					<a href="tel:@Model.ContactPhoneNumber" class="contact-us-link">
+						<span>@Model.ContactPhoneNumber</span>
 						<i class="fa fa-phone social-btn"></i>
 					</a>
 					@if (!string.IsNullOrEmpty(Model.ContactWhatsappNumber))
 					{
-						<a href="https://api.whatsapp.com/send?phone=@Model.ContactWhatsappNumber&text=I'm%20inquiring%20about%20the%20room%20">
+						<br /><span>WhatsApp:</span>
+						<a class="contact-us-link" href="https://api.whatsapp.com/send?phone=@Model.ContactWhatsappNumber&text=I'm%20inquiring%20about%20the%20room%20">
+							<span>+@Model.ContactWhatsappNumber</span>
 							<i class="fa fa-whatsapp social-btn"></i>
 						</a>
 					}
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="contact-us">
 				<div class="col-sm-offset-2 col-sm-8 text-center">
-					<span>Email: @Model.ContactEmail <a href="mailto:@Model.ContactEmail"><i class="fa fa-envelope social-btn"></i></a></span>
+					<span>
+						Email: 
+						<a class="contact-us-link" href="mailto:@Model.ContactEmail">
+							@Model.ContactEmail
+							<i class="fa fa-envelope social-btn"></i>
+						</a>
+					</span>
 				</div>
 			</div>
 			<div class="row mt-10">

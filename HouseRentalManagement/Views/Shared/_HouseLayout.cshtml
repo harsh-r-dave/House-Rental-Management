@@ -4,8 +4,11 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
-	<meta name="keywords" content="jigna homes rental, barrie rooms, rooms near georgian, indian room rental, " />
-	<title>Jigna Real Estate Holding Co.</title>
+	
+	<meta name="keywords" content="jigna homes, home rent, barrie rooms, rooms near georgian, indian room rent, house rent, rent, house, real estate" />
+	<meta name="description" content="We specialize in Indian Students Rentals since 2002. We provide friendly environment to the students and workers away from their home." />
+
+	<title>@ViewData["Title"] Jigna Real Estate Holding Co.</title>
 
 	@* vendors *@
 	<link href="~/lib/animate/animate.css" rel="stylesheet" />
@@ -16,14 +19,11 @@
 	<!--favicon-->
 	<link href="~/icons/brand-logo.png" rel="icon" />
 
-	@*<link href="~/css/style.css" rel="stylesheet" />*@
+	@* global styles *@
 	<link href="~/css/style-override.css" rel="stylesheet" />
 
 	@* page-specific styles *@
 	@RenderSection("Styles", required: false)
-
-	@* preload scripts *@
-	<script src="~/vendors/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -36,14 +36,14 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a asp-area="" asp-controller="House" asp-action="Index" class="navbar-brand">
-					<img alt="Brand" src="~/icons/brand-logo.png">
-					<span>Jigna Real Estate Holding Co.</span>
+					<img alt="Brand" src="~/icons/brand-logo-1.png">
+					@*<span>Jigna Real Estate Holding Co.</span>*@
 				</a>
 			</div>
-			<div class="navbar-collapse collapse">
+			<div class="navbar-collapse collapse" id="navbar-collapse-container">
 				<ul class="nav navbar-nav">
 					<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-					<li><a href="/#contact-us-container" class="smooth-scroll">Contact</a></li>
+					<li><a href="/#contact-us" id="contact-us-link">Contact</a></li>
 				</ul>
 				@await Html.PartialAsync("_LoginPartial")
 			</div>
@@ -67,12 +67,12 @@
 	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 	<script src="~/lib/toastr/toastr.js"></script>
 	<script src="~/js/toastr-config.js"></script>
-	@*<script src="~/vendors/jquery.waypoints.min.js"></script>
-		<script src="~/vendors/jquery.mixitup.min.js"></script>*@
-
-
-	@* main JS (not to be removed) *@
-	@*<script src="~/vendors/main.js"></script>*@
+	<script src="~/js/site.js"></script>
+	<script>
+		$(document).ready(function () {
+			Hrm.SiteJs.init();
+		});
+	</script>
 
 	@* scripts *@
 	@await Html.PartialAsync("_ValidationScriptsPartial")
