@@ -5,23 +5,6 @@ Hrm.HouseIndex = function () {
 
 	var bindEvents = function () { };
 
-	//var initFullPage = function () {
-	//    $('#main').fullpage({
-	//        scrollingSpeed: 1000,
-	//        autoScrolling: true,
-	//        fitToSection: true,
-	//        fitToSectionDelay: 2000
-	//    });
-	//};
-
-	var initSmoothScroll = function () {
-		$('.smooth-scroll').on('click', function () {
-			$('html, body').animate({
-				scrollTop: $($.attr(this, 'href')).offset().top
-			}, 1500);
-		});
-	};
-
 	var setLoader = function () {
 		$('#contact-us-loader-container #sending-message').show();
 		$('#contact-us-loader-container #message-sent').hide();
@@ -110,9 +93,6 @@ Hrm.HouseIndex = function () {
 	var init = function (model) {
 		console.log("Hrm.HouseIndex init()");
 		viewModel = model;
-
-		//initFullPage();
-		initSmoothScroll();
 		submitInquiry();
 		validatePhone();
 	};

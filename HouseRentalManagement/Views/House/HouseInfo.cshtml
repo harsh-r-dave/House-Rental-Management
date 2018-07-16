@@ -10,7 +10,7 @@
 	<link href="~/lib/fancybox/jquery.fancybox.css" rel="stylesheet" />
 	<link href="~/lib/slick-carousel/dist/slick.css" rel="stylesheet" />
 	<link href="~/lib/slick-carousel/dist/slick-theme.css" rel="stylesheet" />
-	<link href="~/css/pages/house-info.css" rel="stylesheet" />
+	<link href="~/css/pages/house-info.css" rel="stylesheet" asp-append-version="true" />
 }
 
 <div class="container">
@@ -98,13 +98,16 @@
 									<div class="section-content">
 										<div class="row">
 											<div class="col-md-12">
-												<span>Mobile: @Model.ContactPhoneNumber</span>
-												<a href="tel:@Model.ContactPhoneNumber">
+												Mobile:
+												<a href="tel:@Model.ContactPhoneNumber" class="contact-us-link">
+													<span>@Model.ContactPhoneNumber</span>
 													<i class="fa fa-phone social-btn"></i>
 												</a>
 												@if (!string.IsNullOrEmpty(Model.ContactWhatsappNumber))
 												{
-													<a href="https://api.whatsapp.com/send?phone=@Model.ContactWhatsappNumber&text=I'm%20inquiring%20about%20the%20room%20">
+													<br /><span>WhatsApp:</span>
+													<a class="contact-us-link" href="https://api.whatsapp.com/send?phone=@Model.ContactWhatsappNumber&text=I'm%20inquiring%20about%20the%20room%20">
+														<span>+@Model.ContactWhatsappNumber</span>
 														<i class="fa fa-whatsapp social-btn"></i>
 													</a>
 												}
@@ -112,7 +115,13 @@
 										</div>
 										<div class="row">
 											<div class="col-md-12">
-												<span>Email: @Model.ContactEmail <a href="mailto:@Model.ContactEmail"><i class="fa fa-envelope social-btn"></i></a></span>
+												<span>
+													Email:
+													<a class="contact-us-link" href="mailto:@Model.ContactEmail">
+														@Model.ContactEmail
+														<i class="fa fa-envelope social-btn"></i>
+													</a>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -141,27 +150,27 @@
 		</div>
 		<div class="row mt-10">
 			@*<div class="col-md-5">
-				<div id="contact-info-container">
-					<h4>Contact</h4>
-					<div class="row">
-						<div class="col-md-12">
-							<span>Mobile: 647-123-4567</span>
-							<a href="tel:6471234567">
-								<i class="fa fa-phone social-btn"></i>
-							</a>
-							<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
-								<i class="fa fa-whatsapp social-btn"></i>
-							</a>
+					<div id="contact-info-container">
+						<h4>Contact</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Mobile: 647-123-4567</span>
+								<a href="tel:6471234567">
+									<i class="fa fa-phone social-btn"></i>
+								</a>
+								<a href="https://api.whatsapp.com/send?phone=16471234567&text=I'm%20inquiring%20about%20the%20apartment%20listing">
+									<i class="fa fa-whatsapp social-btn"></i>
+								</a>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
+						<div class="row">
+							<div class="col-md-12">
+								<span>Email: john.doe@domain.com <a href="mailto:john.doe@domain.com"><i class="fa fa-envelope social-btn"></i></a></span>
 
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>*@
+				</div>*@
 			@if (Model.IncludedAmenities != null && Model.IncludedAmenities.Count > 0)
 			{
 				<div class="col-md-4 col-sm-4">
@@ -254,7 +263,7 @@
 					<div class="section-title">
 						Useful Links
 					</div>
-					<div class="section-content">						
+					<div class="section-content">
 						<div class="row">
 							<div class="col-md-6 col-sm-6 col-xs-6">
 								<a class="image" href="~/images/laundrycheatsheet.png">Laundry Cheetsheet</a>
@@ -271,7 +280,7 @@
 								<a href="https://www.greyhound.ca/" target="_blank">Greyhound Canada</a><br />
 							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</div>
@@ -280,7 +289,7 @@
 @section Scripts{
 	<script src="~/lib/fancybox/jquery.fancybox.js"></script>
 	<script src="~/lib/slick-carousel/dist/slick.js"></script>
-	<script src="~/js/pages/house-info.js"></script>
+	<script src="~/js/pages/house-info.js" asp-append-version="true"></script>
 	<script>
 		$(document).ready(function () {
 			var houseInfoModel = {};

@@ -517,3 +517,7 @@ a.edit-control {
 .input-validation-error {
     border: 1px solid red;
 }
+
+a.contact-us-link {
+    text-decoration: none;
+}
