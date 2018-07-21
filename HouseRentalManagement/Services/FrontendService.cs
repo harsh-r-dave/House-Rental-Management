@@ -86,7 +86,7 @@ namespace HouseRentalManagement.Services
                         whatsAppNumber = whatsAppNumber.Replace(" ", "");
                         model.ContactWhatsappNumber = "1" + whatsAppNumber;
                     }
-                    
+
                     model.ContactEmail = siteConfig.PrimaryEmail;
                     model.ContactPhoneNumber = siteConfig.PhoneNumber;
                 }
@@ -116,7 +116,9 @@ namespace HouseRentalManagement.Services
 
             model.DateAvailable = house.ContactForAvailableFrom ? "Please contact" : house.AvailableFrom.ToString("MMM-dd-yyyy");
             model.Description = house.Description;
-            model.FullAddress = house.AddressLine1 + ", " + house.City;
+            var fullAddressParts = new string[] { house.AddressLine1, house.AddressLine2, house.City };
+            var fullAddress = string.Join(", ", fullAddressParts.Where(a => !string.IsNullOrEmpty(a)));
+            model.FullAddress = fullAddress;
             model.Rent = house.Rent > 0 ? house.Rent.ToString("C0") + "/month" : string.Empty;
             model.MainImageSrc = imageSrc;
             model.UrlSlug = house.UrlSlug;
@@ -160,7 +162,7 @@ namespace HouseRentalManagement.Services
                     if (house != null)
                     {
                         // basic info
-                        string[] parts = new string[] { house.AddressLine1, house.City, house.PostalCode };
+                        string[] parts = new string[] { house.AddressLine1, house.AddressLine2, house.City, house.PostalCode };
                         model.FullAddress = string.Join(", ", parts.Where(a => !string.IsNullOrEmpty(a)));
                         model.DateAvailable = house.ContactForAvailableFrom ? "Please contact" : house.AvailableFrom.ToString("MMM-dd-yyyy");
                         model.Description = house.Description;
@@ -260,7 +262,9 @@ namespace HouseRentalManagement.Services
                             model.MapImageSrc = fullPath;
                         }
 
-                        var query = WebUtility.UrlEncode(house.AddressLine1 + "," + house.City + "," + house.PostalCode);
+                        string[] queryParts = new string[] { house.AddressLine1, house.AddressLine2, house.City, house.PostalCode };
+                        var queryString = string.Join(", ", queryParts.Where(a => !string.IsNullOrEmpty(a)));
+                        var query = WebUtility.UrlEncode(queryString);
                         var url = $"https://www.google.com/maps/search/?api=1&query={query}";
 
                         model.GoogleMapUrl = url;
