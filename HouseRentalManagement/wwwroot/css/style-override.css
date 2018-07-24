@@ -265,7 +265,7 @@ body {
 .business-info-container {
     /*background-color: transparent;*/
     border: 0px;
-    max-height: 555px;
+     /*max-height: 660px;*/
     overflow-y: auto;
     color: #0b5f92;
 }
