@@ -13131,11 +13131,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\harsh\\onedrive\\documents\\visual studio 2017\\Projects\\HouseRentalManagement\\HouseRentalManagement\\HouseRentalManagement.csproj",
+      "projectUniqueName": "C:\\Harsh's Documents\\Projects\\jreh\\HouseRentalManagement\\HouseRentalManagement.csproj",
       "projectName": "HouseRentalManagement",
-      "projectPath": "C:\\Users\\harsh\\onedrive\\documents\\visual studio 2017\\Projects\\HouseRentalManagement\\HouseRentalManagement\\HouseRentalManagement.csproj",
+      "projectPath": "C:\\Harsh's Documents\\Projects\\jreh\\HouseRentalManagement\\HouseRentalManagement.csproj",
       "packagesPath": "C:\\Users\\harsh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\harsh\\onedrive\\documents\\visual studio 2017\\Projects\\HouseRentalManagement\\HouseRentalManagement\\obj\\",
+      "outputPath": "C:\\Harsh's Documents\\Projects\\jreh\\HouseRentalManagement\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
