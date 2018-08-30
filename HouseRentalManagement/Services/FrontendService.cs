@@ -110,8 +110,16 @@ namespace HouseRentalManagement.Services
             if (house.HouseImages != null)
             {
                 var fileName = house.HouseImages?.Where(a => a.IsHomePageImage.Value).Select(a => a.FileName).FirstOrDefault();
-                var imageDirectory = string.Format(_imageOptions.HouseImagePath, house.HouseId);
-                imageSrc = string.Format("{0}{1}{2}", "/", imageDirectory, fileName);
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    var imageDirectory = string.Format(_imageOptions.HouseImagePath, house.HouseId);
+                    imageSrc = string.Format("{0}{1}{2}", "/", imageDirectory, fileName);
+                }
+                else
+                {
+                    imageSrc = "icons/brand-logo.png";
+                }
+
             }
 
             model.DateAvailable = house.ContactForAvailableFrom ? "Please contact" : house.AvailableFrom.ToString("MMM-dd-yyyy");

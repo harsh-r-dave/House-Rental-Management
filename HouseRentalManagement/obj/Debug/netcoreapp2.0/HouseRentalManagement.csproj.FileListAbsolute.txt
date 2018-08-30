@@ -14,7 +14,6 @@ C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Debug\netcoreapp2.0
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Debug\netcoreapp2.0\HouseRentalManagement.runtimeconfig.dev.json
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Debug\netcoreapp2.0\HouseRentalManagement.dll
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Debug\netcoreapp2.0\HouseRentalManagement.pdb
-C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.csprojAssemblyReference.cache
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.csproj.CoreCompileInputs.cache
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.AssemblyInfoInputs.cache

@@ -10,3 +10,15 @@ C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagem
 C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.dll
 C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.pdb
 C:\Users\harsh\onedrive\documents\visual studio 2017\Projects\HouseRentalManagement\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.csprojAssemblyReference.cache
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.deps.json
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.runtimeconfig.json
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.runtimeconfig.dev.json
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.dll
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\bin\Release\netcoreapp2.0\HouseRentalManagement.pdb
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.csprojAssemblyReference.cache
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.csproj.CoreCompileInputs.cache
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.AssemblyInfoInputs.cache
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.AssemblyInfo.cs
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.dll
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Release\netcoreapp2.0\HouseRentalManagement.pdb
