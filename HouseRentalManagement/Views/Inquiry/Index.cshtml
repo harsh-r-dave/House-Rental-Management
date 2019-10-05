@@ -1,76 +1,78 @@
 ﻿@model HouseRentalManagement.Models.InquiryViewModels.ListInquiryViewModel
 
 @{
-	Layout = "~/views/shared/_HouseLayout.cshtml";
+    Layout = "~/views/shared/_HouseLayout.cshtml";
 }
 
 @section Styles{
-	<link href="~/lib/datatable/datatables.css" rel="stylesheet" />
+    <link href="~/lib/datatable/datatables.css" rel="stylesheet" />
 }
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<h3>Inquiries</h3>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Inquiries</h3>
+        </div>
+    </div>
 
-	<ul class="nav nav-tabs mt-20">
-		<li class="active">
-			<a data-toggle="tab" href="#new-inquiries-content">
-				New
-				<span id="new-inquiries-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
-			</a>
-		</li>
-		<li>
-			<a data-toggle="tab" href="#old-inquiries-content">
-				Marked as Read
-				<span id="old-inquiries-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
-			</a>
-		</li>
-	</ul>
+    <ul class="nav nav-tabs mt-20">
+        <li class="active">
+            <a data-toggle="tab" href="#new-inquiries-content">
+                New
+                <span id="new-inquiries-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
+            </a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#old-inquiries-content">
+                Marked as Read
+                <span id="old-inquiries-tab-loader" style="display: none;"><i class="fa fa-spinner fa-spin"></i></span>
+            </a>
+        </li>
+    </ul>
 
-	<div class="tab-content col-md-12">
-		<div id="new-inquiries-content" class="tab-pane fade in active">
-			<a class="btn btn-primary" onclick="Hrm.InquiryIndex.refresh()">Refresh</a>
-			<a class="btn btn-danger" onclick="Hrm.InquiryIndex.deleteAllUnread()">Delete All New</a>
-			<div id="new-inquiries"">
-				@* loaded using ajax *@
-			</div>
-		</div>
-		<div id="old-inquiries-content" class="tab-pane fade">
-			@* loaded using ajax *@
-			<a class="btn btn-danger" onclick="Hrm.InquiryIndex.deleteAllRead()">Delete All Old</a>
-			<div id="old-inquiries"">
-				@* loaded using ajax *@
-			</div>
-		</div>
-	</div>
+    <div class="tab-content col-md-12">
+        <div id="new-inquiries-content" class="tab-pane fade in active">
+            <a class="btn btn-primary" onclick="Hrm.InquiryIndex.refresh()">Refresh</a>
+            <a class="btn btn-danger" onclick="Hrm.InquiryIndex.deleteAllUnread()">Delete All New</a>
+            <div id="new-inquiries" ">
+                @* loaded using ajax *@
+            </div>
+        </div>
+        <div id="old-inquiries-content" class="tab-pane fade">
+            @* loaded using ajax *@
+            <a class="btn btn-danger" onclick="Hrm.InquiryIndex.deleteAllRead()">Delete All Old</a>
+            <div id="old-inquiries" ">
+                @* loaded using ajax *@
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="message-modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				Message
-			</div>
-			<div class="modal-body" id="message-container">
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" data-message-id="" id="mark-read-button">Mark Read</button>
-				<button class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Message
+            </div>
+            <div class="modal-body" id="message-container">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-message-id="" id="mark-read-button">Mark Read</button>
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts{
-	<script src="~/lib/sweetalert/sweetalert2.js"></script>
-	<script src="~/lib/datatable/datatables.js"></script>
-	<script src="~/js/pages/inquiry-index.js" asp-append-version="true"></script>
-	<script>
-		$(document).ready(function () {
-			var viewModel = {};
-			Hrm.InquiryIndex.init(viewModel);
-		});
-	</script>
+    <script src="~/lib/sweetalert/sweetalert2.js"></script>
+    <script src="~/lib/moment/moment.js"></script>
+    <script src="~/lib/datatable/datatables.js"></script>
+    <script src="~/lib/datatable/Plug-ins/datatable-moment.js"></script>
+    <script src="~/js/pages/inquiry-index.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            var viewModel = {};
+            Hrm.InquiryIndex.init(viewModel);
+        });
+    </script>
 }

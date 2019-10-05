@@ -4,7 +4,8 @@ Hrm.InquiryIndex = function () {
 	var viewModel;
 	var table; 
 
-	var initDatatable = function () {
+    var initDatatable = function () {
+        $.fn.dataTable.moment('MMM DD, YYYY hh:mm A');
 		table = $('.inquiry-table').DataTable({
 			retrieve: true,
 			"sDom": '<"top"f>rt<"bottom"lp><"clear">',

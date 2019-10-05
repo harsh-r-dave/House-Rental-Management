@@ -20,3 +20,4 @@ C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.AssemblyInfo.cs
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.dll
 C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.pdb
+C:\Harsh's Documents\Projects\jreh\HouseRentalManagement\obj\Debug\netcoreapp2.0\HouseRentalManagement.csprojAssemblyReference.cache

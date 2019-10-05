@@ -19,7 +19,7 @@
 					@foreach (var item in Model.Inquiries)
 					{
 						<tr id="@item.InquiryId">
-							<td>@item.InquiryDate</td>
+							<td>@item.InquiryDate.ToString("MMM dd, yyyy hh:mm tt")</td>
 							<td>@item.Name</td>
 							<td>@item.PhoneNumber</td>
 							<td>@item.Email</td>
